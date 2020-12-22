@@ -313,7 +313,26 @@ removing all none images which have been superseeded by newer version.
 docker rmi -f  $(docker images -f "dangling=true" -q)
 ```
 ## Saving to docker hub
-The first step is to create a repository on Docker hub
+The first step is to create a repository on Docker hub and create a repository. This is done similarly to how you create a repo on Github. You this example, we named our repo: website-walkthrough.
+![empty  docker repo](./images/emptyrepo.png)
+The second step is to tag the image, we want to upload, to the format given our repo.
+```
+docker tag streamlit:beta-pre-prod  vandercycle/website-walkthrough:latest
+```
+We should see the following images in the repo. I removed all none images.
+```
+REPOSITORY                        TAG                 IMAGE ID            CREATED             SIZE
+vandercycle/website-walkthrough   latest              83d55f6269df        About an hour ago   516MB
+streamlit                         beta-pre-prod       83d55f6269df        About an hour ago   516MB
+python                            3.8-slim            2be36bcc692b        6 days ago          113MB
+```
+We are ready to push to the repo.
+```
+docker push vandercycle/website-walkthrough:latest
+```
+You should see the following on your repo.
+![first push repo img](./images/firstpushrepo.png)
+Pulling from any repo is as easy as our first container pull with hello world.
 ## Example
 You can access my dockerized [website](https://hub.docker.com/repository/docker/vandercycle/streamlit-repo) on docker hub.
 ## Additional ressources and reading
