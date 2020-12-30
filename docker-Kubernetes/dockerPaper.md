@@ -1,4 +1,8 @@
 # Mastering Docker after the initial trauma
+To add:
+* volume for data persistance 
+* docker compose
+* multiple containers
 
 After a very brief overview and usage during my data science Bootcamp at Lighthouse labs, I was left very confused and unable to fully grasp how powerful a dockerized application can be. To learn about Docker, we will build our own website using streamlit, and dockerize it. This way I hope you will showcase your data science skills and past projects to future employers without having to worry about silly things like hardware or OS.
 
@@ -23,7 +27,7 @@ docker exec -it {nameOfContainer} bash
 ```
 Docker replaced the hypervisor with a daemon that runs in the background and is required for any docker command and operations to work. Unlike the hypervisor, the docker engine can decide the allocation of the host's ressources to individual containers leading to better service. Because virtual machines are virtual abstractions of server hardware, their resources are set and not easily reallocated. The lack of sharing, can lead to an unbalanced load across all virtual machines meaning that one virtual machine is overloaded while other instances are underutilized.
 
-Essentially virtual machine isolates the entire OS/distros while docker isolates only the application leading to greater efficicy in server ressources utilization.
+Essentially virtual machine isolates the entire OS/distros while docker isolates only the application leading to greater efficiency in server ressources utilization.
 
 ## installing Docker
 Docker docs offer a very straightforward [installation](https://docs.docker.com/engine/install/ubuntu/). I highly recommend you follow the installation step-by-step.
@@ -176,7 +180,7 @@ Our file structure should look like this:
 Looking at the base image of [python](https://hub.docker.com/_/python) in docker hub, we are interested in two sections the simple tags (the version of the base image) and how to use this image, which gives us a template to construct our app. You should also see different versions using duster, alpine, slim, etc. Please check this [reference](https://medium.com/swlh/alpine-slim-stretch-buster-jessie-bullseye-bookworm-what-are-the-differences-in-docker-62171ed4531d) to learn more about them. 
 
 Looking at the template, we will copy the following inside the Dockerfile with slight modification.
-```
+```Docker
 # base image
 FROM python:3
 # metadata info
@@ -222,7 +226,7 @@ So the failed build is due to the base image not being compatible with the versi
 * 2. Use the appropriate base image version for our app.
 
 We will use option 2. Since the current version of Python we are using is 3.8.5 we will use 3.8-slim. <span style="color:red">Please, confirm what version of the base image you need.</span>
-```
+```Docker
 # base image
 FROM python:3.8-slim
 # metadata info
@@ -333,6 +337,433 @@ docker push vandercycle/website-walkthrough:latest
 You should see the following on your repo.
 ![first push repo img](./images/firstpushrepo.png)
 Pulling from any repo is as easy as our first container pull with hello world.
+## Creating multiple containers at the same time
+
+There are countless online tutorials centred around web development, which are easier to follow than the following section. Being a data scientist and python user, I needed to anchor my newfound knowledge with something different, and so this is why we are dockerizing a spider with its db. To recommend a few excellent docker tutorials that I found: [Traversy Media](https://www.youtube.com/watch?v=hP77Rua1E0c), and [Jake Wright](https://www.youtube.com/watch?v=Qw9zlE3t8Ko)
+
+This example, will create a simple scraper to extract information from the excellent web comic [XKCD](https://xkcd.com/) made by Randall Munroe. The code used for this section can be found [here](https://github.com/Vanderscycle/dockerizedSpider) and while the scope of this section is not to learn about scrapy, I have prepared a short tutorial to get you up to speed [on my github](https://github.com/Vanderscycle/lighthouse-data-notes/blob/master/learningScrapy/paper/HowToGetDataDraft.md) on scrapy. The spider will push the information to a mongo database for added complexity, information permanence, and because I love NoSQL. I highly recommend that you download and install [mongo compass](https://www.mongodb.com/try/download/compass).
+
+We will dockerize the application incrementally in three steps:
+1.  Spider running locally and pushing data to local mongo database;
+2.  Spider running locally and pushing data to a dockerized mongodb database container, and;
+3.  Spider and mongo both dockerized.
+
+The main reason for this approach is that docker adds a layer of complexity to the application level and without 
+
+### Step 1: testing locally
+
+If scrapy is not already installed io your machine
+```
+pip install scrapy
+```
+We will create a new project
+```
+scrapy starproject {name of your project} #in our case scraperDocker
+```
+We will re-write the same spider from the scrapy tutorial. Inside the spider folder, we create a py file and define the spider as follow:
+
+```python
+import scrapy
+import re
+from ..items import xkcdComicElement
+
+'''
+docker run -d -p 27017:27017 -v /data/bin:/data/db  --name mango mongo # runs the mongo container and save locally (important for docker compose) port 127.0.0.1:27017
+'''
+class xkcdSpider(scrapy.Spider):
+    # class variables
+    name = 'xkcdDocker'
+    allowed_domains = ["xkcd.com"]
+    # specific settings for the spider
+    custom_settings = {
+        'ITEM_PIPELINES' : {
+    #'scraperDocker.pipelines.xkcdMongoDBStorage': 200, # save to mongo db
+    #'scraperDocker.pipelines.xkcdComicItemPipeline': 300, # print items in terminal
+        }
+    }
+    def start_requests(self): 
+        start_url = 'https://xkcd.com'
+        yield scrapy.Request(url=start_url, callback=self.homepageComic)
+
+    def homepageComic(self,response):
+        """
+        In the current format we will skip the first comic. The goal being that we start at the homepage
+        before going backward.
+        Input:
+            initial reponse from start_requests 
+        Output:
+            response to comicPages method
+        """
+        self.logger.info(f'------- homepage -------')
+        # moving backward
+        nextPage = response.css('li:nth-child(2) a::attr(href)')[1].get() #prev button
+        nextPageRegex = r'(\d+)'
+        match = re.search(nextPageRegex,nextPage)
+        nextPage = response.urljoin(nextPage)
+        yield scrapy.Request(url=nextPage , callback=self.comicPages)
+    
+    def comicPages(self,response):
+        """
+        This method scrape the desired comic field except the very first one skipped from homepage.
+        Input:
+            reponse from homepageComic
+        Output
+            response looping back to comicPages. Stop
+        """
+        self.logger.info(f'------- XKCD comic number {response} -------')
+
+        # next page url and comic number extraction
+        nextPage = response.css('li:nth-child(2) a::attr(href)')[1].get()
+        nextPageRegex = r'(\d+)'
+        match = re.search(nextPageRegex,nextPage)
+
+        currentComicElements = xkcdComicElement()        
+        currentComicElements['comicTitle'] = response.css('#ctitle::text').get()
+        currentComicElements['comicNumber'] = match[0] 
+        currentComicElements['imgUrl'] = str(response.css('#comic img::attr(src)').get())[2:] # doesn't fetch the img just the url
+        currentComicElements['hiddenText'] = response.css('#comic img::attr(title)').get()
+        # future improvement could be to categorize each comic (computer,love,etc.)
+
+        yield currentComicElements
+        # link the next page
+        nextPage = response.urljoin(nextPage)
+        # choose one of the option bellow
+        # if nextPage is not None: # we want to scrape the entire website
+        if int(match[0]) >= 2397: # we set a limit because our intent is to confirm the working of the spider not scrape the entire website everytime we test spider.
+            yield scrapy.Request(nextPage,callback=self.comicPages)
+```
+To make life easier we define the scraped items as follow inside the item.py file:
+```python
+import scrapy
+
+class xkcdComicElement(scrapy.Item):
+
+    comicTitle = scrapy.Field()
+    comicNumber = scrapy.Field()
+    imgUrl = scrapy.Field()
+    hiddenText = scrapy.Field()
+```
+### Step 1.1: testing the spider
+Before incorporating the database with the spider through the pipeline (inside the py file of the same name). We will test what the spider will output in the terminal.
+```
+# adding {-o result.json} at the end saves the data to a json file locally 
+scrapy crawl xkcdDocker 
+```
+which should output something like this:
+```
+{...}
+2020-12-29 20:51:28 [xkcdDocker] INFO: ------- homepage -------
+2020-12-29 20:51:32 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://xkcd.com/2403/> (referer: https://xkcd.com)
+2020-12-29 20:51:32 [xkcdDocker] INFO: ------- XKCD comic number <200 https://xkcd.com/2403/> -------
+2020-12-29 20:51:32 [scrapy.core.scraper] DEBUG: Scraped from <200 https://xkcd.com/2403/>
+{'comicNumber': '2402',
+ 'comicTitle': 'Wrapping Paper',
+ 'hiddenText': 'Wow, rude of you to regift literally every gift that you or '
+               'anyone else has ever received.',
+ 'imgUrl': 'imgs.xkcd.com/comics/wrapping_paper.png'}
+{...}
+```
+Before writting the pipeline ensure [mongo](https://docs.mongodb.com/manual/installation/) is installed and running locally.
+```bash
+# starting mongoDB (systemd)
+sudo systemctl start mongod
+# confirm that mongoDB is active
+sudo systemctl status mongod
+# run mongo in shell
+mongo
+# check that the default dbs are present inside mongo
+show dbs
+#leave mongo
+exit
+```
+Once we can access mongo we will write the following code inside the pipeline file
+```python
+from scrapy.exceptions import DropItem
+# scrappy log is deprecated
+#from scrapy.utils import log
+import logging
+import scrapy
+from itemadapter import ItemAdapter
+import pymongo
+
+class xkcdMongoDBStorage:
+    """
+    Class that handles the connection of the db
+    Input:
+        nil
+    Output
+        nil
+    """
+    def __init__(self):
+        # requires two arguments(address and port)
+        #* connecting to the db
+        self.conn = pymongo.MongoClient(
+           '127.0.0.1',27017) # works with spider local and container running
+        # connecting to the db
+        dbnames = self.conn.list_database_names()
+        if 'randallMunroe' not in dbnames:
+            # creating the database
+            self.db = self.conn['randallMunroe']
+
+        #if database already exists we want access
+        else:
+            self.db = self.conn.randallMunroe
+        #* connecting to the table
+        dbCollectionNames = self.db.list_collection_names()
+        if 'webComic' not in dbCollectionNames:
+            self.collection = self.db['webComic']
+        
+        else:
+            # the table already exist so we access it
+            self.collection = self.db.webComic
+
+    def process_item(self, item, spider):
+      """
+      method that takes the connection from mongo and insert each scraped entries inside the db
+      """
+      
+        valid = True
+        for data in item:
+            if not data:
+                valid = False
+                raise DropItem("Missing {0}!".format(data))
+        if valid:
+            self.collection.insert(dict(item))
+            logging.info(f"Question added to MongoDB database!")
+        return item
+
+
+class xkcdComicItemPipeline:
+    def process_item(self, item, spider):
+        # confirming that the item scraped from the spiders make their way inside the pipeline
+        print(spider)
+        for k,v in item.items():
+            print(f'key/value: {k} : {v}')
+
+        return item
+```
+The tl:dr of the pipeline file is that pymongo will check if the randallMunroe db exist (if not create it) and the same goes with the collection named webComic. Inside the spider we uncomment the pipeline in custom settings.
+```python
+#{...}
+class xkcdSpider(scrapy.Spider):
+    # class variables
+    name = 'xkcdDocker'
+    allowed_domains = ["xkcd.com"]
+    # specific settings for the spider
+    custom_settings = {
+        'ITEM_PIPELINES' : {
+    'scraperDocker.pipelines.xkcdMongoDBStorage': 200, # save to mongo db
+    #'scraperDocker.pipelines.xkcdComicItemPipeline': 300, # print items in terminal
+        }
+    }
+#{...}
+```
+We can check the terminal or use mongo compass to see the data stored inside mongo. Connect to mongo compass using the same ip and port.
+```
+# mongo in a terminal
+> show dbs
+admin             0.000GB
+config            0.000GB
+groceryStore      0.001GB
+local             0.000GB
+mongoengine_test  0.000GB
+randallMunroe     0.000GB
+> use randallMunroe
+switched to db randallMunroe
+> db.webComic.count()
+7
+```
+![Inside Compas](./images/compassDb.png)
+### Step 2: spider local and database in cloud
+Because the local db and docker db are configured on the default ports stop the local database.
+```
+sudo systemctl stop mongod
+sudo systemctl status mongod
+```
+Pull the latest mongo database image from [docker hub](https://hub.docker.com/_/mongo) in the terminal using:
+```
+docker pull mongo
+```
+Confirm that the image is available locally and run an instance of docker with a volume for data permanence. Its important to know that -v means volume and {location local machine}:{location container files}. In the example bellow we created volume on root at /data/bin which after the container's creation should allow you to see the folder populated with files. You will have to manually remove the files when the container is deemed not necessary anymore
+```
+# we named the container mango 
+docker run --name mango -d -p 27017:27017 -v /data/bin:/data/db   mongo
+```
+To confirm that the container is up we type the following
+```
+# docker container ls or docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                      NAMES
+9203656e6a18        mongo               "docker-entrypoint.s…"   2 minutes ago       Up 2 minutes        0.0.0.0:27017->27017/tcp   mango
+```
+### Volumes
+Before moving on let's talk about data permanence and how docker volumes allows us to do just that because otherwise once a container is stopped all the information inside that container is lost.
+
+The mongo container is showing that it is available at the following ip:prt 0.0.0.0:27017. Since 0.0.0.0, localhost and 127.0.0.1 are [basically the same](https://stackoverflow.com/questions/38834434/how-are-127-0-0-1-0-0-0-0-and-localhost-different) we do not need to modify the pipeline mongo address.
+```python
+#{...}
+    def __init__(self):
+
+        self.conn = pymongo.MongoClient(
+            '127.0.0.1',27017) # works with spider local and container running
+
+#{...}
+```
+The output should be almost identical that when it was run locally. I dropped the table before running the spider to ensure that new data was entered.
+### Step 2.1: dockerizing the spider only
+Like in the previous section we must first dockerize the spider and confirm its functioning. In this section we are only interrested in inspecting the output of the container by accessing the logs.
+
+The dockerfile created to dockerize the spider.
+```Docker
+# base image
+FROM python:3
+# metadata info
+LABEL maintainer="Henri Vandersleyen" email="hvandersleyen@gmail.com"
+# exposing container port to be the same as streamlit default port
+EXPOSE 6023
+# set work directly so that paths can be relative
+WORKDIR /usr/src/app
+# copy to make usage of caching
+COPY requirements.txt ./
+#install dependencies
+RUN pip3 install --no-cache-dir -r requirements.txt
+# copy code itself from local file to image
+COPY . .
+# command run upon starting the container
+CMD scrapy crawl xkcdDocker
+```
+We need to comment out the pipeline in the spider since we want to confirm the proper working of the spider:
+```python
+#{...}
+class xkcdSpider(scrapy.Spider):
+    # class variables
+    name = 'xkcdDocker'
+    allowed_domains = ["xkcd.com"]
+    # specific settings for the spider
+    custom_settings = {
+        'ITEM_PIPELINES' : {
+    #'scraperDocker.pipelines.xkcdMongoDBStorage': 200, # save to mongo db
+    #'scraperDocker.pipelines.xkcdComicItemPipeline': 300, # print items in terminal
+        }
+    }
+#{...}
+```
+If there an error in the dockerfile causing a crash then, there will a crash when using docker-compose. So it is better to test and debug each and every containers individually now before trying to build all the containers at the same time.
+```bash
+# while in the same location as the 
+docker build -t {name-of-img} . >./log.txt
+```
+
+Becuase the spider scrape the website and for a certain amount of entries 
+```
+docker run --name scrapy-test -d -p 5001:6023 {name-of-img}
+# the spider should only be up for a minute or so.
+# inspect the logs 
+docker logs scrapy-test
+```
+You should see an almost identical output from the dockerized spider than when you were running the spider locally
+
+### Step 3: everything has been dockerized
+While we could create and run both containers individually and link them this is a slow process that can be made simple using docker-compose.
+
+### Docker-compose
+Compose is a tool for defining and running multi-container Docker applications. With Compose, you use a YAML file to configure your application’s services. Then, with a single command, you create and start all the services from your configuration. Compose is 
+
+First we must install [docker-compose.](https://docs.docker.com/compose/install/) and then we can write the docker-compose image.
+
+```Docker
+# specifying 3 grabs the latest version of docker compose
+version: '3'
+# list all the  
+services:
+# container 1 (our db) where we pull the image
+  db:
+    image: mongo:latest
+    container_name: NoSQLDB
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    # create a volume for data permanence but we have it located in the folder of the project (./data/bin) instead of root
+    volumes:
+      - ./data/bin:/data/db
+    ports:
+      - 27017:27017
+    expose:
+      - 27017
+# container 2 (our spider) where we build it
+  xkcd-scraper:
+    build: ./scraperDocker
+    container_name: xkcd-scraper-container
+    #volume might not be required
+    volumes: 
+      - ./scraperDocker:/usr/src/app/scraper
+    ports:
+      - 5000:6023
+    expose:
+      - 6023
+    #
+    depends_on:
+      - db
+# links is deprecated
+```
+I am sorry, I do not know exactly why this work, but to connect the spider container to the docker container you specify the host as the name of the container and not your localhost.
+```Python
+#{...}
+    def __init__(self):
+        # requires two arguments(address and port)
+        #* connecting to the db
+        self.conn = pymongo.MongoClient(host='NoSQLDB',port=27017,username='root',password='password',authSource="admin")
+#{...}
+```
+Afterwards, we activate the pipeline.
+```python
+#{...}
+class xkcdSpider(scrapy.Spider):
+    # class variables
+    name = 'xkcdDocker'
+    allowed_domains = ["xkcd.com"]
+    # specific settings for the spider
+    custom_settings = {
+        'ITEM_PIPELINES' : {
+    'scraperDocker.pipelines.xkcdMongoDBStorage': 200, # save to mongo db
+    #'scraperDocker.pipelines.xkcdComicItemPipeline': 300, # print items in terminal
+        }
+    }
+#{...}
+```
+The file structure, using tree, should look something like this:
+```
+# I removed all the __pycache__ files 
+.
+├── docker-compose.yaml
+├── README.md
+└── scraperDocker
+    ├── Dockerfile
+    ├── requirements.txt
+    ├── scraperDocker
+    │   ├── __init__.py
+    │   ├── items.py
+    │   ├── middlewares.py
+    │   ├── pipelines.py
+    │   ├── settings.py
+    │   └── spiders
+    │       ├── __init__.py
+    │       └── xkcd.py
+    └── scrapy.cfg
+```
+If you want to run detach mode add the -d flag but it becomes difficult to debug.
+```
+# while in the same location of the docker compose file
+docker-compose up
+```
+We want to access the database's contents through compass and so we must get the ip of the container which is not the same as localhost or NoSQLDB.
+```docker
+docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' NoSQLD
+# result
+172.19.0.2
+```
+Because you can't access the database from localhost I recommend manually entering the information.
+![How to access the data](./images/dualcontainer.png)
 ## Example
 You can access my dockerized [website](https://hub.docker.com/repository/docker/vandercycle/streamlit-repo) on Docker hub.
 ## Additional resources and reading
@@ -348,4 +779,4 @@ Thank you for reading.
 
 [Henri Vandersleyen P.Eng](hvandersleyen@gmail.com)
 
-Future Data Engineer
+
