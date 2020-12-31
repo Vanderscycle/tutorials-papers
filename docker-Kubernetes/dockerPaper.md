@@ -225,7 +225,7 @@ So the failed build is due to the base image not being compatible with the versi
 * 1. If the specific version doesn't matter, you can change from streamlit==0.72.0 to streamlit. The command will download the latest version of streamlit for the image.
 * 2. Use the appropriate base image version for our app.
 
-We will use option 2. Since the current version of Python we are using is 3.8.5 we will use 3.8-slim. <span style="color:red">Please, confirm what version of the base image you need.</span>
+We will use option 2. Since the current version of Python we are using is 3.8.5 we will use 3.8-slim. <span style="color:red">Please, confirm what version of the base image you need or modify requirements.txt by removing the version of each modules</span> (e.g. streamlit==0.72.0)
 ```Docker
 # base image
 FROM python:3.8-slim
@@ -558,7 +558,7 @@ class xkcdSpider(scrapy.Spider):
     }
 #{...}
 ```
-We can check the terminal or use mongo compass to see the data stored inside mongo. Connect to mongo compass using the same ip and port.
+We can check the terminal or use mongo compass to see the data stored inside mongo. Connect to mongo compass using the same ip and port (0.0.0.0:27017).
 ```
 # mongo in a terminal
 > show dbs
@@ -584,6 +584,9 @@ Pull the latest mongo database image from [docker hub](https://hub.docker.com/_/
 ```
 docker pull mongo
 ```
+### Volumes
+Before moving on let's talk about data permanence and how docker volumes allows us to do just that because otherwise once a container is stopped all the information inside that container is lost. 
+
 Confirm that the image is available locally and run an instance of docker with a volume for data permanence. Its important to know that -v means volume and {location local machine}:{location container files}. In the example bellow we created volume on root at /data/bin which after the container's creation should allow you to see the folder populated with files. You will have to manually remove the files when the container is deemed not necessary anymore
 ```
 # we named the container mango 
@@ -595,8 +598,7 @@ To confirm that the container is up we type the following
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                      NAMES
 9203656e6a18        mongo               "docker-entrypoint.s…"   2 minutes ago       Up 2 minutes        0.0.0.0:27017->27017/tcp   mango
 ```
-### Volumes
-Before moving on let's talk about data permanence and how docker volumes allows us to do just that because otherwise once a container is stopped all the information inside that container is lost.
+
 
 The mongo container is showing that it is available at the following ip:prt 0.0.0.0:27017. Since 0.0.0.0, localhost and 127.0.0.1 are [basically the same](https://stackoverflow.com/questions/38834434/how-are-127-0-0-1-0-0-0-0-and-localhost-different) we do not need to modify the pipeline mongo address.
 ```python
@@ -618,7 +620,7 @@ The dockerfile created to dockerize the spider.
 FROM python:3
 # metadata info
 LABEL maintainer="Henri Vandersleyen" email="hvandersleyen@gmail.com"
-# exposing container port to be the same as streamlit default port
+# exposing container port to be the same as scrapy default port
 EXPOSE 6023
 # set work directly so that paths can be relative
 WORKDIR /usr/src/app
@@ -653,7 +655,7 @@ If there an error in the dockerfile causing a crash then, there will a crash whe
 docker build -t {name-of-img} . >./log.txt
 ```
 
-Becuase the spider scrape the website and for a certain amount of entries 
+Because the spider scrape the website and for a certain amount of entries it will exit with code 0 when the scraping is over.
 ```
 docker run --name scrapy-test -d -p 5001:6023 {name-of-img}
 # the spider should only be up for a minute or so.
@@ -662,11 +664,12 @@ docker logs scrapy-test
 ```
 You should see an almost identical output from the dockerized spider than when you were running the spider locally
 
-### Step 3: everything has been dockerized
+### Step 3: containerize everything
 While we could create and run both containers individually and link them this is a slow process that can be made simple using docker-compose.
 
 ### Docker-compose
-Compose is a tool for defining and running multi-container Docker applications. With Compose, you use a YAML file to configure your application’s services. Then, with a single command, you create and start all the services from your configuration. Compose is 
+Compose is a tool for defining and running multi-container Docker applications. With Compose, you use a YAML file to configure your application’s services. Then, with a single command, you create and start all the services from your configuration. You can have as many services (containers) as you need to have the application working listed in the  yaml file. With docker-compose you can configure the environment variables, networks the containers communicates between one another,
+The following docker-compsoe [tutorial](https://docs.docker.com/compose/gettingstarted/) has helped me.
 
 First we must install [docker-compose.](https://docs.docker.com/compose/install/) and then we can write the docker-compose image.
 
@@ -706,7 +709,7 @@ services:
       - db
 # links is deprecated
 ```
-I am sorry, I do not know exactly why this work, but to connect the spider container to the docker container you specify the host as the name of the container and not your localhost.
+I am sorry, I do not know exactly why this work, but to connect the spider container to the docker container you specify the host as the name of the container and not [your localhost](https://stackoverflow.com/questions/65498460/connecting-scrapy-container-to-mongo-container).
 ```Python
 #{...}
     def __init__(self):
@@ -733,7 +736,7 @@ class xkcdSpider(scrapy.Spider):
 ```
 The file structure, using tree, should look something like this:
 ```
-# I removed all the __pycache__ files 
+# I removed all the __pycache__ files (/data/bin) shouldn't show up just yet
 .
 ├── docker-compose.yaml
 ├── README.md
@@ -751,10 +754,11 @@ The file structure, using tree, should look something like this:
     │       └── xkcd.py
     └── scrapy.cfg
 ```
-If you want to run detach mode add the -d flag but it becomes difficult to debug.
+Now that everything is configured proprely we are ready to assemble all the containers at once and watch them run. This is a really cool process because docker build all the images and then immediattely run all of the containers with their dependencies.
 ```
 # while in the same location of the docker compose file
 docker-compose up
+# If you want to run detach mode add the -d flag but it becomes difficult to debug
 ```
 We want to access the database's contents through compass and so we must get the ip of the container which is not the same as localhost or NoSQLDB.
 ```docker
@@ -764,11 +768,13 @@ docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' NoSQ
 ```
 Because you can't access the database from localhost I recommend manually entering the information.
 ![How to access the data](./images/dualcontainer.png)
+You should see the same information as done previously. Also you can start the spider again to scrape the website which will add more of the same data to your database.
 ## Example
 You can access my dockerized [website](https://hub.docker.com/repository/docker/vandercycle/streamlit-repo) on Docker hub.
 ## Additional resources and reading
 * [Docker up & running](https://github.com/gary136/ebook/blob/master/Docker%20Up%20and%20Running.pdf)
 * [Docker and Kubernetes tutorial (amigoscode and TechWorld with Nana)](https://www.youtube.com/watch?v=bhBSlnQcq2k)
+* [Docker-compose SQL-Django](https://docs.docker.com/compose/django/)
 
 
 ## Closing statement
