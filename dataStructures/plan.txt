@@ -1,0 +1,9 @@
+a .md tutorial on all data structure with a practical example using python (creation of classes) on all of them
+To do:
+- B tree
+- b+ tree
+- IASM
+- Doubly linked list
+- hash tables (linear search or open addressing/ chaining or closed addressing)
+
+When one data structure is ready we want to make it interactive and see the changes it undergoes as the user types data
