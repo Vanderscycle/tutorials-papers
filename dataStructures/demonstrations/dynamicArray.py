@@ -2,26 +2,18 @@ import numpy as np
 import copy
 
 
+
 #! to do
-# testing bench class?
-# create a counting sort
+# 1. testing bench class? unittest
+# 2. create a counting sort
+# 3. a bash shell script that would run in the terminal each data structure
+# with a visible output in the terminal? would be really cool
 
 def countingSort():
     """
     Implementing the countingSort()
     """
 
-    pass
-
-
-def testBench(cls):
-    """
-    Would a testing bench class be more apporiate? 
-    with class method testing each of the following component:
-        - search
-        - deletion
-        - insert
-    """
     pass
 
 
@@ -41,7 +33,10 @@ class DynamicArray:
         if size==0:
             raise ValueError(f'You created 1D static array of size(1,{size})\nPlease choose a size >= 1')
         self.size = size
-        self.array = np.empty([1,size]) #reminder(y,x) limits: arr[0,size-1]
+        self.array = np.empty(size) #reminder(y,x) limits: arr[0,size-1]
+        # self.array = np.empty([1,self.size]) # old way
+        # Because np empty array are initialised entries we replace them with np.nan (to make life easier)
+        self.array[:] = np.nan
         self.DyArrSize = (size-1) # because computers are 0 indexed
         self.lastValueIndex = 0
 
@@ -55,10 +50,10 @@ class DynamicArray:
             - 
         """
         # checking for space in the static array 
-        if self.lastValueIndex > (self.array.shape[1] - 1):
+        if self.lastValueIndex > (self.array.shape[0] - 1):
             self.expand() 
         # adding the value to the end of the array 
-        self.array[0,self.lastValueIndex] = val
+        self.array[self.lastValueIndex] = val
         # updating the array
         self.lastValueIndex += 1
 
@@ -73,10 +68,12 @@ class DynamicArray:
         # creating a new empty bucket double the size of the original
         self.size = self.size * 2
         temp = copy.deepcopy(self.array) # copy will not do because we reinit the array instance
-        self.array = np.empty([1,self.size])
+        # init the array with the new size
+        self.array = np.empty(self.size)
+        self.array[:] = np.nan
         # repopulating the new array from old to new (using the old.shape for the range)
-        for i in range(temp.shape[1]):
-            self.array[0,i] = temp[0,i]
+        for i in range(temp.shape[0]):
+            self.array[i] = temp[i]
         # freeing memory
         temp = None
 
@@ -90,10 +87,12 @@ class DynamicArray:
         """
         self.size = self.size // 2
         temp = copy.deepcopy(self.array)
-        self.array = np.empty([1,self.size])
+        # init the array with the new size
+        self.array = np.empty(self.size)
+        self.array[:] = np.nan
         # repopulating the new array from old to new (using the new.shape for the range)
-        for i in range(self.array.shape[1]):
-            self.array[0,i] = temp[0,i]
+        for i in range(self.array.shape[0]):
+            self.array[i] = temp[i]
 
     def search(self, val):
         """
@@ -104,7 +103,7 @@ class DynamicArray:
         Output: 
             - list of index where the value is present
         """
-        return [i for i in range(self.lastValueIndex) if self.array[0,i]==val]
+        return [i for i in range(self.lastValueIndex) if self.array[i]==val]
 
     def deletion(self,val,delAll='no'):
         """
@@ -123,15 +122,15 @@ class DynamicArray:
                 """
                 we use the index created from self.search to replace each value
                 """
-                self.array[0,valueIndex] = np.nan
+                self.array[valueIndex] = np.nan
                 # switch the position of the value to be deleted with the 
                 # if more than one item has to be delete the (self.lastValueIndex-backIndex) allows us to move from the back of the array toward the front
-                self.array[0,(self.lastValueIndex-(backIndex+1))], self.array[0,valueIndex] =  self.array[0,valueIndex], self.array[0,(self.lastValueIndex-(backIndex+1))]        # since we know the 
+                self.array[(self.lastValueIndex-(backIndex+1))], self.array[valueIndex] =  self.array[valueIndex], self.array[(self.lastValueIndex-(backIndex+1))]        # since we know the 
                 self.lastValueIndex -= 1
                 if delAll=='no':
                     # default option is to delete a single value so we exit the for loop
                     break
-            if self.lastValueIndex < (self.array.shape[1]//2):
+            if self.lastValueIndex < (self.array.shape[0]//2):
                 self.shrink()  
 
     def insert(self, val, index):
@@ -147,12 +146,12 @@ class DynamicArray:
         if index > self.lastValueIndex:
             raise ValueError('out of range request')
         # check if we have enough room in the static array to insert value
-        if self.lastValueIndex > (self.array.shape[1] - 1):
+        if self.lastValueIndex > (self.array.shape[0] - 1):
             self.expand() 
         # swap value     
-        temp = self.array[0,index]
-        self.array[0,index] = val
-        self.array[0,self.lastValueIndex] = temp
+        temp = self.array[index]
+        self.array[index] = val
+        self.array[self.lastValueIndex] = temp
         self.lastValueIndex+=1
 
 
@@ -160,27 +159,26 @@ class DynamicArray:
 # I should create a test bench for each data structures
 # A QA wouldn't want to test all this crap manually
 
-test = DynamicArray(size=4)
-print(test.array.shape)
-print(type(test.array))
-print(test.array)
-test.appending(2)
-test.appending(2)
-test.appending(3)
-print(test.array)
-test.appending(67)
-print(test.array)
-test.appending(69)
-print(test.array)
-print(test.search(2))
-print(test.search(3))
-test.deletion(3)
-print(test.array)
-test.deletion(2)
-test.deletion(1001)
-print(test.array)
-print(test.array[0,1])
-test.insert(900,2)
-print(test.array)
-test.insert(670,0)
-print(test.array)
+# test = DynamicArray(size=4)
+# print(test.array.shape)
+# print(type(test.array))
+# print(test.array)
+# test.appending(2)
+# test.appending(2)
+# test.appending(3)
+# print(test.array)
+# test.appending(67)
+# print(test.array)
+# test.appending(69)
+# print(test.array)
+# print(test.search(2))
+# print(test.search(3))
+# test.deletion(3)
+# print(test.array)
+# test.deletion(2)
+# test.deletion(1001)
+# print(test.array)
+# test.insert(900,2)
+# print(test.array)
+# test.insert(670,0)
+# print(test.array)
