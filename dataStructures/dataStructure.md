@@ -58,6 +58,7 @@ indexable: Each slot/index in the array can be referenced with a number.
 | Insertion | N/A | O(n) |
 | Appending | N/A | O(1) |
 | Deletion | N/A | O(n) |
+
 Notes:
 * Search is linear because we sequentially navigate the array
 * Inserting and deletion are linear because all n-elements have to be shifted.
@@ -72,4 +73,5 @@ One way to implement a dynamic array structure:
 
 ## Additional resources and reading
 ![Big O chart](./images/big0.png)
+Because we do not want our code to be production-like we use [logging](https://www.youtube.com/watch?v=-ARI4Cz-awo) and [unittest](https://www.youtube.com/watch?v=6tNS--WetLI)
 ## Closing statement

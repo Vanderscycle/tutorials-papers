@@ -4,7 +4,6 @@ import copy
 
 
 #! to do
-# 1. testing bench class? unittest
 # 2. create a counting sort
 # 3. a bash shell script that would run in the terminal each data structure
 # with a visible output in the terminal? would be really cool
@@ -40,6 +39,7 @@ class DynamicArray:
         self.DyArrSize = (size-1) # because computers are 0 indexed
         self.lastValueIndex = 0
 
+
     def appending(self, val):
         """
         Check if there is room in the static bucket. 
@@ -56,6 +56,7 @@ class DynamicArray:
         self.array[self.lastValueIndex] = val
         # updating the array
         self.lastValueIndex += 1
+
 
     def expand(self):
         """
@@ -77,6 +78,7 @@ class DynamicArray:
         # freeing memory
         temp = None
 
+
     def shrink(self):
         """
         class method to reduce the array size in half. Similar to expand with a small change to the for loop indexing
@@ -94,6 +96,7 @@ class DynamicArray:
         for i in range(self.array.shape[0]):
             self.array[i] = temp[i]
 
+
     def search(self, val):
         """
         Search the array and find the index where the value appears. 
@@ -104,6 +107,7 @@ class DynamicArray:
             - list of index where the value is present
         """
         return [i for i in range(self.lastValueIndex) if self.array[i]==val]
+
 
     def deletion(self,val,delAll='no'):
         """
@@ -133,6 +137,7 @@ class DynamicArray:
             if self.lastValueIndex < (self.array.shape[0]//2):
                 self.shrink()  
 
+
     def insert(self, val, index):
         """
         swap the value to be 
@@ -154,31 +159,3 @@ class DynamicArray:
         self.array[self.lastValueIndex] = temp
         self.lastValueIndex+=1
 
-
-
-# I should create a test bench for each data structures
-# A QA wouldn't want to test all this crap manually
-
-# test = DynamicArray(size=4)
-# print(test.array.shape)
-# print(type(test.array))
-# print(test.array)
-# test.appending(2)
-# test.appending(2)
-# test.appending(3)
-# print(test.array)
-# test.appending(67)
-# print(test.array)
-# test.appending(69)
-# print(test.array)
-# print(test.search(2))
-# print(test.search(3))
-# test.deletion(3)
-# print(test.array)
-# test.deletion(2)
-# test.deletion(1001)
-# print(test.array)
-# test.insert(900,2)
-# print(test.array)
-# test.insert(670,0)
-# print(test.array)
