@@ -36,11 +36,10 @@ class DynamicArray:
         # self.array = np.empty([1,self.size]) # old way
         # Because np empty array are initialised entries we replace them with np.nan (to make life easier)
         self.array[:] = np.nan
-        self.DyArrSize = (size-1) # because computers are 0 indexed
         self.lastValueIndex = 0
 
 
-    def appending(self, val):
+    def append(self, val):
         """
         Check if there is room in the static bucket. 
         Only insert one item at a time if more than one insertion is required just use a for loop
@@ -57,6 +56,11 @@ class DynamicArray:
         # updating the array
         self.lastValueIndex += 1
 
+    def display(self):
+        """
+        displays all elements in the dynamic list and bucket size
+        """
+        print(f' Element in the array: {self.array}\nbucket size: {self.size}\nlast value pointer location: {self.lastValueIndex}')
 
     def expand(self):
         """
@@ -109,7 +113,7 @@ class DynamicArray:
         return [i for i in range(self.lastValueIndex) if self.array[i]==val]
 
 
-    def deletion(self,val,delAll='no'):
+    def delete(self,val,delAll='no'):
         """
         Search for the value to be deleted, and
         Input:

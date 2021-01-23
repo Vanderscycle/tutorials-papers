@@ -42,7 +42,7 @@ class TestDynamicArray(unittest.TestCase):
         self.dynArrayB.lastValueIndex = 3
 
 
-    def test_appending(self):
+    def test_append(self):
         """
         testing the appending function of the dynamicArray class method.
         Note that any changes in a test method doesn't affect
@@ -55,8 +55,8 @@ class TestDynamicArray(unittest.TestCase):
         # populating the arrays
         appendVal = [5,8]
         for val in appendVal:
-            self.dynArrayA.appending(val)
-            self.dynArrayB.appending(val)
+            self.dynArrayA.append(val)
+            self.dynArrayB.append(val)
         # try block to disply debug file when problems are encountered
         try:
             self.assertTrue(nan_equal(self.dynArrayA.array, resA))
@@ -66,7 +66,7 @@ class TestDynamicArray(unittest.TestCase):
             logging.debug(f'testing appending method error. ArrayA:{self.dynArrayA.array}, ArrayB:{self.dynArrayB.array}')
     
     
-    def test_deletion(self):
+    def test_delete(self):
         print('testing deletion method')
         # expected behavior
         resA = np.array([8,5,3,np.nan])
@@ -74,11 +74,11 @@ class TestDynamicArray(unittest.TestCase):
         #inserting vals to expand the bucket size before deletion to see 
         appendVal = [5,8]
         for val in appendVal:
-            self.dynArrayA.appending(val)
+            self.dynArrayA.append(val)
         delVal=[1,2]
         for val in delVal:
-            self.dynArrayA.deletion(val)
-        self.dynArrayB.deletion(1)
+            self.dynArrayA.delete(val)
+        self.dynArrayB.delete(1)
 
         try:
             self.assertTrue(nan_equal(self.dynArrayA.array, resA))
@@ -87,6 +87,11 @@ class TestDynamicArray(unittest.TestCase):
             print('error')
             logging.debug(f'testing deletion method error. ArrayA:{self.dynArrayA.array}, ArrayB:{self.dynArrayB.array}')
     
+
+    def test_display(self):
+        self.dynArrayA.display()
+        self.dynArrayB.display()
+
 
     def test_insert(self):
         print('testing insert method')
@@ -109,7 +114,7 @@ class TestDynamicArray(unittest.TestCase):
     def test_search(self):
         print('testing search method')
         # appending a single value to see if it will return the correct indexes
-        self.dynArrayA.appending(1)
+        self.dynArrayA.append(1)
         # expected behavior
         resA = [0,3] #1
         resB = [1] #2

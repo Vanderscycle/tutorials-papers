@@ -63,12 +63,53 @@ Notes:
 * Search is linear because we sequentially navigate the array
 * Inserting and deletion are linear because all n-elements have to be shifted.
 * Appending is constant because the static array is resized
+* you can create .md tables [here](https://www.tablesgenerator.com/markdown_tables)
 
-### Implementation
+### SUDO implementation
 One way to implement a dynamic array structure:
 1. create a static array with an initial capacity
 2. add elements to the underlying static array
 3. if adding another element will exceed the capacity, then create a new static arrau with twice (or more) capacity and copy the original elements to it.
+
+### Python implementation
+* [class file](https://github.com/Vanderscycle/tutorials-papers/blob/master/dataStructures/demonstrations/dynamicArray.py)
+* [test bench file using unittest](https://github.com/Vanderscycle/tutorials-papers/blob/master/dataStructures/demonstrations/test_dynamicArray.py)
+* the dynamic array is unordered where during insertions and deletion the array swap values between the desired operation and the last value in the array
+## Single & doubly linked list
+ a linked list is a sequential list of nodes that hold data which point to other nodes also containing data.
+
+where are linked list used?
+* cicular lists
+* used in separate chaining, which is present in certian hashtable implementation for hashin collisions
+* Used in the implementation of adjacency lits for graphs
+
+### Terminology
+* Head: the first node in a linked list
+* tail: the last node in a linked list
+* pointer: reference to another node
+* node: an object containing data and pointers
+
+|  |Pros  | cons |
+|-|-|-|
+| single  | simple/less memory | cannot access previous elements |
+| double | can be traversed backwars | 2x memory  |
+
+### implementation
+Singly linked list only hold reference to the next node. We always maintain a refence to the dead of the linked list and a reference to the tail node for quick additions and removal.
+![linked list from medium](./images/linkedList.png)
+Doubly linked list only hold reference to the previous and next node. We always maintain a refence to the dead of the linked list and a reference to the tail node for quick additions and removal from both end of the list/
+![doubly linked list from medium](./images/doublyLinkedLists.png)
+
+### Complexity
+| Operation | Singly linked | Doubly Linked  |
+|-|-|-|
+| Search | O(n) | O(n) |
+| Insertion (head)| O(1) | O(1) |
+| Insertion (tail)| O(1) | O(1) |
+| Insertion (middle) | O(n) | O(n) |
+| Deletion (head) | O(1) | O(1) |
+| Deletion (tail) | O(n) | O(1) |
+| Deletion (middle) | O(n) | O(n) |
 ## Example
 
 ## Additional resources and reading
