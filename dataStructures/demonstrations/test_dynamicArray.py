@@ -1,7 +1,7 @@
 import unittest
 import logging
 import numpy as np
-# cust
+# custom py module import
 from dynamicArray import DynamicArray
 
 def nan_equal(arrA,arrB):
@@ -23,8 +23,8 @@ class TestDynamicArray(unittest.TestCase):
         - search
         - deletion
         - insert
-        - appending
-
+        - append
+        - display
     """
     def setUp(self):
         """
