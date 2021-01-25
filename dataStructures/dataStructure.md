@@ -65,7 +65,7 @@ Notes:
 * Appending is constant because the static array is resized
 * you can create .md tables [here](https://www.tablesgenerator.com/markdown_tables)
 
-### SUDO implementation
+### implementation
 One way to implement a dynamic array structure:
 1. create a static array with an initial capacity
 2. add elements to the underlying static array
@@ -110,6 +110,29 @@ Doubly linked list only hold reference to the previous and next node. We always 
 | Deletion (head) | O(1) | O(1) |
 | Deletion (tail) | O(n) | O(1) |
 | Deletion (middle) | O(n) | O(n) |
+
+## Stack
+Is a one-ended linear data structure which models a real workl stack by having two operation (push and pop) and one pointer (top) pointing at the block whose is on top of the pile.
+![stack component](./images/stack-data-structure.png)
+They are used in Python's memory, used in undo mechanisms, elements between brackets or sandwiched data with a start and finish,used in recursion...
+### implementation
+### Complexity
+| Operation | stack |
+|-|-|
+| Pushing| O(1) | 
+| Popping| O(1) | 
+| Peeking | O(1) |
+| Searching | O(n) |
+| Size | O(1) |
+
+## Queue
+### implementation
+### Complexity
+## Example
+
+## section
+### implementation
+### Complexity
 ## Example
 
 ## Additional resources and reading
