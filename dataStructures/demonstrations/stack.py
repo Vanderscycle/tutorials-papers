@@ -1,5 +1,6 @@
 class Node:
 
+
     def __init__(self,key):
         # 
         self.key = key
@@ -8,9 +9,15 @@ class Node:
         # pointer
         self.nodeBellow = None
 
+
 class Stack:
     """
     Implementation of the stack data structure
+    - push (add to the top)
+    - pop (remove top)
+    - search (navigate the stack)
+    - peek (see what is the value of the top node)
+    - size (length of stack)
     """
     stackSize = 0
 
@@ -33,6 +40,7 @@ class Stack:
             node.index = Stack.stackSize
             node.nodeBellow = self.top
             self.top = node
+            temp = None
         Stack.stackSize+=1
 
 
@@ -54,11 +62,12 @@ class Stack:
 
     def search(self,nodeKey):
         """
-        returns information 
+        returns information about the location 
         input
             - the node's key
         output: 
             - tupple (index, data)
+            - error message if not found
         """
         cursor = self.top
         while (cursor != None) and (cursor.key!=nodeKey):
@@ -94,6 +103,7 @@ class Stack:
         if info:
             print(f'stack size: {Stack.stackSize}')
         return(Stack.stackSize)
+
 
 fullStackMemory = Stack()
 node1 = Node(1)

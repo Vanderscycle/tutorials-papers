@@ -119,15 +119,38 @@ They are used in Python's memory, used in undo mechanisms, elements between brac
 ### Complexity
 | Operation | stack |
 |-|-|
-| Pushing| O(1) | 
-| Popping| O(1) | 
+| Pushing | O(1) | 
+| Popping | O(1) | 
 | Peeking | O(1) |
 | Searching | O(n) |
 | Size | O(1) |
 
 ## Queue
+
+A queu is a linear data structure which models real worl queues (like the one at the bank) by having two primary operations (enque and dequeue)
+![simple queue data structure](./images/queue_ds.png)
+
+Can be used for breadth first search (BFS) graph traversal.
+![simple queue data structure](./images/bfs.jpeg)
+Where we would load all the unvisited neighbours in a queue and then dequeuing them until we either find the value of the search or we reach the end of the graph.
+### terminology
+
+No consistent terminology for inserting and removing elements:
+Enqueue = Addiding = Offering
+Dequeue = substraction = 
+Removal (emptying the entire queue)
+Instead of using front back we will use head/tail
 ### implementation
+First-in last-out (FIFO) model 
 ### Complexity
+| Operation | queue |
+|-|-|
+| Enqueue | O(1) | 
+| Dequeue| O(1) | 
+| Peeking | O(1) |
+| Contains | O(n) |
+| Removal | O(n) |
+| Is Empty | O(1) |
 ## Example
 
 ## section
