@@ -43,6 +43,22 @@ n being the amount of data and b > 1
     * finding all permutations of a string
 
 ![Big O chart](./images/big-o-chart.png)
+## Python's native data structure
+Python comes with its own basic data structures and these are:
+* List
+* Dict
+* Set
+* Tupple
+
+While the native Python's data structure is very limited, we can leverage Python modularity by importing the following well known data structures:
+* Collection.Deque
+* Numpy.array
+
+![Big O chart](./images/xkcdpython.png)
+
+
+### Complexity
+[reference](https://wiki.python.org/moin/TimeComplexity)
 
 ## Dynamic and static arrays
 
@@ -76,7 +92,7 @@ One way to implement a dynamic array structure:
 * [test bench file using unittest](https://github.com/Vanderscycle/tutorials-papers/blob/master/dataStructures/demonstrations/test_dynamicArray.py)
 * the dynamic array is unordered where during insertions and deletion the array swap values between the desired operation and the last value in the array
 ## Single & doubly linked list
- a linked list is a sequential list of nodes that hold data which point to other nodes also containing data.
+ A linked list is a sequential list of nodes that hold data which point to other nodes also containing data. Because the way python manage its memory a doubly linked list implementation in Python doesn't take twice as much memory as a singlty linked list
 
 where are linked list used?
 * cicular lists
@@ -131,7 +147,9 @@ A queu is a linear data structure which models real worl queues (like the one at
 ![simple queue data structure](./images/queue_ds.png)
 
 Can be used for breadth first search (BFS) graph traversal.
+
 ![simple queue data structure](./images/bfs.jpeg)
+
 Where we would load all the unvisited neighbours in a queue and then dequeuing them until we either find the value of the search or we reach the end of the graph.
 ### terminology
 
@@ -151,6 +169,14 @@ First-in last-out (FIFO) model
 | Contains | O(n) |
 | Removal | O(n) |
 | Is Empty | O(1) |
+
+
+## Binary Trees
+
+![binary heap?](./images/xkcdtree.png)
+### implementation
+### Complexity
+## Example
 ## Example
 
 ## section

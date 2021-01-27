@@ -104,32 +104,34 @@ class Stack:
             print(f'stack size: {Stack.stackSize}')
         return(Stack.stackSize)
 
+if __name__ == '__main__':
 
-fullStackMemory = Stack()
-node1 = Node(1)
-node1.data = {'key1':1,'key2':2}
-print(node1.data)
-node2 = Node('test')
-node2.data = {'key1':3,'key2':4}
-node3 = Node(3)
-node3.data = {'key1':5,'key2':6}
-node4 = Node('4bro')
-node4.data = {'key1':7,'key2':8}
-print(node2.data)
-print(node2.key)
-print('--stack operations')
-fullStackMemory.push(node1)
-print(fullStackMemory.top.nodeBellow)
-print(fullStackMemory.top.index)
-fullStackMemory.push(node2)
-print(fullStackMemory.top.nodeBellow.data)
-print(fullStackMemory.top.index)
-fullStackMemory.push(node3)
-fullStackMemory.push(node4)
-fullStackMemory.pop()
-print('--peek operations')
-print(fullStackMemory.peek())
-print('--size operations')
-print(fullStackMemory.size())
-print('--test operations')
-print(fullStackMemory.search('test'))
+    
+    fullStackMemory = Stack()
+    node1 = Node(1)
+    node1.data = {'key1':1,'key2':2}
+    print(node1.data)
+    node2 = Node('test')
+    node2.data = {'key1':3,'key2':4}
+    node3 = Node(3)
+    node3.data = {'key1':5,'key2':6}
+    node4 = Node('4bro')
+    node4.data = {'key1':7,'key2':8}
+    print(node2.data)
+    print(node2.key)
+    print('--stack operations')
+    fullStackMemory.push(node1)
+    print(fullStackMemory.top.nodeBellow)
+    print(fullStackMemory.top.index)
+    fullStackMemory.push(node2)
+    print(fullStackMemory.top.nodeBellow.data)
+    print(fullStackMemory.top.index)
+    fullStackMemory.push(node3)
+    fullStackMemory.push(node4)
+    fullStackMemory.pop()
+    print('--peek operations')
+    print(fullStackMemory.peek())
+    print('--size operations')
+    print(fullStackMemory.size())
+    print('--test operations')
+    print(fullStackMemory.search('test'))

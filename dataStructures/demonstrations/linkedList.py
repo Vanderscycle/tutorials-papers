@@ -1,4 +1,4 @@
-class Node:
+class ListNode:
     """
     The class node can be used for both singly and doubly linked list. All that matters is the implementation
     """
@@ -336,76 +336,92 @@ class DoublyLinkedList:
         print(DoublyLinkedList.listSize)
         self.resetIndex()
 
-#! main improvement would be to either use the node index or class len because they are used interchangeably
-#! which could spell disaster
-node1 = Node(31)
-node2 = Node(69)
-node3 = Node(420)
-node4 = Node(423)
-node5 = Node(426)
-node6 = Node(888)
 
-nodes = [Node(i) for i in range(10,20,2)]
-singleList = SinglyLinkedList()
-for i in range(len(nodes)):
-    print('list size:',singleList.listSize)
-    singleList.append(nodes[i])
-singleList.display()
-#! IDK why it works here but crashes in unittest as if the instance is not reset between test.
 
-singleList2 = SinglyLinkedList()
-singleList2.listSize = 69
-print(singleList2.listSize)
-print(singleList.listSize)
-# doubleList = DoublyLinkedList()
-# doubleList.append(node1)
-# doubleList.append(node2)
-# doubleList.display()
-# doubleList.insert(node4,0)
-# doubleList.display()
-# doubleList.insert(node6,1)
-# doubleList.display()
-# print('--search method--')
-# print(doubleList.search(31))
-# print('--delete method--')
-# print('--delete first--')
-# doubleList.delete(423)
-# doubleList.display()
-# doubleList.insert(node5,1)
-# print('--delete middle--')
-# doubleList.delete(31)
-# doubleList.display()
-# print('--delete last--')
-# doubleList.delete(69)
-# doubleList.display()
 
-# print('*-*- single list *-*-')
-# singleList= SinglyLinkedList()
-# print('---node1---')
-# singleList.append(node1)
-# print('---node2---')
-# singleList.append(node2)
-# print('---node3---')
-# singleList.append(node3)
-# print('---display method---')
-# singleList.display()
-# print('---search method---')
-# print(singleList.search(69))
-# print(singleList.search(421))
-# print(singleList.search(420))
-# print('---insert method---') #! error here
 
-# singleList.insert(node4,3)
-# singleList.insert(node5,1)
-# singleList.display()
 
-# singleList.insert(node6,0)
-# singleList.display()
-# print('---delete method---')
-# singleList.delete(67)
-# singleList.delete(69)
-# singleList.display()
-# singleList.delete(888)
-# singleList.display()
+
+#won't show if this is not the main file        
+if __name__ == '__main__':
+
+    
+    #! main improvement would be to either use the node index or class len because they are used interchangeably
+    #! which could spell disaster
+    node1 = ListNode(31)
+    node2 = ListNode(69)
+    node3 = ListNode(420)
+    node4 = ListNode(423)
+    node5 = ListNode(426)
+    node6 = ListNode(888)
+
+    nodes = [ListNode(i) for i in range(10,20,2)]
+    singleList = SinglyLinkedList()
+    for i in range(len(nodes)):
+        print('list size:',singleList.listSize)
+        singleList.append(nodes[i])
+    singleList.display()
+    #! IDK why it works here but crashes in unittest as if the instance is not reset between test.
+
+
+
+    singleList2 = SinglyLinkedList()
+    singleList2.listSize = 69
+    print(singleList2.listSize)
+    print(singleList.listSize)
+    print([x for x in dir(SinglyLinkedList) if not x.startswith('__')])
+    print(help(SinglyLinkedList.append))
+    print(help(SinglyLinkedList.display))
+    print(print_docs(SinglyLinkedList))
+    # doubleList = DoublyLinkedList()
+    # doubleList.append(node1)
+    # doubleList.append(node2)
+    # doubleList.display()
+    # doubleList.insert(node4,0)
+    # doubleList.display()
+    # doubleList.insert(node6,1)
+    # doubleList.display()
+    # print('--search method--')
+    # print(doubleList.search(31))
+    # print('--delete method--')
+    # print('--delete first--')
+    # doubleList.delete(423)
+    # doubleList.display()
+    # doubleList.insert(node5,1)
+    # print('--delete middle--')
+    # doubleList.delete(31)
+    # doubleList.display()
+    # print('--delete last--')
+    # doubleList.delete(69)
+    # doubleList.display()
+
+    # print('*-*- single list *-*-')
+    # singleList= SinglyLinkedList()
+    # print('---node1---')
+    # singleList.append(node1)
+    # print('---node2---')
+    # singleList.append(node2)
+    # print('---node3---')
+    # singleList.append(node3)
+    # print('---display method---')
+    # singleList.display()
+    # print('---search method---')
+    # print(singleList.search(69))
+    # print(singleList.search(421))
+    # print(singleList.search(420))
+    # print('---insert method---') #! error here
+
+    # singleList.insert(node4,3)
+    # singleList.insert(node5,1)
+    # singleList.display()
+
+    # singleList.insert(node6,0)
+    # singleList.display()
+    # print('---delete method---')
+    # singleList.delete(67)
+    # singleList.delete(69)
+    # singleList.display()
+    # singleList.delete(888)
+    # singleList.display()
 
 

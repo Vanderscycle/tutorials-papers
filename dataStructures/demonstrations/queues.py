@@ -131,31 +131,34 @@ class Queue:
         return False
 
 
-simpleQ = Queue()
-node1 = Node(1)
-node1.data = {'key1':1,'key2':2}
-node2 = Node('test')
-node2.data = {'key1':3,'key2':4}
-node3 = Node(3)
-node3.data = {'key1':5,'key2':6}
-node4 = Node('4bro')
-node4.data = {'key1':7,'key2':8}
-simpleQ.enqueue(node1)
-simpleQ.enqueue(node2)
-print('--test search')
-print(simpleQ.search('test'))
-print(simpleQ.search(3))
-print(simpleQ.head.key)
-print(simpleQ.peek())
-simpleQ.dequeue()
-print(simpleQ.peek())
-simpleQ.dequeue()
-simpleQ.dequeue()
-simpleQ.search('4bro')
-simpleQ.enqueue(node1)
-simpleQ.enqueue(node2)
-simpleQ.enqueue(node3)
-simpleQ.enqueue(node4)
-print(simpleQ.peek())
-print('--removal test')
-simpleQ.removal()
+if __name__ == '__main__':
+
+    
+    simpleQ = Queue()
+    node1 = Node(1)
+    node1.data = {'key1':1,'key2':2}
+    node2 = Node('test')
+    node2.data = {'key1':3,'key2':4}
+    node3 = Node(3)
+    node3.data = {'key1':5,'key2':6}
+    node4 = Node('4bro')
+    node4.data = {'key1':7,'key2':8}
+    simpleQ.enqueue(node1)
+    simpleQ.enqueue(node2)
+    print('--test search')
+    print(simpleQ.search('test'))
+    print(simpleQ.search(3))
+    print(simpleQ.head.key)
+    print(simpleQ.peek())
+    simpleQ.dequeue()
+    print(simpleQ.peek())
+    simpleQ.dequeue()
+    simpleQ.dequeue()
+    simpleQ.search('4bro')
+    simpleQ.enqueue(node1)
+    simpleQ.enqueue(node2)
+    simpleQ.enqueue(node3)
+    simpleQ.enqueue(node4)
+    print(simpleQ.peek())
+    print('--removal test')
+    simpleQ.removal()
