@@ -76,7 +76,8 @@ def interactiveDataStructuresTest():
 
     pass
 
-
+# to be added for help
+#print(ListNode.__init__.__doc__)
 class interactiveDataStructures(cmd.Cmd):
     """
     documentation: https://docs.python.org/3/library/cmd.html

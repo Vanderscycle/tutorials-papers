@@ -1,10 +1,19 @@
 class ListNode:
     """
-    The class node can be used for both singly and doubly linked list. All that matters is the implementation
+    The class node can be used for both singly and doubly linked list. 
     """
     def __init__(self,val):
-        self.value = val # or any data you want store (pass a json)
-        # we could add a data 
+        """
+        Variables:
+        - __init__(self,val)
+        - self.value (or the key used in search to access the node)
+        - self.data (the data you want the node to contain. can be a JSON, dict, list, a single variable, etc.)
+        - self.nodeIndex (the node automatically given by the linked list class)
+        - self.rightNode = None (pointers for the class)
+        - self.leftNode = None (pointers for the class)
+        """
+        self.value = val # More like the key of the Node
+        self.data = None # whatever data the user wants
         self.nodeIndex = None # the nodeIndex will be assigned when assigned to a linked list
         self.rightNode = None
         self.leftNode = None
@@ -12,27 +21,35 @@ class ListNode:
 
 class SinglyLinkedList:
     """
-    Insertion(3) − Adds an element at the beginning of the list/middle to end
-    Deletion(3) − Deletes an element at the beginning of the list/middle to end
+    append = Add an element at the end of the list
+    Insert(3) − Adds an element at the beginning of the list/middle to end
+    Delete(3) − Deletes an element at the beginning of the list/middle to end
     Display − Displays the complete list.
     Search − Searches an element using the given key.
     Delete − Deletes an element using the given key.
+    class a variable:
+    - SinglyLinkedList.listSize (the amount of nodes in the class instance)
     """
     listSize = 0    
 
 
     def __init__(self):
-        self.head = None
+        """
+        variables
+        __init__(self):
+        - self.head = None (class pointers)
+        - self.tail = None (class pointers)
+        """
+        self.head = None 
         self.tail = None
 
 
     def append(self,nextNode):
         """
-        insert nodes FIFO
-        jesus daisy chaining these bad boys is something
+        Appends a node to the end SinglyLinkedList
         input:
-            - node class instance to be inserted
-        output: (nothing really)
+            - ListNode class instance to be inserted
+        output: 
             - 
         """
         nextNode.nodeIndex = SinglyLinkedList.listSize
@@ -48,12 +65,12 @@ class SinglyLinkedList:
 
     def insert(self,node,index):
         """
-        inserts a node to a specific index. 
-        Will check if user wants the node to be inserted at the end
+        Inserts a node to a specific index of the singly linked list. 
+        Check whether the index is specified to be at the beginning, middle or end of the list
         input:
-            - node class instance to be inserted
+            - LinkedNode class instance to be inserted
             - index value to be insersted 
-        output: (nothing really)
+        output: 
             - 
         """
         cursor = self.head
@@ -70,21 +87,20 @@ class SinglyLinkedList:
         else:  
             while (cursor!=None) and (cursor.nodeIndex != (index-1)):
                 cursor = cursor.rightNode
-        # we also have to update the node index of each value
+        
             temp = cursor.rightNode
             cursor.rightNode = node
             node.rightNode = temp
         SinglyLinkedList.listSize += 1
-            # cleaning the memory
-            # (although because the way python organize the stack memory along with the heap. It will be deleted)
         temp = None
+        # we also have to update the node index of each value
         self.resetIndex()
 
 
     def delete(self,value):
         """
         look for a value in the linked list using the search method
-        and unlink the item when found.
+        unlink, and delete the item found.
         input:
             - node value to be removed. If the value/data is a json we could use the index instead
             or change the value from a number to a PKI or str identifier 
@@ -113,9 +129,13 @@ class SinglyLinkedList:
     
     def resetIndex(self):
         """
-        navigate the entire linked list to reset its index.
+        navigate the entire linked list to reset its index. (used mostly internally)
         The index information is not necessary and increases the complexity to O(n) even in O(1) operations
         Can be removed in the future (scalability depending)
+        input:
+            - 
+        output: 
+            - 
         """
         cursor = self.head
         for i in range(SinglyLinkedList.listSize):
@@ -125,8 +145,12 @@ class SinglyLinkedList:
 
     def display(self):
         """
-        iterates throught the entire linked list (head to tail)
-        print each nodes with its index and value
+        Iterates throught the entire linked list (head to tail)
+        print each nodes with its index and value/ley
+        input:
+            - 
+        output: 
+            - 
         """
         cursor = self.head
         print(cursor)
@@ -138,14 +162,12 @@ class SinglyLinkedList:
 
     def search(self,value):
         """
+        Iterates throught the entire linked list (head to tail) and returns the first occurance
         class method defining the search function
         input:
-            - value the user is looking for
+            - value/key the user is looking for
         output: 
             - tupple (index,value)
-        iterates throught the entire linked list (head to tail)
-        returns the first value match
-        possibly could make a change where it returns all occurances
         """
         cursor = self.head
         while (cursor != None) and (cursor.value != value):
@@ -158,27 +180,36 @@ class SinglyLinkedList:
 
 class DoublyLinkedList: 
     """
-    Insertion(3) − Adds an element at the beginning of the list/middle to end
-    Deletion(3) − Deletes an element at the beginning of the list/middle to end
+    Available methods
+    append = Add an element at the end of the list
+    Insert(3) − Adds an element at the beginning of the list/middle to end
+    Delete(3) − Deletes an element at the beginning of the list/middle to end
     Display − Displays the complete list.
     Search − Searches an element using the given key.
     Delete − Deletes an element using the given key.
+    class a variable:
+    - DoublyLinkedList.listSize (the amount of nodes in the class instance)
     """
     listSize = 0 
 
 
     def __init__(self):
+        """
+        variables
+        __init__(self):
+        - self.head = None (class pointers)
+        - self.tail = None (class pointers)
+        """
         self.head = None
         self.tail = None
 
 
     def append(self,nextNode):
         """
-        Append a given node to the end of the doubly linked list
-        Checks whether that is the first node
+        Appends a node to the end DoublyLinkedList
         input:
-            - node class instance to be inserted
-        output: (nothing really)
+            - ListNode class instance to be inserted
+        output: 
             - 
         """
         nextNode.nodeIndex = DoublyLinkedList.listSize
@@ -198,12 +229,12 @@ class DoublyLinkedList:
 
     def insert(self,node,index):
         """
-        inserts a node to a specific index. 
-        Will check if user wants the node to be inserted at the end
+        Inserts a node to a specific index of the DoublyLinked list. 
+        Check whether the index is specified to be at the beginning, middle or end of the list
         input:
-            - node class instance to be inserted
+            - LinkedNode class instance to be inserted
             - index value to be insersted 
-        output: (nothing really)
+        output: 
             - 
         """
         cursor = self.head
@@ -213,8 +244,8 @@ class DoublyLinkedList:
         # user specify to enter a value at the beginning of the list
 
         elif index == 0:
-            # biggest challenge was to realise that the change needed to happen at self.head
             Node.nodeIndex = 0
+            # biggest challenge was to realise that the change needed to happen at self.head
             temp = self.head
             temp.leftNode = node
             self.head = node
@@ -224,7 +255,7 @@ class DoublyLinkedList:
         else:  
             while (cursor!=None) and (cursor.nodeIndex != (index-1)):
                 cursor = cursor.rightNode
-        # we also have to update the node index of each value
+            # we also have to update the node index of each value
             temp = cursor.rightNode
 
             cursor.rightNode = node
@@ -233,24 +264,20 @@ class DoublyLinkedList:
             temp.leftNode = node
             node.rightNode = temp
 
-            # temp = cursor.rightNode
-            # cursor.rightNode = node
-            # node.rightNode = temp
-            # SinglyLinkedList.listSize += 1            
-
         DoublyLinkedList.listSize += 1
-        print(DoublyLinkedList.listSize)
-        # cleaning the memory
-        # (although because the way python organize the stack memory along with the heap. It will be deleted)
         temp = None
         self.resetIndex()
 
 
     def resetIndex(self):
         """
-        navigate the entire linked list to reset its index.
+        navigate the entire linked list to reset its index. (used mostly internally)
         The index information is not necessary and increases the complexity to O(n) even in O(1) operations
         Can be removed in the future (scalability depending)
+        input:
+            - 
+        output: 
+            - 
         """
         cursor = self.head
         for i in range(DoublyLinkedList.listSize):
@@ -260,8 +287,12 @@ class DoublyLinkedList:
 
     def display(self):
         """
-        iterates throught the entire linked list (head to tail)
-        print each nodes with its index and value. 
+        Iterates throught the entire linked list (head to tail)
+        print each nodes with its index and value/key
+        input:
+            - 
+        output: 
+            - 
         """
         cursor = self.head
         print(cursor)
@@ -273,12 +304,10 @@ class DoublyLinkedList:
 
     def search(self,value):
         """
+        Iterates throught the entire linked list (head to tail) and returns the first occurance
         class method defining the search function
-        iterates throught the entire linked list (head to tail)
-        returns the first value match
-        possibly could make a change where it returns all occurances or a single one
         input:
-            - value the user is looking for
+            - value/key the user is looking for
         output: 
             - tupple (index,value)
         """
@@ -295,11 +324,11 @@ class DoublyLinkedList:
     def delete(self,value):
         """
         look for a value in the linked list using the search method
-        and unlink the item when found.
-        #! should add the ability to navigate both way in search
+        unlink, and delete the item found.
+        #! only navigates from head to tail and not vice-versa despite it can be implemented
         input:
             - node value to be removed. If the value/data is a json we could use the index instead
-            or change the value from a number to a PKI or str identifier. Or add a data field to the Node class 
+            or change the value from a number to a PKI or str identifier 
         output: 
             - error message if value doesn't exist
         """
@@ -337,12 +366,7 @@ class DoublyLinkedList:
         self.resetIndex()
 
 
-
-
-
-
-
-#won't show if this is not the main file        
+#won't show if this is ran as the main file       
 if __name__ == '__main__':
 
     
@@ -370,9 +394,10 @@ if __name__ == '__main__':
     print(singleList2.listSize)
     print(singleList.listSize)
     print([x for x in dir(SinglyLinkedList) if not x.startswith('__')])
-    print(help(SinglyLinkedList.append))
-    print(help(SinglyLinkedList.display))
-    print(print_docs(SinglyLinkedList))
+    print(SinglyLinkedList.__dict__)
+    print(ListNode.__init__.__doc__)
+    # print(help(SinglyLinkedList.append))
+    # print(help(SinglyLinkedList.display))
     # doubleList = DoublyLinkedList()
     # doubleList.append(node1)
     # doubleList.append(node2)

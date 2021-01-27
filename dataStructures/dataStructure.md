@@ -132,6 +132,8 @@ Is a one-ended linear data structure which models a real workl stack by having t
 ![stack component](./images/stack-data-structure.png)
 They are used in Python's memory, used in undo mechanisms, elements between brackets or sandwiched data with a start and finish,used in recursion...
 ### implementation
+
+Best to th
 ### Complexity
 | Operation | stack |
 |-|-|
@@ -159,7 +161,7 @@ Dequeue = substraction =
 Removal (emptying the entire queue)
 Instead of using front back we will use head/tail
 ### implementation
-First-in last-out (FIFO) model 
+First-in last-out (FILO) model 
 ### Complexity
 | Operation | queue |
 |-|-|
@@ -169,11 +171,71 @@ First-in last-out (FIFO) model
 | Contains | O(n) |
 | Removal | O(n) |
 | Is Empty | O(1) |
+## Priority Queues and heaps
+A Priority queue is an Abstract Data Tyoe (ADT) that operates similar to a normal queue except that each element has a certain priority. The priority of the elements in which elements are removed from the PQ. Because it is an ADT it can be implemented in various ways and one of them being through a heap.
 
+A bit caveat is that the PQ only supports comparable data (data must be able to be ordered in some way least to greatest or vice-versa).
 
-## Binary Trees
+A heap is a tree based DS that satisfies the heap invariant(heap property): If A is a parent node of B then A is ordered with respect ot B for all nodes A,B in the heap. If using min heap, all nodes bellow each parent node are equal or greater than its parent node. Also heaps cannot contain cycles (where a path between two branches allow for infinite rotation)
+
+![min/max heap](./images/MinHeapAndMaxHeap.png)
+
+Used in:
+* [Dijkstra's shortest path algortihm](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm)
+* [Best First Search](https://en.wikipedia.org/wiki/Best-first_search) (greedy Algo)
+* [Minimum spannin tree](https://en.wikipedia.org/wiki/Minimum_spanning_tree)
+* [Huffman lossless compression](https://en.wikipedia.org/wiki/Huffman_coding)
+### Implementation
+Using a heap tree we can implement a PQ. Other methods are unsorted list, but the time clomplexity is greater tranversing every elements of the list(O(n)). There are multiple [kinds of heaps](https://en.wikipedia.org/wiki/Heap_(data_structure)).
+
+Binary heap is a binary tree that supports the heap invariant and has no more than two children per node. A complete binary tree is a tree which at every level, except the last is filled and all nodes are as far left as possible. Of note, you can use an array to represent a tree.
+![binary tree and its index](./images/binaryTreeAndIndex.png)
+Using the following zero indexed method:
+Let i be the parent node index
+* left child index = 2i +1
+* right child index = 2i +1
+
+Adding element to a binary heap: We create a new leaf (the leftmost available position) with the number reagardless of its position and then bubble it up (comparing its value as it bubble to its position)
+
+Removing an element to a binary heap: 2 ways Poll(remove the root node) and Remove( any value).
+* Poll: swap the root node with the latest value in the array then remove the latest value in the array. Afterwards, we bubble down the root node to its location by swapping to the smallest node. if both children nodes are of equal value we bubble down to the left.
+* remove: first we search the value (using the Breath First Search BFS for example), once found we swap with the latest value in the array then remove the latest value in the array. Afterwards, we bubble up or down the value depeding if we satisfy the heap invariant with its neigbhoor nodes.
+
+We Polling is O(log(n)) and removing is O(n) which is inneficient, but can be improved if using hash tables.
+
+This requires us to keep a separate table of the index position of each node value. Since each node value can be repeated, we will store the indices in an array 
+
+## (hash table) to be added later
 
 ![binary heap?](./images/xkcdtree.png)
+### Complexity
+
+| Operation | binanry heap |
+|-|-|
+| Binary Heap construction | O(n) | 
+| Polling | O(log(n)) | 
+| Peeking | O(1) |
+| Adding | O(log(n)) |
+| Naive removing | O(n) | 
+| Removing using a hash table | O(log(n)) | 
+| Naive contains | O(n) | 
+| Contains with hash table | O(1) |
+Naive because we scan through all the elements. Hash tables requires linear space and also adds overhead to the binary heap implementation. 
+
+### Turning Min PQ into Max PQ
+For numerical values: Keep the structure the same but invert the comparable value (e.g.13 -> -13), then repopulate the tree. 
+
+For string values: using [PLY](https://pypi.org/project/ply/) (the python addaptation of lex parsing tool). Lex is a comparator for strings which sorts string in [lexicographic order](https://en.wikipedia.org/wiki/Lexicographic_order) with nlex being its negation.
+* lex(s1,s2) = -1 if s1 < s2 lexicographically
+* lex(s1,s2) = 1 if s1 > s2 lexicographically
+* lex(s1,s2) = 0 if s1 = s2 lexicographically
+* nlex(s1,s2) = -(-1) = 1 if s1 < s2 lexicographically
+* nlex(s1,s2) = -(1) = -1 if s1 > s2 lexicographically
+* nlex(s1,s2) = -(0) = 0 if s1 = s2 lexicographically
+
+[lexicographic order in action](https://www.youtube.com/watch?v=LtlZtFXe8Io)
+## Binary Trees
+
 ### implementation
 ### Complexity
 ## Example
@@ -187,4 +249,6 @@ First-in last-out (FIFO) model
 ## Additional resources and reading
 ![Big O chart](./images/big0.png)
 Because we do not want our code to be production-like we use [logging](https://www.youtube.com/watch?v=-ARI4Cz-awo) and [unittest](https://www.youtube.com/watch?v=6tNS--WetLI)
+## Additional resources and reading
+* [free code camp academy](https://www.youtube.com/watch?v=RBSGKlAvoiM)
 ## Closing statement

@@ -3,7 +3,7 @@ import copy
 
 
 
-#! to do
+#TODO
 # 2. create a counting sort
 # 3. a bash shell script that would run in the terminal each data structure
 # with a visible output in the terminal? would be really cool
@@ -20,6 +20,7 @@ class DynamicArray:
     """
     Dynamic array data structure made from static arrays (buckets).
     This is an  unsorted dynamic array, and weirder since during inserts and delete values are swapped
+    DoublyLinkedList
     """
     def __init__(self, size=4):
         """
@@ -28,6 +29,11 @@ class DynamicArray:
             - size(optional) being the number of elements in the starting array 
         output: (nothing really)
             - empty one dimensional static numpy array of shape (1,size)
+        variables:
+        __init__(self, size=4)
+        - self.size (size of the array buckets)
+        - self.array = np.empty(size) (the inital empty array)
+        - self.lastValueIndex (keeps track of the number of items in the bucket)
         """
         if size==0:
             raise ValueError(f'You created 1D static array of size(1,{size})\nPlease choose a size >= 1')
@@ -41,11 +47,11 @@ class DynamicArray:
 
     def append(self, val):
         """
-        Check if there is room in the static bucket. 
-        Only insert one item at a time if more than one insertion is required just use a for loop
+        Check if there is room in the static bucket and if so adds it to the bucket.
+        If no room exist it will double the size of the bucket
         Input:
             - value to be insert
-        Output: (nothing really)
+        Output: 
             - 
         """
         # checking for space in the static array 
@@ -59,15 +65,19 @@ class DynamicArray:
     def display(self):
         """
         displays all elements in the dynamic list and bucket size
+        Input:
+            - value to be insert
+        Output: 
+            - 
         """
         print(f' Element in the array: {self.array}\nbucket size: {self.size}\nlast value pointer location: {self.lastValueIndex}')
 
     def expand(self):
         """
         class method to double the original size of the array. 
-        Input:(internal changes)
+        Input:
             - 
-        Output: (nothing really)
+        Output:
             - 
         """
         # creating a new empty bucket double the size of the original

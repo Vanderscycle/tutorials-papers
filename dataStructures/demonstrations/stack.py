@@ -4,7 +4,7 @@ class Node:
     def __init__(self,key):
         # 
         self.key = key
-        self.index = None
+        self.index = None # index = 0 means its a the bottom of the stack
         self.data = None
         # pointer
         self.nodeBellow = None
@@ -18,6 +18,7 @@ class Stack:
     - search (navigate the stack)
     - peek (see what is the value of the top node)
     - size (length of stack)
+    #TODO display method
     """
     stackSize = 0
 
@@ -28,9 +29,10 @@ class Stack:
 
     def push(self,node):
         """
+        Add the node class to the top of the stack
         input:
             - node class instance to be inserted on the top
-        output: (nothing really)
+        output: 
             - 
         """
         if Stack.stackSize == 0:
@@ -46,7 +48,8 @@ class Stack:
 
     def pop(self):
         """
-        input: (nothing really)
+        Removes the node on the top of the stack
+        input: 
             - 
         output: 
             - the top node of the stack
@@ -56,13 +59,13 @@ class Stack:
         else:
             temp = self.top
             self.top = self.top.nodeBellow
-            temp = None
+            return temp
         Stack.stackSize -=1
 
 
     def search(self,nodeKey):
         """
-        returns information about the location 
+        returns information about the location of a node in the stack.
         input
             - the node's key
         output: 
@@ -80,9 +83,10 @@ class Stack:
 
     def peek(self):
         """
+        Returns, but doesn't remove, the value of the top node of the stack
         peek is an operation on certain abstract data types, 
         specifically sequential collections such as stacks and queues, which returns the value of the top 
-        input: (nothing really)
+        input: 
             - 
         output: 
             - tupple (key,index,value)
@@ -99,6 +103,7 @@ class Stack:
             - optional info flag (default=False)
         output: 
             - class instance stack size
+            - print message if the info flag is selected
         """
         if info:
             print(f'stack size: {Stack.stackSize}')

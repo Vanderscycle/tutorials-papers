@@ -1,17 +1,20 @@
-class Node:
+class QueueNode:
     """
-    small change to the class node to make attributes more meaningful
-    e.g. nodeBefore vs nodeBellow
+    Node used for the simple queue class
     """
-
-
     def __init__(self,key):
-        # 
+        """
+        Variables:
+        - __init__(self,key)
+        - self.key
+        - self.data (the data you want the node to contain. can be a JSON, dict, list, a single variable, etc.)
+        - self.Index (the node automatically given by the queue class)
+        - self.nodeBefore = None used by the queue class (not its PQ )
+        """
         self.key = key
-        self.index = None
         self.data = None
-        # pointer
-        self.nodeBefore = None
+        self.index = None
+        self.nodeBefore = None # pointer
 
 
 class Queue:
@@ -23,21 +26,29 @@ class Queue:
     - search (contains)
     - removal (empty queue)
     - is Empty
+    #TODO display method
+    class a variable:
+    - Queue.queueSize (the amount of nodes in the class instance)
     """
     queueSize = 0
 
 
     def __init__(self):
+        """
+        Variables:
+        - __init__(self,key)
+        - self.key
+        """
         self.head = None
         self.tail = None
 
 
     def enqueue(self,node):
         """
-        add a node to the front of the queue
+        Add a node to the front of the queue
         input
-            - a node
-        output: (nothing really) 
+            - a node from Node Class
+        output: 
             -
         """
         node.index = Queue.queueSize
@@ -55,11 +66,11 @@ class Queue:
 
     def dequeue(self):
         """
-        remove the node at the tail of the queue
-        input (nothing really)
+        Remove the node at the tail of the queue
+        input 
             -
         output:  
-            - error message if queue is empty
+            - message if queue is empty
         """ 
 
         if self.isEmpty():
@@ -74,11 +85,11 @@ class Queue:
 
     def search(self,nodeKey):
         """
-        traverse the queue looking for a specific node key
+        Traverse the queue looking for a specific node key
         input:
             - the desired Key associated with the node
         output:  
-            - error message if queue is empty or value not found
+            - message if queue is empty or value not found
             - node value and index if found
         """         
         if self.isEmpty():
@@ -94,11 +105,11 @@ class Queue:
 
     def removal(self):
         """
-        empties the queue
-        input: (nothing really)
+        Completly empties the queue
+        input: 
             - 
         output:  
-            - error message if queue is empty
+            - message if queue is empty
         """
         if self.isEmpty():
             return  
@@ -112,24 +123,43 @@ class Queue:
         """
         peek is an operation on certain abstract data types, 
         specifically sequential collections such as stacks and queues, which returns the value of the top 
-        input: (nothing really)
+        input: 
             - 
         output: 
             - tupple (key,index,value)
+            - message if queue is empty 
         """
-        print('Tupple: (key,index,value)')
-        return (self.tail.key,self.tail.index,self.tail.data)
+        if self.isEmpty():
+            return 
+        else:
+            print('Tupple: (key,index,value)')
+            return (self.tail.key,self.tail.index,self.tail.data)
 
 
     def isEmpty(self):
         """
-        True (empty list) False (not empty)
+        checks if the queue is empty
+        input: 
+            - 
+        output: 
+            - error message if the queue is empty
+            - True (empty list) 
+            - False (not empty)
         """
         if Queue.queueSize == 0:
             print('empty queue')
             return True
         return False
 
+class PriorityQueue:
+    """
+    Implementation of the Priority Queue data structure
+    - Insert
+    - Poll
+    - Remove
+    """
+    def __init__(self):
+        pass
 
 if __name__ == '__main__':
 
