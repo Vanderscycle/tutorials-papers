@@ -67,6 +67,7 @@ class SinglyLinkedList:
         """
         Inserts a node to a specific index of the singly linked list. 
         Check whether the index is specified to be at the beginning, middle or end of the list
+        
         input:
             - LinkedNode class instance to be inserted
             - index value to be insersted 
@@ -101,6 +102,7 @@ class SinglyLinkedList:
         """
         look for a value in the linked list using the search method
         unlink, and delete the item found.
+
         input:
             - node value to be removed. If the value/data is a json we could use the index instead
             or change the value from a number to a PKI or str identifier 
@@ -132,6 +134,7 @@ class SinglyLinkedList:
         navigate the entire linked list to reset its index. (used mostly internally)
         The index information is not necessary and increases the complexity to O(n) even in O(1) operations
         Can be removed in the future (scalability depending)
+
         input:
             - 
         output: 
@@ -147,6 +150,7 @@ class SinglyLinkedList:
         """
         Iterates throught the entire linked list (head to tail)
         print each nodes with its index and value/ley
+
         input:
             - 
         output: 
@@ -164,6 +168,7 @@ class SinglyLinkedList:
         """
         Iterates throught the entire linked list (head to tail) and returns the first occurance
         class method defining the search function
+
         input:
             - value/key the user is looking for
         output: 
@@ -207,6 +212,7 @@ class DoublyLinkedList:
     def append(self,nextNode):
         """
         Appends a node to the end DoublyLinkedList
+
         input:
             - ListNode class instance to be inserted
         output: 
@@ -231,6 +237,7 @@ class DoublyLinkedList:
         """
         Inserts a node to a specific index of the DoublyLinked list. 
         Check whether the index is specified to be at the beginning, middle or end of the list
+
         input:
             - LinkedNode class instance to be inserted
             - index value to be insersted 
@@ -274,6 +281,7 @@ class DoublyLinkedList:
         navigate the entire linked list to reset its index. (used mostly internally)
         The index information is not necessary and increases the complexity to O(n) even in O(1) operations
         Can be removed in the future (scalability depending)
+
         input:
             - 
         output: 
@@ -289,6 +297,7 @@ class DoublyLinkedList:
         """
         Iterates throught the entire linked list (head to tail)
         print each nodes with its index and value/key
+
         input:
             - 
         output: 
@@ -306,6 +315,7 @@ class DoublyLinkedList:
         """
         Iterates throught the entire linked list (head to tail) and returns the first occurance
         class method defining the search function
+
         input:
             - value/key the user is looking for
         output: 
@@ -326,6 +336,7 @@ class DoublyLinkedList:
         look for a value in the linked list using the search method
         unlink, and delete the item found.
         #! only navigates from head to tail and not vice-versa despite it can be implemented
+
         input:
             - node value to be removed. If the value/data is a json we could use the index instead
             or change the value from a number to a PKI or str identifier 

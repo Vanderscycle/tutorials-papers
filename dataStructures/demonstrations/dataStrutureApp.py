@@ -51,7 +51,6 @@ def vdir(obj):
     return [x for x in dir(obj) if not x.startswith('__')]
 
 
-def interactiveDataStructuresTest():
     """
     Program that does the following:
     - runs entirely in the CLI
@@ -61,43 +60,69 @@ def interactiveDataStructuresTest():
     - runs in a while loop and waits 
     """
 
-    dataStructure = opt.dataStructure
-    while True:
-        try:
-            # f'{dataStructure}:'
-            #! instead of input I may want to use cmd module 
-            # https://docs.python.org/3/library/cmd.html
-            userCommand = input(f'{dataStructure}:')
-            if userCommand == ('exit' or 'quit'):
-                print('Exiting program')
-                break
-        except Exception as e:
-            print(e)
-
-    pass
-
 # to be added for help
 #print(ListNode.__init__.__doc__)
 class interactiveDataStructures(cmd.Cmd):
     """
     documentation: https://docs.python.org/3/library/cmd.html
     """
-    intro = 'Welcome to the turtle shell.   Type help or ? to list commands.\n'
+    intro = 'Welcome to the command line interactive data Structure program.\nType help or ? to list commands.\n'
     prompt = None
-    file = None
+
+
     def __init__(self, dataStructure):
-        self.dataS
-        interactiveDataStructures.prompt = f'{dataStructure}'
+        super(interactiveDataStructures, self).__init__()
+        availableDataStrutuces = {
+            'dynamicArray': DynamicArray(),
+            'singleLinkedList': SinglyLinkedList(),
+            'DoublyLinkedList': DoublyLinkedList(),
+            }
+        if dataStructure in availableDataStrutuces:
+            self.dataStructure = availableDataStrutuces[dataStructure]
+            self.DSname = dataStructure
+            interactiveDataStructures.prompt = f'({dataStructure}) '
+            print('yeah')
+        else:
+            raise ValueError(f'Please choose one of the following available data structure: {availableDataStrutuces.keys()}')
+    
+
+    def do_DSInfo(self,arg):
+        """
+        print all non special method of the datastructure
+        """
+        print(f'info regarding the {self.DSname}.__init__\n{self.dataStructure.__init__.__doc__}')
+        print(f'the following methods for {self.DSname} are available:\n{vdir(self.dataStructure)}')
+        print(f'If you want more info about what a specific {self.DSname} method use')
 
 
+    def do_DSMetInfo(self,line):
+        """
+        I want to print the docstrings of the in usage datastructure when the user type it in the search cmd line
+        """
+        # methodList = [s for s in line.split()]
+        # [print_docs(m) for m in vdir(self.dataStructure)]
+
+                #print_docs(self.dataStructure.__str__(method) )
+        # else:
+        #     print(f'To learn more about methods available in {self.DSname} select one of the following method {methods}\n You entered: {method}')
+
+
+    def do_exit(self,arg):
+        """
+        exits the command line
+        """
+        exit()
+            
+
+#python dataStrutureApp.py --dataStructure dynamicArray # for testing
 
 # the lines bellow won't run if imported
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     #TODO: add the list of available data structures in a way that I don't have to rewrite myself
-    parser.add_argument('--help',type=str,help='The following data Structures are available')
+    #parser.add_argument('--help',type=str,help='The following data Structures are available')
     parser.add_argument('--dataStructure', type=str, default=None,help='Enter the data')
     opt = parser.parse_args()
-    print(opt)
-    interactiveDataStructuresTest()
+    #print(opt)
+    interactiveDataStructures(opt.dataStructure).cmdloop()
 

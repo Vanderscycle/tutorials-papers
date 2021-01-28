@@ -19,16 +19,10 @@ def countingSort():
 class DynamicArray:
     """
     Dynamic array data structure made from static arrays (buckets).
-    This is an  unsorted dynamic array, and weirder since during inserts and delete values are swapped
-    DoublyLinkedList
+    This is an  unsorted dynamic array, and weirder since during inserts and deletes values are swapped with the end of the array
     """
     def __init__(self, size=4):
         """
-        create an empty static array bucket
-        input:
-            - size(optional) being the number of elements in the starting array 
-        output: (nothing really)
-            - empty one dimensional static numpy array of shape (1,size)
         variables:
         __init__(self, size=4)
         - self.size (size of the array buckets)
@@ -49,6 +43,7 @@ class DynamicArray:
         """
         Check if there is room in the static bucket and if so adds it to the bucket.
         If no room exist it will double the size of the bucket
+
         Input:
             - value to be insert
         Output: 
@@ -65,6 +60,7 @@ class DynamicArray:
     def display(self):
         """
         displays all elements in the dynamic list and bucket size
+
         Input:
             - value to be insert
         Output: 
@@ -75,6 +71,7 @@ class DynamicArray:
     def expand(self):
         """
         class method to double the original size of the array. 
+
         Input:
             - 
         Output:
@@ -96,6 +93,7 @@ class DynamicArray:
     def shrink(self):
         """
         class method to reduce the array size in half. Similar to expand with a small change to the for loop indexing
+
         Input:(internal changes)
             - 
         Output: (nothing really)
@@ -115,6 +113,7 @@ class DynamicArray:
         """
         Search the array and find the index where the value appears. 
         Note if more than one is found it will return them all
+
         Input:
             - value of the search
         Output: 
@@ -125,7 +124,8 @@ class DynamicArray:
 
     def delete(self,val,delAll='no'):
         """
-        Search for the value to be deleted, and
+        Search for the value to be deleted, and deletes it
+
         Input:
             - value to be deleted
             - delAll(y/n) gives the choice
@@ -154,7 +154,8 @@ class DynamicArray:
 
     def insert(self, val, index):
         """
-        swap the value to be 
+        navigates to the index of the value to be inserted. Move the current value to the last index and then inserts the new value to the index position
+
         Input:
             - value to be added
             - the index in which it is added
