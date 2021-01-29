@@ -193,7 +193,7 @@ Binary heap is a binary tree that supports the heap invariant and has no more th
 Using the following zero indexed method:
 Let i be the parent node index
 * left child index = 2i +1
-* right child index = 2i +1
+* right child index = 2i +2
 
 Adding element to a binary heap: We create a new leaf (the leftmost available position) with the number reagardless of its position and then bubble it up (comparing its value as it bubble to its position)
 
@@ -210,7 +210,7 @@ This requires us to keep a separate table of the index position of each node val
 ![binary heap?](./images/xkcdtree.png)
 ### Complexity
 
-| Operation | binanry heap |
+| Operation | binary heap |
 |-|-|
 | Binary Heap construction | O(n) | 
 | Polling | O(log(n)) | 

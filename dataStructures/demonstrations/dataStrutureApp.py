@@ -84,18 +84,17 @@ class interactiveDataStructures(cmd.Cmd):
             print('yeah')
         else:
             raise ValueError(f'Please choose one of the following available data structure: {availableDataStrutuces.keys()}')
-    
 
     def do_DSInfo(self,arg):
         """
         print all non special method of the datastructure
         """
-        print(f'info regarding the {self.DSname}.__init__\n{self.dataStructure.__init__.__doc__}')
-        print(f'the following methods for {self.DSname} are available:\n{vdir(self.dataStructure)}')
+        print(f'Info regarding the {self.DSname}.__init__\n{self.dataStructure.__init__.__doc__}')
+        print(f'The following methods for {self.DSname} are available:\n{vdir(self.dataStructure)}')
         print(f'If you want more info about what a specific {self.DSname} method use')
 
-
     def do_DSMetInfo(self,line):
+        #TODO find a way to lookup an input string and have it return the class isntances method docstrings
         """
         I want to print the docstrings of the in usage datastructure when the user type it in the search cmd line
         """
