@@ -274,8 +274,20 @@ class PriorityQueue:
         """
         if self.is_empty():
             return
-
+        # creating a pointer
         temp = self.position[0]
+
+        # removing the parent node pointer to the last node
+        if self.position[-1].parentIndex % 2 != 0:
+            # the last node is the left children node of its parent
+            parentLastNodeIndex = int((self.position[-1].parentIndex - 1)/2)
+            self.position[parentLastNodeIndex].left = None
+        else: 
+            print('right')
+            # the last node is the right children node of its parent
+            parentLastNodeIndex = int((self.position[-1].parentIndex - 2)/2)
+            self.position[parentLastNodeIndex].right = None
+        self.display()
         # swaps root with the last leaf node
         self.position[-1],  self.position[0] = self.position[0],  self.position[-1]
         # changing index and pointers for the new root
@@ -419,13 +431,20 @@ class PriorityQueue:
         input: 
             - 
         output: 
-            - 
+            - print statements of the structure of the binary heap
         """
         for i in self.position:
-            try:
+            if (i.left!= None) and (i.right!= None):
                 print(f'node parent index {i.parentIndex}, key {i.key}, left node key {i.left.key}, right node key {i.right.key}')
-            except :
-                print(f'node parent index {i.parentIndex}, key {i.key} is a leaf node')
+
+            elif (i.left == None) and (i.right!= None):
+                print(f'node parent index {i.parentIndex}, key {i.key}, left node key {i.left}, right node key {i.right.key}')
+
+            elif (i.left != None) and (i.right == None):
+                print(f'node parent index {i.parentIndex}, key {i.key}, left node key {i.left.key}, right node key {i.right}')
+
+            else:
+                 print(f'node parent index {i.parentIndex}, key {i.key} is is leaf node')
 
 
 if __name__ == '__main__':
