@@ -341,14 +341,26 @@ class PriorityQueue:
                     print('swap left 2')
                     #! jsut check the spaghetti factory you created and see if you can do better
 
-                    # remembering position
+                    # remembering position because that's a massive source of headache
 
                     temp = deepcopy(leftNode)
                     tempTopNode = deepcopy(topNode)
 
-                    #TODO ok so it works alot better. I was having massive issues with the actual list
-                    #TODO we need to swap previous parent node pointer with their new pointers otherwise they will keep pointing to the same node that goes down.
+                    #? DONE ok so it works alot better. I was having massive issues with the actual list
+                    #? DONE  we need to swap previous parent node pointer with their new pointers otherwise they will keep pointing to the same node that goes down.
+                    #TODO prior swapping root and last node we must remove the last node previous reference
+                    # SWAPPING THE PARENT'S TOPNODE LEFT POINTER WITH  LEFTNODE (TOPNODE.LEFT)
+                    if (topNode.parentIndex!=0):
+                        if ((topNode.parentIndex - 1)/2).is_integer() and (leftNode!=None):
+                            print("updating topnode's parent left reference ")
+                            self.position[int((topNode.parentIndex - 1)/2)].left = temp #! THE REASON WHY IT WASN'T UPDATING
+
+                        elif ((topNode.parentIndex - 2)/2).is_integer() and (rightNode!=None):
+                            print("updating topnode's parent right reference ")
+                            self.position[int((topNode.parentIndex - 2)/2)].right = tempTopNode.right
+                    
                     # SWAPPING POINTERS LEFT NODE WITH PARENT NODE
+
                     (
                         leftNode.left,
                         leftNode.right,
