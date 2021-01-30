@@ -172,6 +172,8 @@ class PriorityQueue:
     Implementation of the Priority Queue data structure using a MIN binary heap and python lists. Optimization could be found using 
 
     - #TODO Insert
+    - #TODO bubble down
+    - #TODO bubble up
     - Poll
     - Remove (naive)
     - search (naive)
@@ -287,7 +289,7 @@ class PriorityQueue:
             # the last node is the right children node of its parent
             parentLastNodeIndex = int((self.position[-1].parentIndex - 2)/2)
             self.position[parentLastNodeIndex].right = None
-        self.display()
+
         # swaps root with the last leaf node
         self.position[-1],  self.position[0] = self.position[0],  self.position[-1]
         # changing index and pointers for the new root
@@ -296,7 +298,6 @@ class PriorityQueue:
         self.position[0].right = temp.right
         temp = self.position.pop()
         PriorityQueue.heapSize -= 1
-        #TODO float down the new root ( create separate method with while loop and flag)
         self.bubbleDown(self.position[0])       
         return temp
 
@@ -321,6 +322,7 @@ class PriorityQueue:
                 print(f'left travelling key: {rightNode.key}, list position: {rightNode.parentIndex} leftchild {rightNode.left.key} rightchild {rightNode.right.key}\n')
             except:
                 pass
+            #! add a check to see whether there is a left or right node to begin. If 
             # the parent node respects the heap invariability rule since it is the smallest
             if (topNode.key <= topNode.left.key) and (topNode.key <= topNode.right.key):
                 print('done')
@@ -349,12 +351,12 @@ class PriorityQueue:
 
             # both children nodes are smaller but
             elif (topNode.key > topNode.left.key) and (topNode.key > topNode.right.key):
+
                 if (topNode.left.key <= topNode.right.key):
                     print('swap left 2')
                     #! jsut check the spaghetti factory you created and see if you can do better
 
                     # remembering position because that's a massive source of headache
-
                     temp = deepcopy(leftNode)
                     tempTopNode = deepcopy(topNode)
 
@@ -371,7 +373,7 @@ class PriorityQueue:
                             print("updating topnode's parent right reference ")
                             self.position[int((topNode.parentIndex - 2)/2)].right = tempTopNode.right
                     
-                    # SWAPPING POINTERS LEFT NODE WITH PARENT NODE
+                    # SWAPPING CHILD POINTERS LEFT NODE WITH PARENT NODE
 
                     (
                         leftNode.left,
@@ -385,7 +387,7 @@ class PriorityQueue:
                             tempTopNode.key
                         )
 
-                    #SWAPPING POINTERS PARENT NODE W/ DEEPCOPY OF PARENT LEFT NODE
+                    #SWAPPING POINTERS PARENT NODE W/ DEEPCOPY OF PARENT LEFT NODE (CHILD)
                     (
                         topNode.left,
                         topNode.right,
@@ -408,9 +410,63 @@ class PriorityQueue:
 
 
                 else:
-                    print('swap right 2') 
-                    topNode, topNode.right = topNode.right, topNode
 
+                    print('swap right 2') 
+                    # remembering position because that's a massive source of headache
+                    temp = deepcopy(rightNode)
+                    tempTopNode = deepcopy(topNode)
+
+                    # SWAPPING THE PARENT'S TOPNODE LEFT POINTER WITH  LEFTNODE (TOPNODE.LEFT)
+                    if (topNode.parentIndex!=0):
+                        if ((topNode.parentIndex - 1)/2).is_integer() and (leftNode!=None):
+                            print("updating topnode's parent left reference ")
+                            self.position[int((topNode.parentIndex - 1)/2)].left = temp 
+
+                        elif ((topNode.parentIndex - 2)/2).is_integer() and (rightNode!=None):
+                            print("updating topnode's parent right reference ")
+                            self.position[int((topNode.parentIndex - 2)/2)].right = tempTopNode.right
+                    
+                    # SWAPPING CHILD POINTERS RIGHT NODE WITH PARENT NODE
+
+                    (
+                        rightNode.left,
+                        rightNode.right,
+                        rightNode.parentIndex,
+                        rightNode.key
+                        ) = ( 
+                            temp.left,
+                            temp.right,
+                            temp.parentIndex,
+                            tempTopNode.key
+                        )
+
+                    #SWAPPING POINTERS PARENT NODE W/ DEEPCOPY OF PARENT RIGHT NODE (CHILD)
+                    (
+                        topNode.left,
+                        topNode.right,
+                        topNode.parentIndex,
+                        topNode.key
+                        ) = (
+                            tempTopNode.left,
+                            tempTopNode,
+                            tempTopNode.parentIndex,
+                            temp.key
+                        )
+                    #swapping positions 
+                    self.position[rightNode.parentIndex] = rightNode
+                    self.position[topNode.parentIndex] = topNode
+                    topNode = self.position[rightNode.parentIndex] #! this is where ther error occurs
+                    self.display() # debugging
+                    # clearing memory (although that isn't necessary I think because of stacks)
+                    temp = None
+                    tempTopNode = None
+
+    def swapDownLeft(self,leftNode,topNode):
+        pass
+
+
+    def swapDownLeft(self,rightNode,topNode):
+        pass
 
     def peek(self):
         """
@@ -450,7 +506,8 @@ class PriorityQueue:
 if __name__ == '__main__':
 
     heapo = PriorityQueue()
-    vals = [0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,1299]
+    # vals = [0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,1299] # all the way left
+    vals = [0,20,10,60,50,40,30,140,130,120,110,100,90,80,70,150,1299] # all the way right
     nodeLists = [ PQNode(i) for i in vals ]
 
     [heapo.append(i)for i in nodeLists ]    
