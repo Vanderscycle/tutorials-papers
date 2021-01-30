@@ -174,6 +174,7 @@ class PriorityQueue:
     - #TODO Insert
     - #TODO bubble down
     - #TODO bubble up
+    - #TODO add some data to to the PQNODES and see if more modifications are required
     - Poll
     - Remove (naive)
     - search (naive)
@@ -316,17 +317,37 @@ class PriorityQueue:
         while heapRule == False:
             leftNode = topNode.left
             rightNode = topNode.right
-            print(f'traveling variable key: {topNode.key}, list position: {topNode.parentIndex} leftchild {topNode.left.key} rightchild {topNode.right.key}\n')
             try:
+                print(f'traveling variable key: {topNode.key}, list position: {topNode.parentIndex} leftchild {topNode.left.key} rightchild {topNode.right.key}\n')
                 print(f'left travelling key: {leftNode.key}, list position: {leftNode.parentIndex} leftchild {leftNode.left.key} rightchild {leftNode.right.key}')
                 print(f'left travelling key: {rightNode.key}, list position: {rightNode.parentIndex} leftchild {rightNode.left.key} rightchild {rightNode.right.key}\n')
             except:
                 pass
             #! add a check to see whether there is a left or right node to begin. If 
             # the parent node respects the heap invariability rule since it is the smallest
-            if (topNode.key <= topNode.left.key) and (topNode.key <= topNode.right.key):
+            if (topNode.left!=None) and (topNode.right==None):
+                if (topNode.key > topNode.left.key):
+                    print('swap left, right node is empty')
+                    topNode = self.swapDownLeft(leftNode,rightNode,topNode)
+                else:
+                    print('done')
+                    return      
+
+            elif (topNode.left==None) and (topNode.right!=None):
+                if (topNode.key > topNode.right.key):
+                    print('swap right, left node is empty')
+                    topNode = self.swapDownRight(leftNode,rightNode,topNode)       
+                else:
+                    print('done')
+                    return
+
+            elif (topNode.left==None) and (topNode.right==None):
                 print('done')
-                heapRule = True
+                return                                 
+
+            elif (topNode.key <= topNode.left.key) and (topNode.key <= topNode.right.key):
+                print('topNode respect the invariability relue')
+                print('done')
                 return 
 
             # the left node is smaller that its parent so we swap
@@ -524,8 +545,8 @@ class PriorityQueue:
 if __name__ == '__main__':
 
     heapo = PriorityQueue()
-    vals = [0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,1299] # all the way left
-    # vals = [0,20,10,60,50,40,30,140,130,120,110,100,90,80,70,150,1299] # all the way right
+    # vals = [0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,1299] # all the way left
+    vals = [0,20,10,60,50,40,30,140,130,120,110,100,90,80,70,150,1299] # all the way right
     nodeLists = [ PQNode(i) for i in vals ]
 
     [heapo.append(i)for i in nodeLists ]    
