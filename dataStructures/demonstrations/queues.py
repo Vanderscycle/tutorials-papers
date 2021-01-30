@@ -354,119 +354,137 @@ class PriorityQueue:
 
                 if (topNode.left.key <= topNode.right.key):
                     print('swap left 2')
-                    #! jsut check the spaghetti factory you created and see if you can do better
-
-                    # remembering position because that's a massive source of headache
-                    temp = deepcopy(leftNode)
-                    tempTopNode = deepcopy(topNode)
-
-                    #? DONE ok so it works alot better. I was having massive issues with the actual list
-                    #? DONE  we need to swap previous parent node pointer with their new pointers otherwise they will keep pointing to the same node that goes down.
-                    #TODO prior swapping root and last node we must remove the last node previous reference
-                    # SWAPPING THE PARENT'S TOPNODE LEFT POINTER WITH  LEFTNODE (TOPNODE.LEFT)
-                    if (topNode.parentIndex!=0):
-                        if ((topNode.parentIndex - 1)/2).is_integer() and (leftNode!=None):
-                            print("updating topnode's parent left reference ")
-                            self.position[int((topNode.parentIndex - 1)/2)].left = temp #! THE REASON WHY IT WASN'T UPDATING
-
-                        elif ((topNode.parentIndex - 2)/2).is_integer() and (rightNode!=None):
-                            print("updating topnode's parent right reference ")
-                            self.position[int((topNode.parentIndex - 2)/2)].right = tempTopNode.right
-                    
-                    # SWAPPING CHILD POINTERS LEFT NODE WITH PARENT NODE
-
-                    (
-                        leftNode.left,
-                        leftNode.right,
-                        leftNode.parentIndex,
-                        leftNode.key
-                        ) = ( 
-                            temp.left,
-                            temp.right,
-                            temp.parentIndex,
-                            tempTopNode.key
-                        )
-
-                    #SWAPPING POINTERS PARENT NODE W/ DEEPCOPY OF PARENT LEFT NODE (CHILD)
-                    (
-                        topNode.left,
-                        topNode.right,
-                        topNode.parentIndex,
-                        topNode.key
-                        ) = (
-                            tempTopNode,
-                            tempTopNode.right,
-                            tempTopNode.parentIndex,
-                            temp.key
-                        )
-                    #swapping positions 
-                    self.position[leftNode.parentIndex] = leftNode
-                    self.position[topNode.parentIndex] = topNode
-                    topNode = self.position[leftNode.parentIndex] #! this is where ther error occurs
-                    self.display() # debugging
-                    # clearing memory (although that isn't necessary I think)
-                    temp = None
-                    tempTopNode = None
-
+                    topNode = self.swapDownLeft(leftNode,rightNode,topNode)
 
                 else:
 
                     print('swap right 2') 
-                    # remembering position because that's a massive source of headache
-                    temp = deepcopy(rightNode)
-                    tempTopNode = deepcopy(topNode)
+                    topNode = self.swapDownRight(leftNode,rightNode,topNode)
 
-                    # SWAPPING THE PARENT'S TOPNODE LEFT POINTER WITH  LEFTNODE (TOPNODE.LEFT)
-                    if (topNode.parentIndex!=0):
-                        if ((topNode.parentIndex - 1)/2).is_integer() and (leftNode!=None):
-                            print("updating topnode's parent left reference ")
-                            self.position[int((topNode.parentIndex - 1)/2)].left = temp 
+    def swapDownLeft(self,leftNode,rightNode,topNode):
+        """
+        Swaps the parent node with its left child node 
 
-                        elif ((topNode.parentIndex - 2)/2).is_integer() and (rightNode!=None):
-                            print("updating topnode's parent right reference ")
-                            self.position[int((topNode.parentIndex - 2)/2)].right = tempTopNode.right
-                    
-                    # SWAPPING CHILD POINTERS RIGHT NODE WITH PARENT NODE
+        input: 
+            - parent node (topNode)
+            - left child node
+        output: 
+            - the new travellingNode (the swapped topNode with its child)
+        """
+        #! jsut check the spaghetti factory you created and see if you can do better
 
-                    (
-                        rightNode.left,
-                        rightNode.right,
-                        rightNode.parentIndex,
-                        rightNode.key
-                        ) = ( 
-                            temp.left,
-                            temp.right,
-                            temp.parentIndex,
-                            tempTopNode.key
-                        )
+        # remembering position because that's a massive source of headache
+        temp = deepcopy(leftNode)
+        tempTopNode = deepcopy(topNode)
 
-                    #SWAPPING POINTERS PARENT NODE W/ DEEPCOPY OF PARENT RIGHT NODE (CHILD)
-                    (
-                        topNode.left,
-                        topNode.right,
-                        topNode.parentIndex,
-                        topNode.key
-                        ) = (
-                            tempTopNode.left,
-                            tempTopNode,
-                            tempTopNode.parentIndex,
-                            temp.key
-                        )
-                    #swapping positions 
-                    self.position[rightNode.parentIndex] = rightNode
-                    self.position[topNode.parentIndex] = topNode
-                    topNode = self.position[rightNode.parentIndex] #! this is where ther error occurs
-                    self.display() # debugging
-                    # clearing memory (although that isn't necessary I think because of stacks)
-                    temp = None
-                    tempTopNode = None
+        #? DONE ok so it works alot better. I was having massive issues with the actual list
+        #? DONE  we need to swap previous parent node pointer with their new pointers otherwise they will keep pointing to the same node that goes down.
+        #TODO prior swapping root and last node we must remove the last node previous reference
+        # SWAPPING THE PARENT'S TOPNODE LEFT POINTER WITH  LEFTNODE (TOPNODE.LEFT)
+        if (topNode.parentIndex!=0):
+            if ((topNode.parentIndex - 1)/2).is_integer() and (leftNode!=None):
+                print("updating topnode's parent left reference ")
+                self.position[int((topNode.parentIndex - 1)/2)].left = temp #! THE REASON WHY IT WASN'T UPDATING
 
-    def swapDownLeft(self,leftNode,topNode):
-        pass
+            elif ((topNode.parentIndex - 2)/2).is_integer() and (rightNode!=None):
+                print("updating topnode's parent right reference ")
+                self.position[int((topNode.parentIndex - 2)/2)].right = tempTopNode.right
+        
+        # SWAPPING CHILD POINTERS LEFT NODE WITH PARENT NODE
+
+        (
+            leftNode.left,
+            leftNode.right,
+            leftNode.parentIndex,
+            leftNode.key
+            ) = ( 
+                temp.left,
+                temp.right,
+                temp.parentIndex,
+                tempTopNode.key
+            )
+
+        #SWAPPING POINTERS PARENT NODE W/ DEEPCOPY OF PARENT LEFT NODE (CHILD)
+        (
+            topNode.left,
+            topNode.right,
+            topNode.parentIndex,
+            topNode.key
+            ) = (
+                tempTopNode,
+                tempTopNode.right,
+                tempTopNode.parentIndex,
+                temp.key
+            )
+        #swapping positions 
+        self.position[leftNode.parentIndex] = leftNode
+        self.position[topNode.parentIndex] = topNode
+        topNode = self.position[leftNode.parentIndex] #! this is where ther error occurs
+        self.display() # debugging
+        # clearing memory (although that isn't necessary I think)
+        temp = None
+        tempTopNode = None
+        return topNode
 
 
-    def swapDownLeft(self,rightNode,topNode):
-        pass
+    def swapDownRight(self,leftNode,rightNode,topNode):
+        """
+        Swaps the parent node with its right child node 
+
+        input: 
+            - parent node (topNode)
+            - right child node
+        output: 
+            - the new travellingNode (the swapped topNode with its child)
+        """
+        temp = deepcopy(rightNode)
+        tempTopNode = deepcopy(topNode)
+
+        # SWAPPING THE PARENT'S TOPNODE LEFT POINTER WITH  LEFTNODE (TOPNODE.LEFT)
+        if (topNode.parentIndex!=0):
+            if ((topNode.parentIndex - 1)/2).is_integer() and (leftNode!=None):
+                print("updating topnode's parent left reference ")
+                self.position[int((topNode.parentIndex - 1)/2)].left = temp 
+
+            elif ((topNode.parentIndex - 2)/2).is_integer() and (rightNode!=None):
+                print("updating topnode's parent right reference ")
+                self.position[int((topNode.parentIndex - 2)/2)].right = tempTopNode.right
+        
+        # SWAPPING CHILD POINTERS RIGHT NODE WITH PARENT NODE
+
+        (
+            rightNode.left,
+            rightNode.right,
+            rightNode.parentIndex,
+            rightNode.key
+            ) = ( 
+                temp.left,
+                temp.right,
+                temp.parentIndex,
+                tempTopNode.key
+            )
+
+        #SWAPPING POINTERS PARENT NODE W/ DEEPCOPY OF PARENT RIGHT NODE (CHILD)
+        (
+            topNode.left,
+            topNode.right,
+            topNode.parentIndex,
+            topNode.key
+            ) = (
+                tempTopNode.left,
+                tempTopNode,
+                tempTopNode.parentIndex,
+                temp.key
+            )
+        #swapping positions 
+        self.position[rightNode.parentIndex] = rightNode
+        self.position[topNode.parentIndex] = topNode
+        topNode = self.position[rightNode.parentIndex] #! this is where ther error occurs
+        self.display() # debugging
+        # clearing memory (although that isn't necessary I think because of stacks)
+        temp = None
+        tempTopNode = None
+        return topNode
 
     def peek(self):
         """
@@ -506,8 +524,8 @@ class PriorityQueue:
 if __name__ == '__main__':
 
     heapo = PriorityQueue()
-    # vals = [0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,1299] # all the way left
-    vals = [0,20,10,60,50,40,30,140,130,120,110,100,90,80,70,150,1299] # all the way right
+    vals = [0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,1299] # all the way left
+    # vals = [0,20,10,60,50,40,30,140,130,120,110,100,90,80,70,150,1299] # all the way right
     nodeLists = [ PQNode(i) for i in vals ]
 
     [heapo.append(i)for i in nodeLists ]    
