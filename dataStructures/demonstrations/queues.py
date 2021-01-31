@@ -226,10 +226,70 @@ class PriorityQueue:
                 # solution: https://stackoverflow.com/questions/21583758/how-to-check-if-a-float-value-is-a-whole-number
                 print(f'check 1 {(PriorityQueue.heapSize - 1)/2} check 2 {(PriorityQueue.heapSize - 2)/2}')
                 print('error debug please')
-                return
             self.position.append(node)
         PriorityQueue.heapSize += 1
 
+
+    def insert(self,node):
+        """
+        Inserts a node to the bottom of the tree and then bubbles it up depending on the key value 
+
+        input: 
+            - the node class instance 
+        output:
+            - 
+        """
+        # we append the node at the end of the tree
+        self.append(node)
+        # then we bubble up the node
+        self.bubbleUp(self.position[-1])
+        self.display()
+
+
+    def bubbleUp(self,bottomNode):
+        """
+        Bubble up a node by comparing with its parent key
+
+        input: 
+            - a parent PQNode class instance 
+        output: 
+            - 
+        """
+        # assuming the heap invariability isn't respected at the start
+        heapRule = False
+        parentNode = bottomNode
+        while heapRule == False:
+
+            # no need to bubble anything if this is the only node
+            if (bottomNode.parentIndex==0):
+                return
+            # FINDING WHO THE PARENT OF THE BOTTOMNODE IS (LEFT OR RIGHT PARENT)
+            elif (bottomNode.parentIndex>=1):
+                if ((bottomNode.parentIndex - 1)/2).is_integer():
+                    print("The parent of bottomNode is pointing to it using a left pointer\n")
+                    parentNode = self.position[int((bottomNode.parentIndex - 1)/2)]
+                    pointerPositon = 'left'
+  
+                elif ((bottomNode.parentIndex - 2)/2).is_integer():
+                    print("The parent of bottomNode is pointing to it using a right pointer\n")
+                    parentNode = self.position[int((bottomNode.parentIndex - 2)/2)]    
+                    pointerPositon = 'right'
+
+            # the parent respects the min heap variant so it is at the right position
+            if parentNode.key <= bottomNode.key:
+                heapRule = True
+
+            # the bottom node needs to be swapped
+            elif (parentNode.key > bottomNode.key) and (pointerPositon == 'left') :
+                print('done')
+                # we reuse both previously created methods but in this case the parentNode is the topNode
+                bottomNode = self.swapDownLeft(bottomNode,parentNode.right,parentNode)
+
+            # the bottom node needs to be swapped
+            elif (parentNode.key > bottomNode.key) and (pointerPositon == 'right') :
+                # we reuse both previously created methods but in this case the parentNode is the topNode
+                bottomNode = self.swapDownRight(parentNode.left,bottomNode,parentNode)
+                  
 
     def search(self,nodeKey,info=False):
         """
@@ -312,7 +372,7 @@ class PriorityQueue:
         output: 
             - 
         """
-        # assuming the heap invariability isn't respected
+        # assuming the heap invariability isn't respected at the start
         heapRule = False
         while heapRule == False:
             leftNode = topNode.left
@@ -441,7 +501,7 @@ class PriorityQueue:
         self.position[leftNode.parentIndex] = leftNode
         self.position[topNode.parentIndex] = topNode
         topNode = self.position[leftNode.parentIndex] #! this is where ther error occurs
-        self.display() # debugging
+        # self.display() # debugging
         # clearing memory (although that isn't necessary I think)
         temp = None
         tempTopNode = None
@@ -501,7 +561,7 @@ class PriorityQueue:
         self.position[rightNode.parentIndex] = rightNode
         self.position[topNode.parentIndex] = topNode
         topNode = self.position[rightNode.parentIndex] #! this is where ther error occurs
-        self.display() # debugging
+        # self.display() # debugging
         # clearing memory (although that isn't necessary I think because of stacks)
         temp = None
         tempTopNode = None
@@ -544,28 +604,24 @@ class PriorityQueue:
 
 if __name__ == '__main__':
 
-    heapo = PriorityQueue()
+    # heapo = PriorityQueue()
     # vals = [0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,1299] # all the way left
-    vals = [0,20,10,60,50,40,30,140,130,120,110,100,90,80,70,150,1299] # all the way right
-    nodeLists = [ PQNode(i) for i in vals ]
+    # vals = [0,20,10,60,50,40,30,140,130,120,110,100,90,80,70,150,1299] # all the way right
+    # nodeLists = [ PQNode(i) for i in vals ]
 
-    [heapo.append(i)for i in nodeLists ]    
-    heapo.display()
+    # [heapo.append(i)for i in nodeLists ]    
+    # heapo.display()
 
-    #print(heapo.position[3].key)
-    # for i in heapo.position:
-    #     # print(i.key,i.parentIndex)
-    #     try:
-    #         print(f'node parent index {i.parentIndex}, key {i.key}, left node key {i.left.key}, right node key {i.right.key}')
-    #     except :
-    #         print(f'node parent index {i.parentIndex}, key {i.key} is a leaf node')
+    # print(heapo.poll().key)
     # print(heapo.heapSize)
-    print(heapo.poll().key)
-    print(heapo.heapSize)
-    heapo.display()
-    print(heapo.search(410))
+    # heapo.display()
+    # print(heapo.search(410))
 
-
+    print('--insert tests--')
+    heapo2 = PriorityQueue()
+    vals = [30,20,0,10,5] # all the way right
+    nodeLists = [ PQNode(i) for i in vals ]    
+    [heapo2.insert(i)for i in nodeLists ] 
 
 
 
