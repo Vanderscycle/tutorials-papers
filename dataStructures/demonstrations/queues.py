@@ -171,15 +171,15 @@ class PriorityQueue:
     """
     Implementation of the Priority Queue data structure using a MIN binary heap and python lists. Optimization could be found using 
 
-    - #TODO Insert
-    - #TODO bubble down
-    - #TODO bubble up
+    - Insert
+    - bubble down (helper)
+    - bubble up (helper)
     - #TODO add some data to to the PQNODES and see if more modifications are required
     - Poll
-    - Remove (naive)
+    - delete ( remove naive)
     - search (naive)
     - Peek
-    - Display
+    - Display 
     """
     heapSize = 0
     def __init__(self):
@@ -229,6 +229,84 @@ class PriorityQueue:
             self.position.append(node)
         PriorityQueue.heapSize += 1
 
+    def delete(self,nodeToDeleteKey):
+        """
+        search for a node key in the tree, if found swaps it with the last node in the tree (have to figure out hte pointers)
+
+        input: 
+            - the node class instance 
+        output:
+            - message if not found
+        """
+        nodeDeleteIndex, nodeInstanceDelete = self.search(nodeToDeleteKey) # (index,node class instance)
+
+        # the node to delete is last so we just remove it
+        if nodeDeleteIndex == PriorityQueue.heapSize:
+            self.position[nodeDeleteIndex] = None
+            PriorityQueue.heapSize -= 1
+            return
+        # the node to delete is last so we just remove it
+        elif nodeDeleteIndex == 0:
+            poll()
+            return
+        
+        # making copy otherwise its a headache
+        temp = deepcopy(nodeInstanceDelete)
+        lastNodeTemp = deepcopy(self.position[-1])
+
+        # adjusting the parent pointers of the node to be deleted
+        if ((nodeDeleteIndex - 1)/2).is_integer():
+            print("updating topnode's parent left reference ")
+            self.position[int((nodeDeleteIndex - 1)/2)].left = lastNodeTemp #! THE REASON WHY IT WASN'T UPDATING
+
+        elif ((nodeDeleteIndex - 2)/2).is_integer():
+            print("updating topnode's parent right reference ")
+            self.position[int((nodeDeleteIndex - 2)/2)].right = lastNodeTemp
+
+        # it is possible that the node to be delete actually points to the last node. In which case we want to remove the pointer to it.
+        if (nodeInstanceDelete.left.key == lastNodeTemp.key):
+            nodeInstanceDelete.left = None
+
+        elif (nodeInstanceDelete.right.key == lastNodeTemp.key):
+            nodeInstanceDelete.right = None
+
+        # SWAPPING THE NODE TO DELETE POINTERS WITH LAST NODE 
+        (
+            # nodeInstanceDelete.left,
+            # nodeInstanceDelete.right,
+            # nodeInstanceDelete.parentIndex,
+            nodeInstanceDelete.key
+            ) = ( 
+                # lastNodeTemp.left,
+                # lastNodeTemp.right,
+                # lastNodeTemp.parentIndex,
+                lastNodeTemp.key
+            )        
+        # SWAPPING THE LAST NODE WITH THE NODE TP DELETE
+        (
+            self.position[-1].left,
+            self.position[-1].right,
+            self.position[-1].parentIndex,
+            self.position[-1].key
+            ) = ( 
+                temp.left,
+                temp.right,
+                temp.parentIndex,
+                temp.key
+            )
+
+        # the node to be deleted (now in the last position) can be removed
+        self.position.pop()
+        PriorityQueue.heapSize -= 1
+        self.position[nodeDeleteIndex] = nodeInstanceDelete
+
+        # self.display() # debugging
+        # clearing memory (although that isn't necessary I think)
+        temp = None
+        tempTopNode = None
+        self.bubbleDown(self.position[nodeDeleteIndex])  
+        # bubble down after
+
 
     def insert(self,node):
         """
@@ -243,7 +321,7 @@ class PriorityQueue:
         self.append(node)
         # then we bubble up the node
         self.bubbleUp(self.position[-1])
-        self.display()
+        self.display() # debugging
 
 
     def bubbleUp(self,bottomNode):
@@ -391,7 +469,7 @@ class PriorityQueue:
                     topNode = self.swapDownLeft(leftNode,rightNode,topNode)
                 else:
                     print('done')
-                    return      
+                    heapRule = True      
 
             elif (topNode.left==None) and (topNode.right!=None):
                 if (topNode.key > topNode.right.key):
@@ -399,16 +477,16 @@ class PriorityQueue:
                     topNode = self.swapDownRight(leftNode,rightNode,topNode)       
                 else:
                     print('done')
-                    return
+                    heapRule = True 
 
             elif (topNode.left==None) and (topNode.right==None):
                 print('done')
-                return                                 
+                heapRule = True                                  
 
             elif (topNode.key <= topNode.left.key) and (topNode.key <= topNode.right.key):
                 print('topNode respect the invariability relue')
                 print('done')
-                return 
+                heapRule = True  
 
             # the left node is smaller that its parent so we swap
             elif (topNode.key > topNode.left.key) and (topNode.key <= topNode.right.key):
@@ -444,7 +522,7 @@ class PriorityQueue:
 
     def swapDownLeft(self,leftNode,rightNode,topNode):
         """
-        Swaps the parent node with its left child node 
+        Swaps the parent node with its left child node. (only adjacent node) 
 
         input: 
             - parent node (topNode)
@@ -452,20 +530,16 @@ class PriorityQueue:
         output: 
             - the new travellingNode (the swapped topNode with its child)
         """
-        #! jsut check the spaghetti factory you created and see if you can do better
 
         # remembering position because that's a massive source of headache
         temp = deepcopy(leftNode)
         tempTopNode = deepcopy(topNode)
 
-        #? DONE ok so it works alot better. I was having massive issues with the actual list
-        #? DONE  we need to swap previous parent node pointer with their new pointers otherwise they will keep pointing to the same node that goes down.
-        #TODO prior swapping root and last node we must remove the last node previous reference
         # SWAPPING THE PARENT'S TOPNODE LEFT POINTER WITH  LEFTNODE (TOPNODE.LEFT)
         if (topNode.parentIndex!=0):
             if ((topNode.parentIndex - 1)/2).is_integer() and (leftNode!=None):
                 print("updating topnode's parent left reference ")
-                self.position[int((topNode.parentIndex - 1)/2)].left = temp #! THE REASON WHY IT WASN'T UPDATING
+                self.position[int((topNode.parentIndex - 1)/2)].left = temp 
 
             elif ((topNode.parentIndex - 2)/2).is_integer() and (rightNode!=None):
                 print("updating topnode's parent right reference ")
@@ -500,7 +574,7 @@ class PriorityQueue:
         #swapping positions 
         self.position[leftNode.parentIndex] = leftNode
         self.position[topNode.parentIndex] = topNode
-        topNode = self.position[leftNode.parentIndex] #! this is where ther error occurs
+        topNode = self.position[leftNode.parentIndex] 
         # self.display() # debugging
         # clearing memory (although that isn't necessary I think)
         temp = None
@@ -560,7 +634,7 @@ class PriorityQueue:
         #swapping positions 
         self.position[rightNode.parentIndex] = rightNode
         self.position[topNode.parentIndex] = topNode
-        topNode = self.position[rightNode.parentIndex] #! this is where ther error occurs
+        topNode = self.position[rightNode.parentIndex] 
         # self.display() # debugging
         # clearing memory (although that isn't necessary I think because of stacks)
         temp = None
@@ -622,7 +696,9 @@ if __name__ == '__main__':
     vals = [30,20,0,10,5] # all the way right
     nodeLists = [ PQNode(i) for i in vals ]    
     [heapo2.insert(i)for i in nodeLists ] 
-
+    print('--delete--')
+    heapo2.delete(5)
+    heapo2.display()
 
 
 
