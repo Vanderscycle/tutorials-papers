@@ -1,4 +1,4 @@
-class Node:
+class StackNode:
 
 
     def __init__(self,key):
@@ -109,18 +109,27 @@ class Stack:
             print(f'stack size: {Stack.stackSize}')
         return(Stack.stackSize)
 
+def vdir(obj,info=False):
+    """
+    used to display to the user what non special method are available
+    taken from stack overflow
+    """
+    if info:
+        return [print(f'Nethod name: {getattr(obj, str(x)).__name__}\nDocStrings:\n{getattr(obj, str(x)).__doc__}') for x in dir(obj) if not x.startswith('__')]
+    return [x for x in dir(obj) if not x.startswith('__')]
+
 if __name__ == '__main__':
 
     
     fullStackMemory = Stack()
-    node1 = Node(1)
+    node1 = StackNode(1)
     node1.data = {'key1':1,'key2':2}
     print(node1.data)
-    node2 = Node('test')
+    node2 = StackNode('test')
     node2.data = {'key1':3,'key2':4}
-    node3 = Node(3)
+    node3 = StackNode(3)
     node3.data = {'key1':5,'key2':6}
-    node4 = Node('4bro')
+    node4 = StackNode('4bro')
     node4.data = {'key1':7,'key2':8}
     print(node2.data)
     print(node2.key)
@@ -140,3 +149,11 @@ if __name__ == '__main__':
     print(fullStackMemory.size())
     print('--test operations')
     print(fullStackMemory.search('test'))
+
+    print('--v')
+    # print(getattr(Stack(), 'peek').__doc__)
+    print(Stack.__doc__)
+    print('--after')
+    print(vdir(Stack()))
+    vdir(Stack(),info=True)
+    # print(Stack().peek()

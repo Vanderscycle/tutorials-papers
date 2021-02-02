@@ -54,7 +54,7 @@ class Queue:
             -
         """
         node.index = Queue.queueSize
-        if self.isEmpty():
+        if Queue.queueSize == 0:
             self.head = node
             self.tail = node
         else:
