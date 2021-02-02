@@ -21,15 +21,16 @@ class QueueNode:
 class Queue:
     """
     Implementation of the Queue data structure
-    - Enqueue (add to the front of the queue)
-    - Dequeue (remove the last item of the queue)
-    - peek (value of the last item)
-    - search (contains)
-    - removal (empty queue)
-    - is Empty
-    #TODO display method
-    class a variable:
-    - Queue.queueSize (the amount of nodes in the class instance)
+    class methods:
+        - Enqueue (add to the front of the queue)
+        - Dequeue (remove the last item of the queue)
+        - peek (value of the last item)
+        - search (contains)
+        - removal (empty queue)
+        - is Empty
+        - display method
+    class variable:
+        - Queue.queueSize (the amount of nodes in the class instance)
     """
     queueSize = 0
 
@@ -46,7 +47,9 @@ class Queue:
 
     def enqueue(self,node):
         """
-        Add a node to the front of the queue
+        enqueue(self,node)
+        Description:
+            - Add a node to the front of the queue
 
         input
             - a node from Node Class
@@ -68,7 +71,9 @@ class Queue:
 
     def dequeue(self):
         """
-        Remove the node at the tail of the queue
+        dequeue(self):
+        description:
+           - Remove the node at the tail of the queue
 
         input 
             -
@@ -88,7 +93,9 @@ class Queue:
 
     def search(self,nodeKey):
         """
-        Traverse the queue looking for a specific node key
+        search(self,nodeKey)
+        description:
+            - Traverse the queue looking for a specific node key
 
         input:
             - the desired Key associated with the node
@@ -105,11 +112,33 @@ class Queue:
             return (cursor.index,cursor.data)
         else:
             print('key not found in stack')
-    
+
+
+    def display(self):
+        """
+        display(self)
+        description:
+            - Traverse the queue and display its content
+
+        input:
+            - 
+        output:  
+            - message if queue is empty
+            - print statements 
+        """         
+        if self.isEmpty():
+            return
+        cursor = self.tail
+        while (cursor != None):
+            print(f'node index: {cursor.index} key: {cursor.key} data: {cursor.data}')
+            cursor = cursor.nodeBefore
+
 
     def removal(self):
         """
-        Completly empties the queue
+        removal(self)
+        description:
+            - Completly empties the queue
 
         input: 
             - 
@@ -126,8 +155,10 @@ class Queue:
 
     def peek(self):
         """
-        peek is an operation on certain abstract data types, 
-        specifically sequential collections such as stacks and queues, which returns the value of the top 
+        peek(self)
+        description:
+            - peek is an operation on certain abstract data types, 
+            - specifically sequential collections such as stacks and queues, which returns the value of the top 
         
         input: 
             - 
@@ -144,7 +175,9 @@ class Queue:
 
     def isEmpty(self):
         """
-        checks if the queue is empty
+        isEmpty(self) (helper method)
+        description:
+            - checks if the queue is empty
 
         input: 
             - 
@@ -159,6 +192,9 @@ class Queue:
         return False
 
 class PQNode:
+    """
+    Node used for the priority queue class
+    """
     def __init__(self,key):
         self.key = key
         self.data = None # same principle as a dictionary make the key independent of the data value
@@ -170,16 +206,19 @@ class PQNode:
 class PriorityQueue:
     """
     Implementation of the Priority Queue data structure using a MIN binary heap and python lists. Optimization could be found using 
-
+    class methods:
     - Insert
-    - bubble down (helper)
-    - bubble up (helper)
-    - #TODO add some data to to the PQNODES and see if more modifications are required
-    - Poll
-    - delete ( remove naive)
-    - search (naive)
-    - Peek
-    - Display 
+        - bubble down (helper)
+        - bubble up (helper)
+        - #TODO add some data to to the PQNODES and see if more modifications are required
+        - Poll
+        - delete ( remove naive)
+        - search (naive)
+        - Peek
+        - Display 
+    class variables:
+        - PriorityQueue.heapsize
+
     """
     heapSize = 0
     def __init__(self):
@@ -189,11 +228,14 @@ class PriorityQueue:
 
     def append(self,node):
         """
-        Appends a PQNode class instance in the binary tree at the first available leaf node. 
-        #! Doesn't actually sort it so depending of the order it may violates the heap invariant rule.
-        finds the index of the parent node (i) using the 
-        - nodeIndex (left) = 2i + 1 where nodeIndex element of Z
-        - nodeIndex (right) = 2i + 2 where nodeIndex element of Z
+        append(self,node)
+        description:
+            - Appends a PQNode class instance in the binary tree at the first available leaf node. 
+            - #! Doesn't actually sort it so depending of the order it may violates the heap invariant rule.
+            - finds the index of the parent node (i) using the 
+                - nodeIndex (left) = 2i + 1 where nodeIndex element of Z
+                - nodeIndex (right) = 2i + 2 where nodeIndex element of Z
+
         input: 
             - the PQNode node class instance
         output: 
@@ -229,9 +271,12 @@ class PriorityQueue:
             self.position.append(node)
         PriorityQueue.heapSize += 1
 
+
     def delete(self,nodeToDeleteKey):
         """
-        search for a node key in the tree, if found swaps it with the last node in the tree (have to figure out hte pointers)
+        delete(self,nodeToDeleteKey):
+        description:
+            - search for a node key in the tree, if found swaps it with the last node in the tree (have to figure out hte pointers)
 
         input: 
             - the node class instance 
@@ -310,7 +355,9 @@ class PriorityQueue:
 
     def insert(self,node):
         """
-        Inserts a node to the bottom of the tree and then bubbles it up depending on the key value 
+        insert(self,node)
+        description:
+            - Inserts a node to the bottom of the tree and then bubbles it up depending on the key value 
 
         input: 
             - the node class instance 
@@ -326,7 +373,9 @@ class PriorityQueue:
 
     def bubbleUp(self,bottomNode):
         """
-        Bubble up a node by comparing with its parent key
+        bubbleUp(self,bottomNode) (helper method)
+            description:
+                - Bubble up a node by comparing with its parent key
 
         input: 
             - a parent PQNode class instance 
@@ -371,7 +420,9 @@ class PriorityQueue:
 
     def search(self,nodeKey,info=False):
         """
-        Returns the top PQNode class instance 
+        search(self,nodeKey,info=False)
+        description:
+            - Returns the top PQNode class instance 
 
         input: 
             - the node class instance from which we will get the key from
@@ -389,7 +440,9 @@ class PriorityQueue:
 
     def is_empty(self):
         """
-        Checks if the heap is empty
+        is_empty(self)
+        description:
+            - Checks if the heap is empty
 
         input: 
             - 
@@ -406,7 +459,9 @@ class PriorityQueue:
 
     def poll(self):
         """
-        Returns the top PQNode class instance 
+        poll(self):
+        description:
+            - Returns the top PQNode class instance 
 
         input: 
             - 
@@ -443,7 +498,9 @@ class PriorityQueue:
 
     def bubbleDown(self,topNode):
         """
-        Bubble down a node by comparing its subsequent left and right node keys
+        bubbleDown(self,topNode) (helper method)
+        description:
+            - Bubble down a node by comparing its subsequent left and right node keys
 
         input: 
             - a parent PQNode class instance 
@@ -455,7 +512,7 @@ class PriorityQueue:
         while heapRule == False:
             leftNode = topNode.left
             rightNode = topNode.right
-            try:
+            try: # debugg
                 print(f'traveling variable key: {topNode.key}, list position: {topNode.parentIndex} leftchild {topNode.left.key} rightchild {topNode.right.key}\n')
                 print(f'left travelling key: {leftNode.key}, list position: {leftNode.parentIndex} leftchild {leftNode.left.key} rightchild {leftNode.right.key}')
                 print(f'left travelling key: {rightNode.key}, list position: {rightNode.parentIndex} leftchild {rightNode.left.key} rightchild {rightNode.right.key}\n')
@@ -520,9 +577,12 @@ class PriorityQueue:
                     print('swap right 2') 
                     topNode = self.swapDownRight(leftNode,rightNode,topNode)
 
+
     def swapDownLeft(self,leftNode,rightNode,topNode):
         """
-        Swaps the parent node with its left child node. (only adjacent node) 
+        swapDownLeft(self,leftNode,rightNode,topNode) (helper method)
+        description:
+            - Swaps the parent node with its left child node. (only adjacent node) 
 
         input: 
             - parent node (topNode)
@@ -584,7 +644,9 @@ class PriorityQueue:
 
     def swapDownRight(self,leftNode,rightNode,topNode):
         """
-        Swaps the parent node with its right child node 
+        swapDownRight(self,leftNode,rightNode,topNode) (helper method)
+        description:
+            - Swaps the parent node with its right child node 
 
         input: 
             - parent node (topNode)
@@ -643,7 +705,9 @@ class PriorityQueue:
 
     def peek(self):
         """
-        Returns the top PQNode class instance 
+        peek(self)
+        description:
+            - Returns the top PQNode class instance 
 
         input: 
             - 
@@ -655,7 +719,9 @@ class PriorityQueue:
 
     def display(self):
         """
-        Not a beautiful or graphical print, but text will have to do for now
+        display(self)
+        description:
+            - Not a beautiful or graphical print, but text will have to do for now
 
         input: 
             - 
@@ -712,32 +778,35 @@ if __name__ == '__main__':
 
 
 
-    # print('--Simple Queue print test --')    
-    # simpleQ = Queue()
-    # node1 = QueueNode(1)
-    # node1.data = {'key1':1,'key2':2}
-    # node2 = QueueNode('test')
-    # node2.data = {'key1':3,'key2':4}
-    # node3 = QueueNode(3)
-    # node3.data = {'key1':5,'key2':6}
-    # node4 = QueueNode('4bro')
-    # node4.data = {'key1':7,'key2':8}
-    # simpleQ.enqueue(node1)
-    # simpleQ.enqueue(node2)
-    # print('--test search')
-    # print(simpleQ.search('test'))
-    # print(simpleQ.search(3))
-    # print(simpleQ.head.key)
-    # print(simpleQ.peek())
-    # simpleQ.dequeue()
-    # print(simpleQ.peek())
-    # simpleQ.dequeue()
-    # simpleQ.dequeue()
-    # simpleQ.search('4bro')
-    # simpleQ.enqueue(node1)
-    # simpleQ.enqueue(node2)
-    # simpleQ.enqueue(node3)
-    # simpleQ.enqueue(node4)
-    # print(simpleQ.peek())
-    # print('--removal test')
-    # simpleQ.removal()
+    print('--Simple Queue print test --')    
+    simpleQ = Queue()
+    node1 = QueueNode(1)
+    node1.data = {'key1':1,'key2':2}
+    node2 = QueueNode('test')
+    node2.data = {'key1':3,'key2':4}
+    node3 = QueueNode(3)
+    node3.data = {'key1':5,'key2':6}
+    node4 = QueueNode('4bro')
+    node4.data = {'key1':7,'key2':8}
+    simpleQ.enqueue(node1)
+    simpleQ.enqueue(node2)
+    print('--display test')
+    simpleQ.display()
+    print('--test search')
+    print(simpleQ.search('test'))
+    print(simpleQ.search(3))
+    print(simpleQ.head.key)
+    print(simpleQ.peek())
+    simpleQ.dequeue()
+    print(simpleQ.peek())
+    simpleQ.dequeue()
+    simpleQ.dequeue()
+    simpleQ.search('4bro')
+    simpleQ.enqueue(node1)
+    simpleQ.enqueue(node2)
+    simpleQ.enqueue(node3)
+    simpleQ.enqueue(node4)
+    print(simpleQ.peek())
+    print('--removal test')
+    simpleQ.removal()
+    simpleQ.display()
