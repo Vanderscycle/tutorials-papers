@@ -93,7 +93,6 @@ class interactiveDataStructures(cmd.Cmd):
             self.DSNode = correspondingNodes[dataStructure]
             self.DSname = dataStructure
             interactiveDataStructures.prompt = text.Text(f'({dataStructure}) ', style="bold magenta") # doesn't quite work
-            print('yeah')
         else:
             raise ValueError(f'Please choose one of the following available data structure: {availableDataStrutuces.keys()}')
 
