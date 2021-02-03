@@ -1,3 +1,6 @@
+from rich import (
+    print
+    )
 class StackNode:
     """
     Node used for the stack class

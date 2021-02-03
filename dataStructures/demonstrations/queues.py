@@ -1,4 +1,9 @@
 from copy import deepcopy
+from rich import (
+    pretty,
+    traceback,
+    print
+    )
 class QueueNode:
     """
     Node used for the simple queue class
@@ -743,7 +748,8 @@ class PriorityQueue:
 
 
 if __name__ == '__main__':
-
+    pretty.install()
+    traceback.install()
     # heapo = PriorityQueue()
     # vals = [0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,1299] # all the way left
     # vals = [0,20,10,60,50,40,30,140,130,120,110,100,90,80,70,150,1299] # all the way right

@@ -1,6 +1,16 @@
 import argparse
 import inspect
 import cmd
+
+# documentation https://github.com/willmcgugan/rich
+from rich import (
+    pretty,
+    text, # you can configure style and console like you would on CSS https://rich.readthedocs.io/en/stable/style.html
+    traceback,
+    print
+    )
+from rich.console import Console
+
 # custom data structures
 from dynamicArray import DynamicArray
 from linkedList import (
@@ -18,38 +28,6 @@ from queues import (
     PQNode,
     PriorityQueue
     )
-
-def is_relevant(obj):
-    """Filter for the inspector to filter out non user defined functions/classes
-    taken from:
-    https://stackoverflow.com/questions/58089209/printing-python-docstrings-for-all-class-methods
-    """
-    if hasattr(obj, '__name__') and obj.__name__ == 'type':
-        return False
-    if inspect.isfunction(obj) or inspect.isclass(obj) or inspect.ismethod(obj):
-        return True
-
-
-def print_docs(module):
-    default = 'No doc string provided' # Default if there is no docstring, can be removed if you want
-    flag = True
-
-    for child in inspect.getmembers(module, is_relevant):
-        if not flag: print('\n\n\n')
-        flag = False # To avoid the newlines at top of output
-        doc = inspect.getdoc(child[1])
-        if not doc:
-            doc = default
-        print(child[0], doc, sep = '\n')
-
-        if inspect.isclass(child[1]):
-            for grandchild in inspect.getmembers(child[1], is_relevant):
-                doc = inspect.getdoc(grandchild[1])
-                if doc:
-                    doc = doc.replace('\n', '\n    ')
-                else:
-                    doc = default 
-                print('\n    ' + grandchild[0], doc, sep = '\n    ')
 
 
 def vdir(obj,info=False):
@@ -87,7 +65,11 @@ class interactiveDataStructures(cmd.Cmd):
 
     def __init__(self, dataStructure):
         super(interactiveDataStructures, self).__init__()
-
+        # rich module elements
+        pretty.install()
+        traceback.install()
+        self.console = Console()
+        # Datastructure elements
         availableDataStrutuces = {
             'DynamicArray': DynamicArray(),
             'SingleLinkedList': SinglyLinkedList(),
@@ -110,7 +92,7 @@ class interactiveDataStructures(cmd.Cmd):
             self.dataStructure = availableDataStrutuces[dataStructure]
             self.DSNode = correspondingNodes[dataStructure]
             self.DSname = dataStructure
-            interactiveDataStructures.prompt = f'({dataStructure}) '
+            interactiveDataStructures.prompt = text.Text(f'({dataStructure}) ', style="bold magenta") # doesn't quite work
             print('yeah')
         else:
             raise ValueError(f'Please choose one of the following available data structure: {availableDataStrutuces.keys()}')
@@ -135,9 +117,14 @@ class interactiveDataStructures(cmd.Cmd):
         try:
             # https://stackoverflow.com/questions/7969949/whats-the-difference-between-globals-locals-and-vars
             # glo
+            
             return exec(line, globals())
-        except Exception as e:
-            print(f'{e.__class__}:{e}')
+
+            # exec(print(str(line)))
+
+        except:# Exception as e:
+            self.console.print_exception()
+            # print(f'{e.__class__}:{e}')
 
 
     def do_exit(self,arg):
@@ -151,7 +138,7 @@ class interactiveDataStructures(cmd.Cmd):
 
 # the lines bellow won't run if imported
 if __name__ == '__main__':
-
+    
     parser = argparse.ArgumentParser()
     #TODO: add the list of available data structures in a way that I don't have to rewrite myself
     #parser.add_argument('--help',type=str,help='The following data Structures are available')

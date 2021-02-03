@@ -1,7 +1,8 @@
 import numpy as np
-import copy
-
-
+from copy import deepcopy
+from rich import (
+    print
+    )
 
 #TODO
 # 2. create a counting sort
@@ -20,6 +21,14 @@ class DynamicArray:
     """
     Dynamic array data structure made from static arrays (buckets).
     This is an  unsorted dynamic array, and weirder since during inserts and deletes values are swapped with the end of the array
+    class methods
+        - append
+        - display
+        - search
+        - insert
+        - delete
+    class variables
+        - None
     """
     def __init__(self, size=4):
         """
@@ -41,8 +50,10 @@ class DynamicArray:
 
     def append(self, val):
         """
-        Check if there is room in the static bucket and if so adds it to the bucket.
-        If no room exist it will double the size of the bucket
+        append(self, val)
+        description:
+            - Check if there is room in the static bucket and if so adds it to the bucket.
+            - If no room exist it will double the size of the bucket
 
         Input:
             - value to be insert
@@ -59,7 +70,9 @@ class DynamicArray:
 
     def display(self):
         """
-        displays all elements in the dynamic list and bucket size
+        display(self)
+        description
+            - displays all elements in the dynamic list and bucket size
 
         Input:
             - value to be insert
@@ -70,7 +83,9 @@ class DynamicArray:
 
     def expand(self):
         """
-        class method to double the original size of the array. 
+        expand(self) (helper method)
+        decription
+            - class method to double the original size of the array. 
 
         Input:
             - 
@@ -79,7 +94,7 @@ class DynamicArray:
         """
         # creating a new empty bucket double the size of the original
         self.size = self.size * 2
-        temp = copy.deepcopy(self.array) # copy will not do because we reinit the array instance
+        temp = deepcopy(self.array) # copy will not do because we reinit the array instance
         # init the array with the new size
         self.array = np.empty(self.size)
         self.array[:] = np.nan
@@ -92,7 +107,9 @@ class DynamicArray:
 
     def shrink(self):
         """
-        class method to reduce the array size in half. Similar to expand with a small change to the for loop indexing
+        shrink(self) (helper method)
+        description:
+            - reduce the array size in half. Similar to expand with a small change to the for loop indexing
 
         Input:(internal changes)
             - 
@@ -100,7 +117,7 @@ class DynamicArray:
             - 
         """
         self.size = self.size // 2
-        temp = copy.deepcopy(self.array)
+        temp = deepcopy(self.array)
         # init the array with the new size
         self.array = np.empty(self.size)
         self.array[:] = np.nan
@@ -111,8 +128,10 @@ class DynamicArray:
 
     def search(self, val):
         """
-        Search the array and find the index where the value appears. 
-        Note if more than one is found it will return them all
+        search(self, val)
+        description:
+            - Search the array and find the index where the value appears. 
+            - Note if more than one is found it will return them all
 
         Input:
             - value of the search
@@ -124,7 +143,9 @@ class DynamicArray:
 
     def delete(self,val,delAll='no'):
         """
-        Search for the value to be deleted, and deletes it
+        delete(self,val,delAll='no')
+        description:
+            - Search for the value to be deleted, and deletes it
 
         Input:
             - value to be deleted
@@ -154,7 +175,9 @@ class DynamicArray:
 
     def insert(self, val, index):
         """
-        navigates to the index of the value to be inserted. Move the current value to the last index and then inserts the new value to the index position
+        insert(self, val, index)
+        description:
+            - navigates to the index of the value to be inserted. Move the current value to the last index and then inserts the new value to the index position
 
         Input:
             - value to be added

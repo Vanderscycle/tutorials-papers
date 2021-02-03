@@ -1,3 +1,6 @@
+from rich import (
+    print
+    )
 class ListNode:
     """
     The class node can be used for both singly and doubly linked list. 
@@ -21,14 +24,15 @@ class ListNode:
 
 class SinglyLinkedList:
     """
-    append = Add an element at the end of the list
-    Insert(3) − Adds an element at the beginning of the list/middle to end
-    Delete(3) − Deletes an element at the beginning of the list/middle to end
-    Display − Displays the complete list.
-    Search − Searches an element using the given key.
-    Delete − Deletes an element using the given key.
-    class a variable:
-    - SinglyLinkedList.listSize (the amount of nodes in the class instance)
+    class methods:
+        - append = Add an element at the end of the list
+        - Insert(3) − Adds an element at the beginning of the list/middle to end
+        - Delete(3) − Deletes an element at the beginning of the list/middle to end
+        - Display − Displays the complete list.
+        - Search − Searches an element using the given key.
+        - Delete − Deletes an element using the given key.
+    class variable:
+        - SinglyLinkedList.listSize (the amount of nodes in the class instance)
     """
     listSize = 0    
 
@@ -46,7 +50,10 @@ class SinglyLinkedList:
 
     def append(self,nextNode):
         """
-        Appends a node to the end SinglyLinkedList
+        append(self,nextNode)
+        description:
+            - Appends a node to the end SinglyLinkedList
+
         input:
             - ListNode class instance to be inserted
         output: 
@@ -65,8 +72,10 @@ class SinglyLinkedList:
 
     def insert(self,node,index):
         """
-        Inserts a node to a specific index of the singly linked list. 
-        Check whether the index is specified to be at the beginning, middle or end of the list
+        insert(self,node,index)
+        description:
+            - Inserts a node to a specific index of the singly linked list. 
+            - Check whether the index is specified to be at the beginning, middle or end of the list
         
         input:
             - LinkedNode class instance to be inserted
@@ -100,8 +109,10 @@ class SinglyLinkedList:
 
     def delete(self,value):
         """
-        look for a value in the linked list using the search method
-        unlink, and delete the item found.
+        delete(self,value)
+        description:
+            - look for a value in the linked list using the search method
+            - unlink, and delete the item found.
 
         input:
             - node value to be removed. If the value/data is a json we could use the index instead
@@ -131,9 +142,11 @@ class SinglyLinkedList:
     
     def resetIndex(self):
         """
-        navigate the entire linked list to reset its index. (used mostly internally)
-        The index information is not necessary and increases the complexity to O(n) even in O(1) operations
-        Can be removed in the future (scalability depending)
+        resetIndex(self)
+        description:
+            - navigate the entire linked list to reset its index. (used mostly internally)
+            - The index information is not necessary and increases the complexity to O(n) even in O(1) operations
+            - Can be removed in the future (scalability depending)
 
         input:
             - 
@@ -148,6 +161,7 @@ class SinglyLinkedList:
 
     def display(self):
         """
+        display(self)
         Iterates throught the entire linked list (head to tail)
         print each nodes with its index and value/ley
 
@@ -166,8 +180,10 @@ class SinglyLinkedList:
 
     def search(self,value):
         """
-        Iterates throught the entire linked list (head to tail) and returns the first occurance
-        class method defining the search function
+        search(self,value)
+        description:
+            - Iterates throught the entire linked list (head to tail) and returns the first occurance
+            - class method defining the search function
 
         input:
             - value/key the user is looking for
@@ -185,15 +201,15 @@ class SinglyLinkedList:
 
 class DoublyLinkedList: 
     """
-    Available methods
-    append = Add an element at the end of the list
-    Insert(3) − Adds an element at the beginning of the list/middle to end
-    Delete(3) − Deletes an element at the beginning of the list/middle to end
-    Display − Displays the complete list.
-    Search − Searches an element using the given key.
-    Delete − Deletes an element using the given key.
-    class a variable:
-    - DoublyLinkedList.listSize (the amount of nodes in the class instance)
+    class methods
+        - append = Add an element at the end of the list
+        - Insert(3) − Adds an element at the beginning of the list/middle to end
+        - Delete(3) − Deletes an element at the beginning of the list/middle to end
+        - Display − Displays the complete list.
+        - Search − Searches an element using the given key.
+        - Delete − Deletes an element using the given key.
+    class variable:
+        - DoublyLinkedList.listSize (the amount of nodes in the class instance)
     """
     listSize = 0 
 
@@ -211,7 +227,9 @@ class DoublyLinkedList:
 
     def append(self,nextNode):
         """
-        Appends a node to the end DoublyLinkedList
+        append(self,nextNode)
+        description:
+            - Appends a node to the end DoublyLinkedList
 
         input:
             - ListNode class instance to be inserted
@@ -235,8 +253,10 @@ class DoublyLinkedList:
 
     def insert(self,node,index):
         """
-        Inserts a node to a specific index of the DoublyLinked list. 
-        Check whether the index is specified to be at the beginning, middle or end of the list
+        insert(self,node,index)
+        description:
+            - Inserts a node to a specific index of the DoublyLinked list. 
+            - Check whether the index is specified to be at the beginning, middle or end of the list
 
         input:
             - LinkedNode class instance to be inserted
@@ -278,9 +298,11 @@ class DoublyLinkedList:
 
     def resetIndex(self):
         """
-        navigate the entire linked list to reset its index. (used mostly internally)
-        The index information is not necessary and increases the complexity to O(n) even in O(1) operations
-        Can be removed in the future (scalability depending)
+        resetIndex(self)
+        description:
+            - navigate the entire linked list to reset its index. (used mostly internally)
+            - The index information is not necessary and increases the complexity to O(n) even in O(1) operations
+            - Can be removed in the future (scalability depending)
 
         input:
             - 
@@ -295,8 +317,10 @@ class DoublyLinkedList:
 
     def display(self):
         """
-        Iterates throught the entire linked list (head to tail)
-        print each nodes with its index and value/key
+        display(self)
+        description:
+            - Iterates throught the entire linked list (head to tail)
+            - print each nodes with its index and value/key
 
         input:
             - 
@@ -313,8 +337,10 @@ class DoublyLinkedList:
 
     def search(self,value):
         """
-        Iterates throught the entire linked list (head to tail) and returns the first occurance
-        class method defining the search function
+        search(self,value)
+        description
+            - Iterates throught the entire linked list (head to tail) and returns the first occurance
+            - class method defining the search function
 
         input:
             - value/key the user is looking for
@@ -333,9 +359,11 @@ class DoublyLinkedList:
 
     def delete(self,value):
         """
-        look for a value in the linked list using the search method
-        unlink, and delete the item found.
-        #! only navigates from head to tail and not vice-versa despite it can be implemented
+        delete(self,value)
+        description:
+            - look for a value in the linked list using the search method
+            - unlink, and delete the item found.
+            #! only navigates from head to tail and not vice-versa can be implemented (in the future)
 
         input:
             - node value to be removed. If the value/data is a json we could use the index instead
