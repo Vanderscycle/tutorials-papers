@@ -14,4 +14,5 @@ RUN pip install -r requirements.txt
 COPY . .
 RUN chmod +x /usr/src/app/start.sh
 # starting it automatically is a bad idea since it will go in a forever loop
+# use : # docker run -it data_structure_app:beta-pre-prod /bin/bash
 # CMD bash start.sh
