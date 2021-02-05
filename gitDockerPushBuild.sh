@@ -9,7 +9,7 @@ if [[ -n '$(git status - porcelain)' ]]
 then
     echo "Pushing data to remote origin/"$BRANCH
     git push #-u #origin/$BRANCH
-    echo 'git status'
+    echo 'git status:\n'
     git status
 
 else
@@ -18,7 +18,7 @@ else
     git reset --soft HEAD~1
 fi
 # This is the part where we want to see if there are any changes to the docker container
-# STATUSDOCKER=null
+# https://carlosbecker.com/posts/git-changed/
 git diff --quiet HEAD $REF -- ./dataStructures/ || STATUSDOCKER='changed'
 if [[ $STATUSDOCKER == 'changed' ]]
 then
