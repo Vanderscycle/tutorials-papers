@@ -1,7 +1,6 @@
 #!bin/bash
-# see if there are any files in demonstrations changed?
-# file that pushes add all files, asks for a commit message and then pushes yo git (may have to use the .env for passwords)
-# the second goal is also to build and then push changes to docker hub
+# script that add all files, asks for a commit message and then push to git (may have to use the .env for passwords)
+# also pushes to docker hub if changes are detected in the ./datastructure folder
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
 #git add * # because of the -a flag no need to use git add *
 read -p "Enter your commit message": COMMITMESSAGE  
@@ -12,11 +11,11 @@ then
 else
     git status
     echo "Pushing data to remote origin/"$BRANCH
-    git push #-u origin $BRANCH
+    git push -u origin $BRANCH
 fi
 # This is the part where we want to see if there are any changes to the docker container
 STATUSDOCKER=null
-git diff --quiet HEAD $BRANCH  -- ./dataStructures/demonstrations/ || STATUSDOCKER=changed
+git diff --quiet HEAD $REF  -- ./dataStructures/ || STATUSDOCKER='changed'
 if [ $STATUSDOCKER=='changed' ]
 then
     echo 'rebuilding the docker image'
@@ -29,3 +28,4 @@ fi
 
 # if the branch is ahead by {x} commits it will display them
 # git log origin/master..HEAD
+# https://stackoverflow.com/questions/20101994/git-pull-from-master-into-the-development-branch
