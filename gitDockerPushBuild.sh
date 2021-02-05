@@ -7,9 +7,10 @@ read -p "Enter your commit message": COMMITMESSAGE
 git commit -m"${COMMITMESSAGE}"
 if [[ -n '$(git status - porcelain)' ]]
 then
-    git status
     echo "Pushing data to remote origin/"$BRANCH
-    git push -u origin/$BRANCH
+    git push #-u #origin/$BRANCH
+    echo 'git status'
+    git status
 
 else
     echo "Your branch is up to date with origin/"$BRANCH
