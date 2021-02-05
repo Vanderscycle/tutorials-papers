@@ -12,7 +12,7 @@ then
 else
     git status
     echo "Pushing data to remote origin/"$BRANCH
-    git push -u origin $BRANCH
+    git push #-u origin $BRANCH
 fi
 # This is the part where we want to see if there are any changes to the docker container
 STATUSDOCKER=null
