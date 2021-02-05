@@ -1,7 +1,10 @@
 import argparse
 import inspect
 import cmd
+from pathlib import Path
+import os
 
+# rich commandline modules
 # documentation https://github.com/willmcgugan/rich
 from rich import (
     pretty,
@@ -10,6 +13,7 @@ from rich import (
     print
     )
 from rich.console import Console
+from rich.markdown import Markdown
 
 # custom data structures
 from dynamicArray import DynamicArray
@@ -99,7 +103,7 @@ class interactiveDataStructures(cmd.Cmd):
 
     def do_DSInfo(self,info=False):
         """
-        print all non special method of the datastructure
+        print all non special method of the data structure that was selected
         """
         print(f'Info regarding the Class:{type(self.dataStructure).__name__}.__init__\n{self.dataStructure.__init__.__doc__}\n')
         print(f'Info regarding the Node used for the Class: {type(self.DSNode).__name__}.__init__\n{self.DSNode.__init__.__doc__}\n')
@@ -108,6 +112,18 @@ class interactiveDataStructures(cmd.Cmd):
             print(f'Detailled overview of each methods of {type(self.dataStructure).__name__}:\n{vdir(self.dataStructure,info=True)}')
         # print(f'If you want more info about what a specific {type(self.DSNode).__name__} method use')
 
+    def do_manual(self,arg):
+        """
+        If you want to learn more about data structures
+        """
+        #taken from Django
+        # BASE_DIR = Path(__file__).resolve().parent.parent
+        # woah pathlib is amazing
+        BASE_DIR = Path('../dataStructure.md')
+
+        with open(BASE_DIR) as readme:
+            markdown = Markdown(readme.read())
+        self.console.print(markdown)
 
     def default(self, line): #! this is what I was looking for the exec() cmd
         """Called on an input line when the command prefix is not recognized.
