@@ -1,5 +1,7 @@
 My interpretation of data structures based on [freeCodeCamp video](https://www.youtube.com/watch?v=RBSGKlAvoiM).
 
+Collaborator:
+* [Olivia](https://github.com/yjik122)
 
 Dockerized version available on [Docker Hub](https://hub.docker.com/repository/docker/vandercycle/datastructures-python/general)
 to run the container enter the following commands:
