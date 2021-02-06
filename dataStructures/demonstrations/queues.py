@@ -226,9 +226,10 @@ class PriorityQueue:
 
     """
     heapSize = 0
+
+
     def __init__(self):
         self.position = list()
-        pass
 
 
     def append(self,node):

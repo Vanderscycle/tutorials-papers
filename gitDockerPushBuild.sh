@@ -9,7 +9,7 @@ if [[ -n '$(git status - porcelain)' ]]
 then
     echo "Pushing data to remote origin/"$BRANCH
     git push #-u #origin/$BRANCH
-    echo 'git status:\n'
+    echo 'git status:'
     git status
 
 else
