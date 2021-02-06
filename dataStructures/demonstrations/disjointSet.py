@@ -2,16 +2,28 @@ from rich import (
     print,
     traceback
     )
+# really usefull when you have a weird sort to do (a list of lists where you want to sort by first index, then on second index, etc)
+#https://docs.python.org/3/library/operator.html#operator.itemgetter
+from operator import itemgetter
 
 class KruskalNode:
     """
     Node class used for the Kruskal class which can have a number of pointers
+
     """
-    def __init__(self,key,data):
+    def __init__(self,key,data=None):
+        """
+        __init__(self,key,data=None):
+        variables:
+            - key (the key used to access the node)
+            - data (the data json,dict,list,etc that the node will hold)
+            - index (auto assigned)
+            - pointers (a list for all the edges)
+        """
         self.key = key
         self.data = data
         self.index = None
-        # unlike the binary tree or linked list where the pointers were defined. We create a list to store a tupple (nodeClassInstancePointer, weightOfLink)
+        # unlike the binary tree or linked list where the pointers were defined. We create a list to store a tupple (nodeClassInstancePointerTo, weightOfLink)
         self.pointers = list()
 
 class GraphKruskal:
@@ -40,6 +52,9 @@ class GraphKruskal:
         output: 
             - 
         """
+        #checks if the key is unique
+        if self.isPresent(node,mode='check'):
+            raise ValueError("The key is already present please choose a different and unique key")
         node.index = GraphKruskal.graphSize
         self.position.append(node)
         GraphKruskal.graphSize += 1
@@ -49,28 +64,27 @@ class GraphKruskal:
 
     def isPresent(self,nodeKeys,mode='search',info=False): # 
         """
-        isPrsent(self,nodeKey) (HelperMethod)
+        isPresent(self,nodeKeys,mode='search',info=False) (HelperMethod)
         description:
             - check is a given node key is present in the graph
             - double hatted class method
             - O(n)* can be really expensive depending on how many arguments are passed
         input: 
             - The node class instance keys 
-            - #! see you a list can be passed so that we don't have to search the list twice
             - optional mode=['check','search']
-                - check we want to check for the present
-                - search we want the node
-            - optional info=[True,False] if more info in the check mode is required in a print form
+                - check: if the node key is the present return True or False 
+                - search: if the node(s) class instance(s) are present we want to return a list of class instances or False if not present
+            - optional info=[True,False] if more info in the check mode is required it will do in a print form
         output: 
             - returns the node class instance
             - message if not present
         """   
-        # In this mode we want a simple 
+        # In this mode we want a simple True/False about the presence of a single item #TODO(could be changed for multiple items)
         if mode=='check':
-            result = next(i for i in self.position if any(nodeKeys == i.key))
+            result = next((i for i in self.position if nodeKeys == i.key),False)
             if result:
                 if info:
-                    print(f'node: {result.key}, data: {result.data}, pointers: {[(n.key,w) for n,w in result.pointers ]} ')
+                    print(f'node: {result.key}, data: {result.data}, pointers: {[(n.key,w) for n,w in result.pointers]} ')
                 return True
                 
             print(f'node: {nodeKeys} not found')
@@ -92,33 +106,106 @@ class GraphKruskal:
 
     def createEdge(self,nodeFromKey,nodeToKey,weight=0):
         """
+        createEdge(self,nodeFromKey,nodeToKey,weight=0):
         description:
-        If the node already exists we want to link to it
-        ELIF the node doesn't exists we wnat to add it and create
-        pointers have to be made both ways (doubly linked)
-            - check is a given node key is present in the graph
+            - create edges between two nodes. If one or both node do not  
+            If the node already exists we want to link to it
+            ELIF the node doesn't exists we wnat to add it and create
+            pointers have to be made both ways (doubly linked)
+                - check is a given node key is present in the graph
         input: 
             - The node class instance keys 
-
         output: 
-            - r
+            - create and append the node(internal)
             -
         """
-        status = self.isPresent([nodeFromKey,nodeToKey],mode='search')
+        nodeList = [nodeFromKey,nodeToKey]
+        status = self.isPresent(nodeList,mode='search')
         # if an element isn't present we will create it, but with empty data
+        # the list comprehension look complex because of the if else statement. if not present create else pass the node class instance
         # https://stackoverflow.com/questions/4406389/if-else-in-a-list-comprehension
-        nodeAvail = [self.append(KruskalNode(nodeKey,None),mode='append') if i == False else i for i,nodeKey in zip(status,[nodeFromKey,nodeToKey]) ]
-        print(nodeAvail)
+        nodeAvail = [self.append(KruskalNode(nodeKey),mode='append') if i == False else i for i,nodeKey in zip(status,nodeList)]
+        # creating the edges for both nodes
+        #! Need to check if they were present before
+        [f.pointers.append((t,weight)) for f,t in zip(nodeAvail,nodeAvail[::-1])] # tupple (nodeClassInstancePointerTo, weightOfLink)
 
+
+    def display(self):
+        """
+        display(self): (helper method)
+        description:
+            - allow the user to see the 
+        input: 
+            -  
+        output: 
+            - message about each node class instance information
+        """
+        print(f'edge with other nodes (nodeTo, Weight)')
+        [print(f'Node key:{i.key}, node index:{i.index}, data: {i.data}, edge with other nodes:{[(j[0].key,j[1]) for j in i.pointers]}') for i in self.position]
+    
+    
+    def minimumSpanningTree(self):
+        """
+        display(self): 
+        description:
+            - sorts all the edges from lowest to highest
+        input: 
+            -  
+        output: 
+            - message about each node class instance information
+        """
+        # double_comprehension = [word for words in text for word in words]
+        ListToSort = [(node.key,edge[0].key,edge[1]) for node in self.position for edge in node.pointers]
+        # https://stackoverflow.com/questions/4174941/how-to-sort-a-list-of-lists-by-a-specific-index-of-the-inner-list/4174955
+        sorted(ListToSort, key=itemgetter(2))
+        print('(NodeKeyFrom,NodeKeyTo,weight)')
+        [print(i) for i in ListToSort]
+        
+
+
+    def union(self,NodeKeyFrom,NodeKeyTo):
+        """
+        display(self): (helper method)
+        description:
+            - 
+        input: 
+            -  
+        output: 
+            - 
+        """
+        pass
+
+
+    def find(self):
+        """
+        display(self): (helper method)
+        description:
+            - allow the user to see the 
+        input: 
+            -  
+        output: 
+            - message about each node class instance information
+        """
+        pass
 
 
 if __name__ == '__main__':
-    val = [30,20,0,10,5] # all the way right
+    val = [0,1,2,3,4] # all the way right
     data = ['a30','b20','c0','d10','e5']
     nodeLists = [ KruskalNode(k,d) for k,d in zip(val,data)]  
-
     gK = GraphKruskal()
     [gK.append(i) for i in nodeLists]
-    print(gK.isPresent(['1231',30,769]))
-    gK.createEdge(30,4)
-    print(gK.isPresent([4]))
+    gK.createEdge(0,1,8)
+    gK.createEdge(0,2,5)
+    gK.createEdge(1,2,9)
+    gK.createEdge(1,3,11)
+    gK.createEdge(2,3,15)
+    gK.createEdge(2,4,10)
+    gK.createEdge(3,2,15)
+    gK.createEdge(3,4,11)
+    
+    
+    print(gK.isPresent(['1231',0,769]))
+    # print(gK.isPresent([4]))
+    gK.display()
+    gK.minimumSpanningTree()
