@@ -200,9 +200,9 @@ class PQNode:
     """
     Node used for the priority queue class
     """
-    def __init__(self,key):
+    def __init__(self,key,data):
         self.key = key
-        self.data = None # same principle as a dictionary make the key independent of the data value
+        self.data = data # same principle as a dictionary make the key independent of the data value
         self.left = None
         self.right = None
         self.parentIndex = None
@@ -616,12 +616,14 @@ class PriorityQueue:
             leftNode.left,
             leftNode.right,
             leftNode.parentIndex,
-            leftNode.key
+            leftNode.key,
+            leftNode.data
             ) = ( 
                 temp.left,
                 temp.right,
                 temp.parentIndex,
-                tempTopNode.key
+                tempTopNode.key,
+                tempTopNode.data
             )
 
         #SWAPPING POINTERS PARENT NODE W/ DEEPCOPY OF PARENT LEFT NODE (CHILD)
@@ -629,12 +631,14 @@ class PriorityQueue:
             topNode.left,
             topNode.right,
             topNode.parentIndex,
-            topNode.key
+            topNode.key,
+            topNode.data
             ) = (
                 tempTopNode,
                 tempTopNode.right,
                 tempTopNode.parentIndex,
-                temp.key
+                temp.key,
+                temp.data
             )
         #swapping positions 
         self.position[leftNode.parentIndex] = leftNode
@@ -678,12 +682,15 @@ class PriorityQueue:
             rightNode.left,
             rightNode.right,
             rightNode.parentIndex,
-            rightNode.key
+            rightNode.key,
+            rightNode.data
             ) = ( 
                 temp.left,
                 temp.right,
                 temp.parentIndex,
-                tempTopNode.key
+                tempTopNode.key,
+                tempTopNode.data
+
             )
 
         #SWAPPING POINTERS PARENT NODE W/ DEEPCOPY OF PARENT RIGHT NODE (CHILD)
@@ -691,12 +698,14 @@ class PriorityQueue:
             topNode.left,
             topNode.right,
             topNode.parentIndex,
-            topNode.key
+            topNode.key,
+            topNode.data
             ) = (
                 tempTopNode.left,
                 tempTopNode,
                 tempTopNode.parentIndex,
-                temp.key
+                temp.key,
+                temp.data
             )
         #swapping positions 
         self.position[rightNode.parentIndex] = rightNode
@@ -735,16 +744,16 @@ class PriorityQueue:
         """
         for i in self.position:
             if (i.left!= None) and (i.right!= None):
-                print(f'node parent index {i.parentIndex}, key {i.key}, left node key {i.left.key}, right node key {i.right.key}')
+                print(f'node parent index {i.parentIndex}, key {i.key}, left node key {i.left.key}, right node key {i.right.key}, data: {i.data}')
 
             elif (i.left == None) and (i.right!= None):
-                print(f'node parent index {i.parentIndex}, key {i.key}, left node key {i.left}, right node key {i.right.key}')
+                print(f'node parent index {i.parentIndex}, key {i.key}, left node key {i.left}, right node key {i.right.key}, data: {i.data}')
 
             elif (i.left != None) and (i.right == None):
-                print(f'node parent index {i.parentIndex}, key {i.key}, left node key {i.left.key}, right node key {i.right}')
+                print(f'node parent index {i.parentIndex}, key {i.key}, left node key {i.left.key}, right node key {i.right}, data: {i.data}')
 
             else:
-                 print(f'node parent index {i.parentIndex}, key {i.key} is is leaf node')
+                 print(f'node parent index {i.parentIndex}, key {i.key} is is leaf node, data: {i.data}')
 
 
 if __name__ == '__main__':
@@ -765,8 +774,10 @@ if __name__ == '__main__':
 
     print('--insert tests--')
     heapo2 = PriorityQueue()
-    vals = [30,20,0,10,5] # all the way right
-    nodeLists = [ PQNode(i) for i in vals ]    
+    val = [30,20,0,10,5] # all the way right
+    data = ['a30','b20','c0','d10','e5']
+    vals = zip(val,data)
+    nodeLists = [ PQNode(k,d) for k,d in vals ]    
     [heapo2.insert(i)for i in nodeLists ] 
     print('--delete--')
     heapo2.delete(5)

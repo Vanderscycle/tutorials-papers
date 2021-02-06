@@ -205,8 +205,6 @@ We Polling is O(log(n)) and removing is O(n) which is inneficient, but can be im
 
 This requires us to keep a separate table of the index position of each node value. Since each node value can be repeated, we will store the indices in an array 
 
-## (hash table) to be added later
-
 ![binary heap?](./images/xkcdtree.png)
 ### Complexity
 
@@ -234,15 +232,45 @@ For string values: using [PLY](https://pypi.org/project/ply/) (the python addapt
 * nlex(s1,s2) = -(0) = 0 if s1 = s2 lexicographically
 
 [lexicographic order in action](https://www.youtube.com/watch?v=LtlZtFXe8Io)
-## Binary Trees
+## Disjoint-set/Union find
+Disjoint-set is a DS that keeps track of elements which are split into one or more disjoint sets. It has two primary operations find and union.
+
+Given an element, union find will tell you what group it belongs to, but in a very efficient manner.
+
+There's a really good explanation on [mathblog](https://www.mathblog.dk/disjoint-set-data-structure/) some really handy graphics.
+
+Can be used for:
+* grid percolation
+* least [common ancestor in trees](https://en.wikipedia.org/wiki/Lowest_common_ancestor)
+![grid percolation](./images/gridpercolation.png)
 
 ### implementation
+Construct a bijection (a mapping) between your objects and the integers in the range 0->n
+
+Find operation: to find which component a particular element belongs to find the root of that component by following the parent nodes until a self loop is reached
+
+Union operation: to unify two elements find which are the root nodes of each componennt and if the root nodes are different make one if the root nodes be the parent of the other.
+
+to be a(n) complexity you need path compression.
+
+path compression:
 ### Complexity
-## Example
+| Operation | Disjoin-set |
+|-|-|
+| Construction | O(n) | 
+| Union | a(n) | 
+| Find | a(n) |
+| Get component size | a(n) |
+| check if connected | a(n) | 
+| count components | O(1) | 
+
+a(n) - [Amortized constant time](https://stackoverflow.com/questions/200384/constant-amortized-time) which is the total expense per operation, evaluated over a sequence of operations (avg). TL:DR almost constant time O(1) not not quite 
+
 ## Example
 
 ## section
 ### implementation
+
 ### Complexity
 ## Example
 
