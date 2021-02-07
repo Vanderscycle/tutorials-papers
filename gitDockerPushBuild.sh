@@ -18,7 +18,7 @@ else
     echo 'no change to the container local files'
 fi
 
-# we did docker first as otherwise it will not detect the changes and rebuild the container
+# we did docker first as otherwise it will not detect the changes or rebuild the container
 
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
 git add * 

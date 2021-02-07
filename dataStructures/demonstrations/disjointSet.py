@@ -154,39 +154,63 @@ class GraphKruskal:
         output: 
             - message about each node class instance information
         """
+        #! My god the spaghetti I laid down bellow
         # double_comprehension = [word for words in text for word in words]
         ListToSort = [(node.key,edge[0].key,edge[1]) for node in self.position for edge in node.pointers]
         # https://stackoverflow.com/questions/4174941/how-to-sort-a-list-of-lists-by-a-specific-index-of-the-inner-list/4174955
-        sorted(ListToSort, key=itemgetter(2))
+        ListSorted = sorted(ListToSort, key=itemgetter(2,0))
         print('(NodeKeyFrom,NodeKeyTo,weight)')
-        [print(i) for i in ListToSort]
-        
+        # because each nodes contain a pointer to each other (A->B and B->A) there's essentially twice as many pointers 
+        ListSorted = [n for i,n in enumerate(ListSorted) if i%2 ==0 ]
+        # [print(i) for i in ListSorted]
+        #(NodeKey,nodeClassInstance,NodePointsToKey,NodeClassInstance ) by default they all point to themselves until they are full unionised
+        self.optimizedMST = [list([i.key,i,i.key,i]) for i in self.position]
+        # [print(i) for i in resultsMST]
+        for nodeKeyPair in ListSorted: # we do not care about the weight since the list is sorted
+            print(nodeKeyPair)
+            print(self.optimizedMST)
+            self.union(nodeKeyPair[0],nodeKeyPair[1])
 
 
     def union(self,NodeKeyFrom,NodeKeyTo):
         """
-        display(self): (helper method)
+        display(self,NodeKeyFrom,NodeKeyTo): (helper method)
         description:
-            - 
+            - combine nodes into a tree
         input: 
-            -  
+            - (NodeKeyFrom,NodeKeyTo) the two nodes that will be combine
         output: 
             - 
         """
-        pass
+        # print(itemgetter(NodeKeyFrom)(self.optimizedMST)[:2])
+        # print(itemgetter(NodeKeyTo)(self.optimizedMST)[:2],'\n')
+        # They are pointing to the same thing hence they belong to the same tree
+        if itemgetter(NodeKeyTo)(self.optimizedMST)[3] == itemgetter(NodeKeyFrom)(self.optimizedMST)[3]:
+            return
+
+        result = self.find(itemgetter(NodeKeyTo)(self.optimizedMST)[3],itemgetter(NodeKeyFrom)(self.optimizedMST)[2])
+
+        if result == itemgetter(NodeKeyFrom)(self.optimizedMST)[2]:
+            return
+        else:
+            itemgetter(NodeKeyTo)(self.optimizedMST)[2:] = itemgetter(NodeKeyFrom)(self.optimizedMST)[:2]
 
 
-    def find(self):
+    def find(self,node, i):
         """
         display(self): (helper method)
         description:
-            - allow the user to see the 
+            - see if a node share the same common ancestor
         input: 
             -  
         output: 
             - message about each node class instance information
         """
-        pass
+        #! Really cool how you can do recursion
+        print(node.key,i)
+        if node.key == i:
+            return i
+        return self.find(itemgetter(node.key)(self.optimizedMST)[3],itemgetter(node.key)(self.optimizedMST)[2])
 
 
 if __name__ == '__main__':
@@ -201,8 +225,7 @@ if __name__ == '__main__':
     gK.createEdge(1,3,11)
     gK.createEdge(2,3,15)
     gK.createEdge(2,4,10)
-    gK.createEdge(3,2,15)
-    gK.createEdge(3,4,11)
+    gK.createEdge(3,4,7)
     
     
     print(gK.isPresent(['1231',0,769]))
