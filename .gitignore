@@ -1,6 +1,6 @@
+newRepo.sh
 .ipynb_checkpoints
 .log
 __pycache__
 .vscode
 .env
-data
