@@ -608,9 +608,47 @@ SMARTPROXY_PASSWORD = os.environ.get("SMARTPROXY_PASSWORD") ## Password for your
 SMARTPROXY_ENDPOINT = os.environ.get("SMARTPROXY_ENDPOINT") ## Endpoint you'd like to use #gate.smartproxy.com
 SMARTPROXY_PORT = os.environ.get("SMARTPROXY_PORT") ## Port of the endpoint you are using.
 ```
+To conclude, if you intend to hide your IP, it is better to use proxies.
+### The Onion Routing
+Tor is free and open-source software for enabling anonymous communication by directing Internet traffic through a free, worldwide, volunteer overlay network consisting of more than seven thousand relays. So by using Tor we are not going to the dark web or other (insert scray media name) but instead we using the Tor network to hide our IP by through a series of nodes and layers of encryptions (hence where the name onion comes from).
+![tor network](./images/tor.jpg)
 
-To conclude, if you intend to hide your IP, it is better to use proxies. I have read that scrapy can be used in combination with TOR, but this is something that I haven't explored.
+There are a few ways to get Tor to run on our network which requires the installations of several items and the [correct configuration](https://jarroba.com/anonymous-scraping-by-tor-network/). I ask you to please carefully follow the above tutorial until the scraping section as otherwise you will not be successful in hiding your IP. Also once configured I recommend that you follow bullet point 8 to 13 in this [github gist](https://gist.github.com/DusanMadar/8d11026b7ce0bce6a67f7dd87b999f6b)
 
+conveniently, Python already has a few modules for Tor integration.
+```python
+from stem import Signal
+from stem.control import Controller
+# alternate but very usefull Tor module
+from toripchanger import TorIpChanger
+```
+Because we do not want our hash based Tor password to fall in the wrong hands we will use a .env file to store it and load it using the gotenv python module. Please do not forget to add the .env file to the .gitignore and the .dockerignore ifle.
+```python
+# password handling
+import os
+from dotenv import load_dotenv
+load_dotenv() 
+TOR_PASSWORD = os.getenv('TOR_PASS')
+```
+In our example we will use the toripchanger module as it only resuses the same ip after 10 IPs (can be cahnged)
+```python
+ip_changer = TorIpChanger(tor_password=TOR_PASSWORD,reuse_threshold=10)
+```
+Inside middleware.py file we create this user defined fucntion that was found on [StackOverflow](https://stackoverflow.com/questions/45009940/scrapy-with-privoxy-and-tor-how-to-renew-ip/45010141)
+```python
+class ProxyMiddleware(object):
+    _requests_count = 0
+
+    def process_request(self, request, spider):
+        #every 10 requests will generate a new ip
+        self._requests_count += 1
+        if self._requests_count > 10:
+            self._requests_count = 0 
+            ip_changer.get_new_ip()
+
+        request.meta['proxy'] = 'http://127.0.0.1:8118'
+        spider.log(f"Proxy : {request.meta['proxy']}")
+```
 ## Full spiders examples
 
 Please have a look at my [git hub final project folder.](https://github.com/Vanderscycle/lighthouse-data-notes/tree/master/FinalProject/GroceryItemIndexer/GroceryItemIndexer)
