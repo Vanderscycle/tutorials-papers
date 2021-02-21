@@ -615,7 +615,7 @@ Tor is free and open-source software for enabling anonymous communication by dir
 
 There are a few ways to get Tor to run on our network which requires the installations of several items and the [correct configuration](https://jarroba.com/anonymous-scraping-by-tor-network/). I ask you to please carefully follow the above tutorial until the scraping section as otherwise you will not be successful in hiding your IP. Also once configured I recommend that you follow bullet point 8 to 13 in this [github gist](https://gist.github.com/DusanMadar/8d11026b7ce0bce6a67f7dd87b999f6b)
 
-conveniently, Python already has a few modules for Tor integration.
+conveniently, Python already has a few modules for Tor integration. So in middlewares.py we will create a class to handle proxies.
 ```python
 from stem import Signal
 from stem.control import Controller
@@ -648,6 +648,35 @@ class ProxyMiddleware(object):
 
         request.meta['proxy'] = 'http://127.0.0.1:8118'
         spider.log(f"Proxy : {request.meta['proxy']}")
+```
+In settings.py do not forget to add the newly created middleware otherwise the spide will not use it.
+```python
+DOWNLOADER_MIDDLEWARES = {
+    #privoxy
+    'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 110,
+    'jobEngineScraper.middlewares.ProxyMiddleware': 100
+}
+```
+I recommend you ping icanhazip with your spider to confirm that your IP is hidden using a specific this parser method. Otherwise you may find your IP blocked.
+```python
+
+class AllYourIpAreBelongToUs(scrapy.Spider):
+    # class variable for crawl command
+    name = 'ipcheck'
+
+    def start_requests(self):
+        """
+        Where the spider starts its search
+        """ 
+        start_url = 'http://icanhazip.com/s'
+        yield scrapy.Request(url=start_url, callback=self.iHazMyIIPChecked)
+
+    def iHazMyIIPChecked(self,response):
+        """
+        check your ip in the cli and then compare the spider's answer
+        curl http://icanhazip.com/
+        """
+        logger.log(f"IP: {response.css('body p::text').get()}")
 ```
 ## Full spiders examples
 
