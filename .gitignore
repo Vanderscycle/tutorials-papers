@@ -4,3 +4,5 @@ newRepo.sh
 __pycache__
 .vscode
 .env
+data/
+log.txt

@@ -1,0 +1,160 @@
+<!-- 
+Traversy Media video on CSS
+link:
+https://www.youtube.com/watch?v=yfoY53QXEnI
+
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS cheat sheet</title>
+    <link rel="stylesheet" type ="text/css"href="CSS/style.css">
+</head>
+<body>
+    <div class="container">
+    <div class="box-1">
+    <h1>Hello world</h1>
+    <p> Lore ipsum dolor sit amet consectetur, adipisicing elit. Nam perferendis consequuntur quia distinctio omnis officiis, nobis natus voluptates alias veritatis repudiandae quasi nemo porro numquam. Quas reprehenderit impedit enim quis. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Beatae et quos molestiae dolorem, eligendi quasi non necessitatibus animi assumenda amet, quo qui molestias officiis commodi officia culpa inventore sapiente nobis.</p>
+    </div>
+    <img src="CSS/box model.gif"> box model
+    <div class="box-2">
+        <h1>Hello world</h1>
+        <p> Lore ipsum dolor sit amet consectetur, adipisicing elit. Nam per ferendis consequuntur quia distinctio omnis officiis, nobis natus voluptates alias veritatis repudiandae quasi nemo porro numquam. Quas reprehenderit impedit enim quis. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Beatae et quos molestiae dolorem, eligendi quasi non necessitatibus animi assumenda amet, quo qui molestias officiis commodi officia culpa inventore sapiente nobis.</p>
+        <a class="button" href=""> Read More</a>
+    </div>
+    <div class="categories">
+        <h2>Categories</h2>
+        <ul>
+            <li><a href="#"> Category 1</a></li>
+            <li><a href="#"> Category 2</a></li>
+            <li><a href="#"> Category 3</a></li>
+            <li><a href="#"> Category 4</a></li>
+        </ul>
+    </div>
+    <form class="my-form">
+        <div class="form-group">
+            <label> Name:</label>
+            <input type="text" name="name">
+
+        </div>
+        <div class="form-group">
+            <label> Email:</label>
+            <input type="text" name="email">
+        </div>
+        <div class="form-group">
+            <label> Message:</label>
+            <textarea name="message"></textarea>
+        </div>
+        <input class="button" type="submit" value="submit" name="">
+    </form>
+
+    <div class="block">
+        <h3>Heading</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis sequi, provident a porro odio recusandae, accusantium ea blanditiis aliquam fugit corrupti fuga tenetur reprehenderit iusto minima earum eligendi, facilis placeat!</p>
+    </div>
+    <div class="block">
+        <h3>Heading</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis sequi, provident a porro odio recusandae, accusantium ea blanditiis aliquam fugit corrupti fuga tenetur reprehenderit iusto minima earum eligendi, facilis placeat!</p>
+    </div>
+    <div class="block">
+        <h3>Heading</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis sequi, provident a porro odio recusandae, accusantium ea blanditiis aliquam fugit corrupti fuga tenetur reprehenderit iusto minima earum eligendi, facilis placeat!</p>
+    </div>
+
+    <div class="clr"></div>
+    <div id="main-block">
+        <h3>Heading</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis sequi, provident a porro odio recusandae, accusantium ea blanditiis aliquam fugit corrupti fuga tenetur reprehenderit iusto minima earum eligendi, facilis placeat!</p>
+    
+    </div>
+    <div id="sidebar">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis sequi, provident a porro odio recusandae, accusantium ea blanditiis aliquam fugit corrupti fuga tenetur reprehenderit iusto minima earum eligendi, facilis placeat!</p>
+    
+
+    </div>
+    <div class="clr"></div>
+    <!-- examples on Positioning*/-->
+    <div class="p-box">
+        <h1>Hello</h1>
+        <h2>goodbye</h2>
+    </div>
+
+    <ul class="my-list">
+        <li>List Item</li>
+        <li>List Item</li>
+        <li>List Item</li>
+        <li>List Item</li>
+        <li>List Item</li>
+        <li>List Item</li>
+        <li>List Item</li>
+        <li>List Item</li>
+        <li>List Item</li>
+    </ul>
+    </div> <!-- ./container-->
+    <!-- we can multiple classes-->
+    <a class="fix-me button" href="">Hello</a>
+
+    <div style="margin-top: 500px;"></div>
+</body>
+</html>
+
+<!--
+---3 mothods for adding CSS
+    - inline CSS: directly in the HTML element. !NO!
+        <h1 style="color: crimson;">Hello world</h1>
+    - internal CSS: using <style>tags within a single document !not recommended
+        (defined in head section of the HTML file)
+            <style type="text/CSS">
+        h1{
+            color:blue;
+        }
+    </style>
+    - External CSS: linking an external.CSS file (most used due to key ruel bellow)
+    Key rule: keep presentation, functionality and style separate
+    
+    Ctr+ u show code
+    
+--- colors in CSS
+    -color Names
+        color:red;
+        background:coral
+    -HTML5 color names
+    - Hexadecimal
+        color:00ff00;
+    RGB
+        color:rgb(0,0,255);
+    
+    poweruser move. typing lorem types garbage.
+--- web safe fonts (default fonts supported by the browser)
+    Tahoma, Verdana, Times New roman (default)
+
+Ids should be unique classes reused
+    Ids can have hash value in the URL (e.g https://yourdomain.com#comments
+    the browser will attempt to locate the elemnt with an ID of comments)
+--- Margin & padding
+p{
+    margin-top:5px;
+    margin-bottom:5px;
+    margin-right:10px;
+    margin-left:10px;
+}
+same as above
+p{
+    /*top right bottom left*/
+    5px 10px 5px 10px;
+}
+p{
+    /* if top and right are equal but different from left and right*/
+    margin:5px 10px;
+}
+
+Positioning in CSS
+    -static
+    -relative
+    -absolute
+    -fixed (always be in the same position)
+    -Initial ()
+    -Inherit
+-->
