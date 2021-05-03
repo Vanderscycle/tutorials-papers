@@ -1,0 +1,232 @@
+/* means everything 
+*{
+    margin:0;
+    padding:0;
+}
+
+*/
+body{
+    background-color:#f4f4f4;
+    color:#555555;
+
+    font-family:Arial,helvetica, sans-serif;
+    font: size 16px;
+    font-weight:normal;
+    /* same as above*/
+    font:normal 16px Arial,Helvetica, sans-serif;
+
+    line-height: 1.6em;
+    margin:0;
+    }
+
+a{
+    text-decoration: none;
+    color:#000;
+
+}
+a:hover{
+    color:red;
+}
+
+a:active{
+    color:green;
+}
+/*
+a:visited{
+    color:#000; 
+}
+*/
+/*global variables*/
+.container{
+    /* using pixels doesn't allow the website to be responsive hence why we use % for containers*/
+    width:960px; /* 960 is quite popular*/
+    /* set an even margin to all size*/
+    margin:auto; 
+}
+.button{
+    background-color: #333;
+    color: #fff;
+    padding:10px 15px;
+    border:none;
+    
+}
+
+.button:hover{
+    background-color: red;;
+    color:#fff;
+}
+
+.clr{
+    /* for floats*/
+    clear:both;
+}
+
+.box-1{
+    background-color: #333;
+    color:#fff;
+    /* will be overwritten due to attributes bellow*/
+    border-width: 3px;
+    border-bottom-width:10px;
+    border-top-style:dotted;
+
+    border-right: 5px red solid;
+    border-left: 5px red solid;
+    border-top: 5px red solid;
+    border-bottom: 5px red solid;
+
+    /* same as above*/
+    border:5px red solid;
+    /*last entry/change is the most relevant*/
+    /*h1 by deault have padding*/
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-right:20px;
+    padding-left:20px;
+
+    /*same as above*/
+    padding:20px
+
+}
+
+.box-1 h1{
+
+    font-family:Tahoma;
+    font-weight: 800;
+    font-style:italic;
+    text-decoration: underline;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    word-spacing: 1em;
+}
+
+.box-2{
+    border:3px dotted #ccc;
+    padding:20px;
+    margin: 20px 0;
+}
+
+/* this refer to the div class surrounding the list and not the list itself*/
+.categories{
+    border:10px #ccc solid;
+    padding:10px;
+    border-radius:15px;
+
+}
+
+.categories h2{
+    text-align:center;
+}
+/* lists by default have padding*/
+.catergories ul{
+    padding:0;
+    /*padding added to move img*/
+    padding-left: 20px;
+    list-style: square;
+    list-style:none;
+}
+
+.categories li{
+    padding-bottom:8px;
+    border-bottom: dotted 1px #333;
+    list-style-image:url("../images/check.png");
+}
+
+.my-form{
+    padding:20px;
+}
+.my-form .form-group{
+    padding-bottom:15px;
+}
+.my-form label{
+    display:block;
+}
+
+/* if not defined it will apply to any input html tags including buttons*/
+.my-form input[type="text"], .my-form textarea{
+    padding:8px;
+    width:100%;
+}
+.block{
+    float:left;
+    width: 33.3%;
+    border:1px solid #ccc;
+    padding:10px;
+    /* takes in padding/border and applies it within the width 
+    although advanced flex box is a solution
+    */
+    box-sizing: border-box;
+}
+/* Ids take #*/
+#main-block{
+    float:left;
+    width:70%;
+}
+#sidebar{
+    float:right;
+    width:30%;
+    background-color: #333;
+    color: #fff;
+    padding:15px;
+    box-sizing:border-box;
+}
+
+.p-box{
+    width:800px;
+    height:500px;
+    /*add a border for visual clarity*/
+    border:1px solid#000;
+    margin-top:30px;
+    /*  enables all content within the p-box to use it as reference for position*/
+    position:relative;
+    background-image: url(../images/bgimage.jpeg);
+    background-repeat: no-repeat;
+    background-position: 100px 200px;
+    background-position: center;
+}
+.p-box h1{
+    /* if .p-box was not set to relative the h1 would show up 40px from the top of the webpage*/
+    position: absolute;
+    top:100px;
+}
+
+.p-box h2{
+    position:absolute;
+    bottom:40px;
+    right:100px;
+}
+
+.fix-me {
+    position:fixed;
+    top:400px;
+}
+/*Pseudoelements*/
+.my-list li:first-child{
+    /*not required to use background-color */
+    background: red;
+}
+.my-list li:last-child{
+    /*not required to use background-color */
+    background: blue;
+}
+.my-list li:nth-child(5){
+    background: yellow;
+}
+.my-list li:nth-child(even){
+    background: grey;
+}
+/* want to have a class named button where the following CSS can be applied everywhere
+.my-form input[type="submit"]{
+    background-color: #333;
+    color: #fff;
+    padding:10px 15px;
+    border:none;
+}
+*/
+
+/*
+CSS selectors:
+a   {       background-color: yellow;}
+selector    proprety            value
+
+e.m are used for line height
+    */
