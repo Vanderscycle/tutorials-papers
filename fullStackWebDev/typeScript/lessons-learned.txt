@@ -1,0 +1,14 @@
+npm install creates the node_modules folder (add to .gitignore)
+using npm lite-server we can make the page refresh automatically when changes are done.
+
+Typescripts core types
+number: no floats or ints (1.5 or 10 are considered the same)
+string: all text values
+boolean: true, false
+
+What's important is that TS only catches error during compilation.
+
+JS has two type of equality (strict ===/ !==) and loose (== / !=)
+=== compares both the type and value of the arguments
+== compares only the value in a common type (will coerce them if not similar)
+javascript is dynamically typed while typsecript (run-time) is statiscally typed (compile time)
