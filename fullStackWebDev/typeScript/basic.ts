@@ -16,4 +16,4 @@ const number2 = 2.8;
 const printResults = true;
 let resultPhrase = "Result is: ";
 const result = add(number1, number2, printResults, resultPhrase);
-console.log(result);
+
