@@ -6,12 +6,12 @@ export class Post {
     @PrimaryKey()
     id!: number;
 
-    @Property()
+    @Property() // {type: "date"}
     createdAt: Date = new Date();
 
     @Property({ onUpdate: () => new Date() })
     updatedAt: Date = new Date();
 
-    @Property()
+    @Property({type: 'text'})
     title!: string;
 }

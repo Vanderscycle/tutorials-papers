@@ -33,3 +33,5 @@ same as sqlalchemy on python
 ORM stands for Object-Relational Mapping, it is a programming technique that abstracts your code from the database behind it.
 
 using a constants.ts file we can define one terms like prods for use accross all instances
+
+Once the 
