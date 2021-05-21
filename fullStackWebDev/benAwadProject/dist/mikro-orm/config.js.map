@@ -1,1 +1,0 @@
-{"version":3,"file":"config.js","sourceRoot":"","sources":["../../src/mikro-orm/config.ts"],"names":[],"mappings":";;AAAA,4CAAwC;AACxC,2CAAwC;AAGxC,kBAAe;IACf,MAAM,EAAE,SAAS;IACjB,QAAQ,EAAE,CAAC,WAAI,CAAC;IAChB,IAAI,EAAE,EAAE;IACR,QAAQ,EAAE,EAAE;IACZ,IAAI,EAAE,YAAY;IAClB,KAAK,EAAE,CAAC,oBAAQ;CAEwB,CAAC"}
