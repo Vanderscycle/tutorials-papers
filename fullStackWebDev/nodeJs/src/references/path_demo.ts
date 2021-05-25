@@ -12,7 +12,7 @@ console.log(path.extname(__filename))
 //Create path object
 console.log(path.parse(__filename).base)
 
-//Concatenate paths 
+//Concatenate paths (usefull since it takes care of file delimiters)
 //..test/hello.html so ../references/test/hello.html
 console.log(path.join(__dirname,'test','hello.html'))
 
