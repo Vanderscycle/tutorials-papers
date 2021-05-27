@@ -1,21 +1,24 @@
-npm install creates the node_modules folder (add to .gitignore)
-using npm lite-server we can make the page refresh automatically when changes are done.
-npm start - start the sever granted the package has been installed
-npm install --save-dev lite-server
+Typescript main advantages:
+* descriptive
+* can assign and check variable, parameter and function types.
+* Encapsulation (learn about it)
+* usage of classes vice constructors
+TypeScript Types:
+* string
+* number
+* boolean
+* Array
+* Any (default JS)
+* Void (no return)
+* Null
+* Tuplle (Array with fixed number of elements)
+* Enums
+* Generics (type of constraints)
+# TODO:
+# steps used and to configure (std practices)
 
-to start the server 
-remember that typeScript is a compiled languages and so you must recompile the file for the changes to take effect
-Typescripts core types
-number: no floats or ints (1.5 or 10 are considered the same)
-string: all text values
-boolean: true, false
-
-What's important is that TS only catches error during compilation.
-
-JS has two type of equality (strict ===/ !==) and loose (== / !=)
-=== compares both the type and value of the arguments
-== compares only the value in a common type (will coerce them if not similar)
-javascript is dynamically typed while typsecript (run-time) is statiscally typed (compile time)
-
-let variable
-const (think of tupple)
+npm init
+mkdir -p src/
+touch src/index.ts
+npx tsconfig.json
+sudo npm install --save-dev ts-node nodemon @types/node 
