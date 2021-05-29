@@ -155,7 +155,7 @@ const todoText: string[] = todos.map((todo) => {
     return todo.text;
 });
 console.log(todoText);
-const todoCompleted: string[] = todos// if filter only then assing TodoList[] as type
+const todoCompleted: string[] = todos // if filter only then assing TodoList[] as type
     .filter((todo) => {
         return todo.isCompleted === true;
     })
@@ -164,30 +164,92 @@ const todoCompleted: string[] = todos// if filter only then assing TodoList[] as
     });
 console.log(todoCompleted);
 // conditionals
-const xNum:number = 10
+const xNum: number = 10;
 //=== datatype and value (prefer to use ===)
 if (xNum === 10) {
-    console.log('x is 10'); 
-} else if ( xNum > 10) {
+    console.log("x is 10");
+} else if (xNum > 10) {
     console.log("greater than 10");
 } else {
-    console.log( 'x is less than 10');
+    console.log("x is less than 10");
 }
 // or || and &&
 // turnary operators
-const color: string = xNum >10 ? 'red' : 'blue'
+const color: string = xNum > 10 ? "red" : "blue";
 console.log(color);
 // switches
 switch (color) {
-    case 'red':
-        console.log('color is red')
-        break
-    case 'blue':
-        console.log('color is blue')
-        break
+    case "red":
+        console.log("color is red");
+        break;
+    case "blue":
+        console.log("color is blue");
+        break;
     default:
-        console.log('color is not red or blue')
-        break
+        console.log("color is not red or blue");
+        break;
 }
 
 //functions
+function addNums(nums1: number, nums2: number = 2): void {
+    //check whether a number is an integer
+    console.log(Number.isInteger(nums1));
+    console.log(nums1 + nums2);
+}
+// doesn't quite work :(
+const addNum2 = (nums1: number, nums2: number = 2, nums3?: number): number => {
+    if (nums3 == undefined) {
+        return nums1 + nums2;
+    } else {
+        return nums1 + nums2 + nums3;
+    }
+};
+
+addNums(1.5);
+console.log(addNum2(1.2));
+//object oriented programming (w/ constructor functions or classes)
+//constructor function (do not use in TS)
+/*
+function Person (firstName: string, lastName:string, dob: string) {
+    this.firstName = firstName
+    this.lastName = lastName
+    this.dob = dob
+}
+//instantiate obj
+const person1 = new Person('John', 'asdj','2019-2-1')
+console.log(person1);
+*/
+interface PersonClass {
+    firstName: string;
+    lastName: string;
+    dob: Date;
+    getBirthYear(): string;
+    getFullName(): string;
+}
+class Person2 implements PersonClass {
+    //propreties
+    firstName: string;
+    lastName: string;
+    dob: Date;
+    //constructor
+    constructor(firstName: string, lastName: string, dob: string) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        //date object
+        //https://www.javatpoint.com/typescript-date-object
+        this.dob = new Date(dob);
+
+        console.log(`person Created ${this.firstName} ${this.lastName}`);
+    }
+    getBirthYear():string {
+        return this.dob.getFullYear();
+    }
+    getFullName():string {
+        return `${this.firstName} ${this.lastName}`;
+    }
+}
+const bro1 = new Person2("bro", "mongoose", "4-2-4269");
+console.log(bro1.dob.getFullYear());
+console.log(bro1.getBirthYear());
+console.log(bro1.getFullName());
+console.log(bro1);
