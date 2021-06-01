@@ -1,52 +1,42 @@
 <script lang="ts">
-    //export let name: string;
-    let name: string = "bro McChad";
-    let points: number = 100;
-    const addPoint = () => {
-        points += 1;
-    };
-    const removePoint = () => {
-        points -= 1;
-    };
-    const showControls: boolean = false
+    import Navbar from "./navbar.svelte"
+    import Player from "./players.svelte"
+    import AddPlayer from "./addPlayer.svelte"
+    let players = [
+        {
+          name: "Bro McChad",
+          points: 53
+        },
+        {
+          name: "Sam Smith",
+          points: 45
+        },
+        {
+          name: "Sara Wilson",
+          points: 34
+        }
+      ];
+    const addPlayer = (e) => {
+        const newPlayer = e.detail
+        //console.log(newPlayer)
+        players = [...players, newPlayer]
+    }
 </script>
 
 <style>
-    main {
-        text-align: center;
-        padding: 1em;
-        max-width: 240px;
-        margin: 0 auto;
-    }
 
-    h1 {
-        color: #ff3e00;
-        text-transform: uppercase;
-        font-size: 4em;
-        font-weight: 100;
-    }
-
-    h3 {
-        margin-bottom: 10 px;
-    }
-
-    @media (min-width: 640px) {
-        main {
-            max-width: none;
-        }
-    }
 </style>
 
+<Navbar />
 <main>
     <div class="container">
-        <div class="card">
-            <h1>{name}</h1>
-            <h3>{points}</h3>
-            {#if showControls}
-                <button class="btn" on:click={addPoint}>+1</button>
-                <button class="btn btn-dark" on:click={removePoint}>-1</button>
-                <input type="number" bind:value={points} />
-            {/if}
-        </div>
+    <AddPlayer on:addplayer={addPlayer}/>
+    {#if players.length === 0}
+        <p>No players</p>
+    {:else}
+        {#each players as player}
+        <Player name={player.name} points={player.points} />
+        {/each}
+    {/if}
     </div>
 </main>
