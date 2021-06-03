@@ -5,7 +5,7 @@ interface User {
 }
 interface User extends Array<User> {}
 
-let users: User= [
+export let users: User= [
     {
         name: "bob McChad",
         age: 69,
