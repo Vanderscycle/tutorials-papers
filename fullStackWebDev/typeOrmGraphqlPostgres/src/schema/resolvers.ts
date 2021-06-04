@@ -7,9 +7,9 @@ export class resolvers  {
   hello() {
     return "world";
   }
-  @Query(() => [User])
-  getAllUsers() {
-    return User.find()
+  @Query(() => [ User ])
+  async getAllUsers() {
+    return await User.find()
   }
     
 };
