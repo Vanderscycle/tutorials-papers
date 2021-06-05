@@ -1,9 +1,12 @@
 import { createConnection } from 'typeorm';
 import { User } from './entity/user';
+import { __prod__ } from './constants'
 
 export const init_db = async() => {
   const connection = await createConnection();
-  await connection.dropDatabase();
+  if (!__prod__) {
+    await connection.dropDatabase();
+  }
   await connection.synchronize();
 
   // User
