@@ -31,8 +31,8 @@
     "lint:watch": "watch 'npm run lint' .",
     "typeorm": "ts-node ./node_modules/typeorm/cli.js",
     "watch": "tsc -w",
-    "dev": "nodemon dist/server.js",
-    "start": "ts-node --transpile-only src/server.ts"
+    "start": "ts-node --transpile-only src/server.ts",
+    "dev": "nodemon --watch 'src/**' --ext 'ts,json' --ignore 'src/**/*.spec.ts' --exec 'ts-node --transpile-only src/server.ts'"
   },
   "keywords": [],
   "author": "",
