@@ -30,7 +30,6 @@ async function startApolloServer () {
   server.applyMiddleware({ app })
 
   await new Promise((resolve) => app.listen({ port: __port__ }, resolve))
-  console.log()
   return { server, app }
 }
 
