@@ -1,7 +1,7 @@
 <template>
   <header>
     <h1>{{ title }}</h1>
-    <Button text='add Task' />
+    <Button text='add Task' color='green'/>
   </header>
 </template>
 
