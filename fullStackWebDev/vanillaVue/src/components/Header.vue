@@ -1,7 +1,7 @@
 <template>
   <header>
     <h1>{{ title }}</h1>
-    <Button text='add Task' color='green'/>
+    <Button @click='onClick()' text='add Task' color='green'/>
   </header>
 </template>
 
@@ -17,6 +17,11 @@ export default {
     title: {
     type: String,
     default: 'Yoo2',
+    }
+  },
+  methods: {
+    onClick() {
+    console.log('click')
     }
   }
 };
