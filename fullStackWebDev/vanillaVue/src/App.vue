@@ -2,7 +2,8 @@
   <h1>Hello Vue</h1>
   <div class="container">
     <Header title="bro" />
-    <Tasks :tasks="tasks" />
+    <!-- The app is very small so vuex is not needed, but for bigger apps you must use vuex to sync -->
+    <Tasks @delete-task='deleteTask' :tasks="tasks" />
   </div>
 </template>
 
@@ -10,13 +11,13 @@
 import { defineComponent } from "vue";
 import Header from "./components/Header.vue";
 import Tasks from "./components/Tasks.vue";
-interface Task {
+interface TaskInterface {
   id: number;
   text: string;
   day: string;
   reminded: Boolean;
 }
-interface Task extends Array<Task> {}
+interface TaskInterface extends Array<TaskInterface> {}
 export default defineComponent({
   name: "App",
   // don't forget to add the component
@@ -25,10 +26,19 @@ export default defineComponent({
     Tasks
   },
   //unless you use vuex you want the data to be in the top level view
-  data(): Task[] {
+  data(): TaskInterface[] {
     return {
       tasks: [],
     };
+  },
+  methods: {
+    deleteTask(id: TaskInterface[number]) {
+      if (confirm('Are you sure?')) {
+        console.log('task',id)
+        //filter high order array method
+        this.tasks = this.tasks.filter((task) => task.id !== id )
+      }
+    }
   },
   created() {
     this.tasks = [
@@ -38,6 +48,19 @@ export default defineComponent({
         day: "March 1st at 2:30pm",
         reminder: true,
       },
+      {
+        id: 2,
+        text: "Interview",
+        day: "March 3st at 2:30pm",
+        reminder: true,
+      },
+      {
+        id: 3,
+        text: "play video games",
+        day: "March 3st at 4:30pm",
+        reminder: false,
+      },
+
     ];
   },
 });
