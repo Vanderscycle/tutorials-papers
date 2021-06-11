@@ -1,7 +1,7 @@
 <template>
-  <div :class="[fields.reminder ? 'reminder' : '', 'task']">
+  <div @dblclick="$emit('toggle-reminder', fields.id)" :class="[fields.reminder ? 'reminder' : '', 'task']">
     <h3 class='hover:bg-green-700 items-center rounded-full'>{{ fields.text }}</h3>
-      <i @click='onDelete(fields.id)' class="far fa-trash icon"></i> 
+      <i @click="$emit('delete-task',fields.id)" class="far fa-trash icon"></i> 
     <p class='items-center'>{{ fields.day }}</p>
   </div>
 </template>
@@ -14,12 +14,8 @@ export default {
   props: {
     fields: Object,
   },
-  methods: {
-    onDelete(id) {
-      this.$emit('delete-task', id)
-    }
-  }
-}
+
+ }
 </script>
 
 <style scoped>

@@ -1,7 +1,7 @@
 <template>
   <header>
     <h1>{{ title }}</h1>
-    <Button @click='onClick()' text='add Task' color='green'/>
+    <Button @toggle-add-task="$emit('toggle-add-task')" @click='onClick()' :text="showAddTask ? 'Close' : 'Add Task'" :color="showAddTask ? 'orange' : 'green'"/>
   </header>
 </template>
 
@@ -17,13 +17,16 @@ export default {
     title: {
     type: String,
     default: 'Yoo2',
-    }
+    },
+    showAddTask: Boolean
   },
   methods: {
     onClick() {
     console.log('click')
     }
-  }
+  },
+  //when relaying emits between components don't forget to pass on emits
+  emits: ['toggle-add-task']
 };
 </script>
 <!-- scoped means only for this component -->
