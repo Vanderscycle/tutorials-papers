@@ -3,19 +3,23 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
+    "build": "vue-tsc --transpile-only --noEmit && vite build",
     "serve": "vite preview",
+    "testBackend": "json-server --watch db.json --port 4001",
     "lint": "eslint ./src/**/*.{ts,vue}",
     "lint:fix": "eslint ./src/**/*.{ts,vue} --fix",
     "lint:watch": "watch 'npm run lint' ."
   },
   "dependencies": {
     "@tailwindcss/forms": "^0.3.3",
+    "json-server": "^0.16.3",
     "tree-sitter-vue": "^0.2.1",
     "vue": "^3.0.5",
+    "vue-router": "^4.0.8",
     "watch": "^1.0.2"
   },
   "devDependencies": {
+    "@types/node": "^15.12.2",
     "@typescript-eslint/eslint-plugin": "^4.26.1",
     "@typescript-eslint/parser": "^4.26.1",
     "@vitejs/plugin-vue": "^1.2.3",
