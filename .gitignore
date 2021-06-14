@@ -244,7 +244,5 @@ tests/cases/user/prettier/prettier
 .eslintcache
 
 # js
-*.js
-*.js.map
 **/package-lock.json
 **/dist/
