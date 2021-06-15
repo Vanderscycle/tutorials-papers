@@ -1,5 +1,5 @@
 {
-  "name": "vue_ts",
+  "name": "vuex",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
