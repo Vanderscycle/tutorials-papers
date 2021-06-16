@@ -67,7 +67,7 @@ export default {
     async deleteTask(id: TaskInterface[number]) {
       if (confirm('Are you sure?')) {
         const res = await fetch(`api/tasks/{id}`,{
-          method: ' DELETE'
+          method: 'DELETE'
         })
         res.status == 200 ? (this.tasks = this.tasks.filter((task) => task.id !== id )) : alert('Error deleting task')
       }
