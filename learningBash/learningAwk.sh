@@ -33,9 +33,24 @@ awk 'tolower($0) ~ /dir/' ~/.zlogin
 ps | awk '(NR>=2){print$1}'   #get the pid of the running process and removes the PID column name
 # very roundabout way of doing things but... we can use xargs to pipe and execute commands on each numbers
 ps | awk '(NR>=2){print$1}' | xargs -t -n 2 ps -p
+# awk treats spaces as the column delimiter use -F flag 
+awk -F ":" '{ print $1}' /etc/passwd
+# multiple columnms (print)
+awk -F ":" '{ print $1 $6 $7}' /etc/passwd
+awk -F ":" '{ print $1"\t"$6"\t"$7}' /etc/passwd # a more readable output (specifying tabs between columns)
 
+#more advanced 
+awk 'BEGIN{FS=":"; OFS="-"}{print $1, $6, $7}' /etc/passwd #FS = field seperator OFS= output field seperator
+# print the last column
+awk -F "/" '/^\// {print $NF}' /etc/shells # before the print {} its the search pattern
+awk -F "/" '/^\// {print $NF}' /etc/shells | uniq | sort # pipe the output into unique and alphabetical results
+# df shows the disk space
+df | awk '/\/dev\/nv/ {print $1"\t"$2"\t"$3}'
+df | awk '/\/dev\/nv/ {print $1"\t"$2 + 3}' #you can also combine 
 
+# filter the results by the length of the line (only return lines that are greater than 7 chars)
+awk 'length($0) > 7' /etc/shells 
+awk 'length($0) <= 8' /etc/shells # works multiple 
 
-
-
-#WARN: for hi file :hi (tells all the highlights)
+# ps -rf (all process running on the machine)
+# WARN: for hi file :hi (tells all the highlights)
