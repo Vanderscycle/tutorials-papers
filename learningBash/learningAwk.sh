@@ -53,4 +53,17 @@ awk 'length($0) > 7' /etc/shells
 awk 'length($0) <= 8' /etc/shells # works multiple 
 
 # ps -rf (all process running on the machine)
+pf -ef | awk '{if($NF == "zsh") print $0}' #if the last filed ($NF) == "zsh" print  the entire line
+awk 'BEGIN { for(i=1; i<=10; i++) print "the square root of", i, "is",i*i;}'
+awk '$1 ~ /^[a,b,c]/ {print $0}' ~/.zshrc # print all lines that begins with either a,b or c
+
+awk '{print substr($0,4)}' /etc/shells # only start printing the 4th character
+
+awk 'match($0, /a/) {print $0 " has \"a\" character at " RSTART}'  /etc/shells
+
+sudo df | awk 'NR==3, NR==2 {print NR, $0}' # print the line number (NR) and the line itself
+
+awk 'END {print NR}' /etc/shells
+awk 'END {print NR}' /etc/shells /etc/passwd # oyu can also do multiple files
+# probably can do *.py files for example
 # WARN: for hi file :hi (tells all the highlights)
