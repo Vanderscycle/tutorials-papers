@@ -1,10 +1,18 @@
-import { NestFactory } from '@nestjs/core';
-import { NestExpressApplication } from '@nestjs/platform-express';
-import { AppModule } from './app.module';
+ 
+import { NestFactory } from "@nestjs/core";
+import fastify from "fastify";
+import { FastifyAdapter, NestFastifyApplication } from "@nestjs/platform-fastify";
+import { AppModule } from "./app.module";
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  const server = fastify();
+
+  const app = await NestFactory.create<NestFastifyApplication>(AppModule, {
+    cors: true,
+    ...new FastifyAdapter(server),
+  });
+
   app.enableCors();
-  await app.listen(3000);
+  await app.listen(process.env.SERVER_PORT, "0.0.0.0");
 }
 bootstrap();
