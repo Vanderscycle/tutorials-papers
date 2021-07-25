@@ -9,8 +9,9 @@ import { ProductsModule } from './products/products.module';
   imports: [
     ProductsModule,
     // MongooseModule.forRoot('mongodb://mongodb:27018/', {useNewUrlParser: true}),
-    MongooseModule.forRoot('mongodb://127.0.0.1:27017/27018', {useNewUrlParser: true}),//we created db 27018
+    MongooseModule.forRoot('mongodb://127.0.0.1:27018/testMongoose', {useNewUrlParser: true}),//we created db 27018
   ], //:WARN: haven't connected succesfull once
+  
   controllers: [AppController],
   providers: [AppService],
 })
@@ -25,3 +26,6 @@ export class AppModule {}
 //
 //show collections
 //db.collection_name.find().pretty()
+
+//to connect with mongodb-compass 
+//mongodb://127.0.0.1:27018/testMongoose?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false
