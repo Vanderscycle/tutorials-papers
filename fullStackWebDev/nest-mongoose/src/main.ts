@@ -26,7 +26,7 @@ async function bootstrap() {
         process.exit(1)
     }
     console.log(`Server listening on ${address}`)
-});//it only works in 127/0/0/1
+});//it only works in 127/0/0/1 ask the boss on how to make it localhost
 }
 bootstrap();
 

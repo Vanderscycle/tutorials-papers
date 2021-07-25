@@ -85,3 +85,6 @@ npm install --save mongoose @nestjs/mongoose
 ```
 
 in .model.ts we defined the mongoose schema 
+
+Tutorial video [here](https://www.youtube.com/watch?v=ulfU5vY6I78)
+What helped me debug: [fastify](https://www.section.io/engineering-education/getting-started-with-fastify-and-svelte/)

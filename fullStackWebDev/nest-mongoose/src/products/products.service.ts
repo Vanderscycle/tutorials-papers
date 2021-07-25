@@ -19,12 +19,15 @@ export class ProductsService {
     });
     const result = await newProduct.save()
     console.log(result)
-    return result.id
+    return result.id as string
     //return 'prodId';
   }
 
-  getProducts() {
-    return [...this.products];
+  async getProducts() {
+    const products = await this.productModel.find().exec()
+    // console.log(products)
+    // return products as Product[];
+    return products.map((prod) => ({id: prod.id, title: prod.title, description: prod.description, price: prod.price}))//if we want to rename some of the tiles.
   }
 
   getSingleProduct(productId: string) {
