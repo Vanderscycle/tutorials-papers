@@ -5,9 +5,10 @@ import { Product } from './product.model';
 
 @Injectable()
 export class ProductsService {
-  private products: Product[] = [];
+  // private products: Product[] = [];
+  // build a simple local api and then adds moongoose/typegoose
 
-  constructor(
+  constructor(//WARN:don't quite understand how model and service are linkded
     @InjectModel('Product') private readonly productModel: Model<Product>,
   ) {}
 
