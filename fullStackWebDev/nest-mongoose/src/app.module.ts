@@ -9,7 +9,7 @@ import { ProductsModule } from './products/products.module';
   imports: [
     ProductsModule,
     // MongooseModule.forRoot('mongodb://mongodb:27018/', {useNewUrlParser: true}),
-    MongooseModule.forRoot('mongodb://127.0.0.1:27018/testMongoose', {useNewUrlParser: true}),//we created db 27018
+    MongooseModule.forRoot('mongodb://127.0.0.1:27018/testMongoose', {useNewUrlParser: true}),//TODO: we created db 27018 instead of //HACK: not sure why this works on 127.0.0.1:/port isntead of name container
   ], //:WARN: haven't connected succesfull once
   
   controllers: [AppController],

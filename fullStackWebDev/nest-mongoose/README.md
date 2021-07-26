@@ -86,5 +86,12 @@ npm install --save mongoose @nestjs/mongoose
 
 in .model.ts we defined the mongoose schema 
 
-Tutorial video [here](https://www.youtube.com/watch?v=ulfU5vY6I78)
+Tutorial video [here](https://www.youtube.com/watch?v=ulfU5vY6I78) 28:16
 What helped me debug: [fastify](https://www.section.io/engineering-education/getting-started-with-fastify-and-svelte/)
+[docker](https://newcurrent.se/blog/docker-mongodb-development)
+[docker-compose](https://www.youtube.com/watch?v=BeFT1hcpUPo)
+this command to access the container's db: docker exec -it CONTAINER_ID sh
+postman
+
+figure out why docker didn't save the info
+How come nest js already populated the endpoints?  (through the structure?)
