@@ -10,7 +10,8 @@ npm install --save svelte-navigator
 npm install --save-dev @testing-library/svelte jest@26 svelte-jester
 npm install --save-dev @testing-library/jest-dom
 npm install --save-dev cypress @testing-library/cypress
-
+# the ts side
+npm i jest @types/jest ts-jest typescript -D
 npm install --save-dev cypress-svelte-unit-test
 ```
 ```add  to/and create .babelrc
