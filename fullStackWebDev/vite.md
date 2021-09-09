@@ -10,9 +10,30 @@ npm install --save svelte-navigator
 npm install --save-dev @testing-library/svelte jest@26 svelte-jester
 npm install --save-dev @testing-library/jest-dom
 npm install --save-dev cypress @testing-library/cypress
+<<<<<<< HEAD
 # the ts side
 npm i jest @types/jest ts-jest typescript -D
 npm install --save-dev cypress-svelte-unit-test
+=======
+npm install --save-dev cypress-log-to-output
+# fo note using the following command generated everything
+$(npm bin)/cypress open
+
+
+npm install --save-dev --save-exact prettier
+npm i --save-dev prettier-plugin-svelte prettier
+echo {}> .prettierrc.json
+touch .prettierignore
+npx prettier --write .
+# to add in the prettierrc
+{
+  "svelteSortOrder" : "options-styles-scripts-markup",
+  "svelteStrictMode": true,
+  "svelteBracketNewLine": false,
+  "svelteAllowShorthand": false,
+  "svelteIndentScriptAndStyle": false
+}
+>>>>>>> c74c972 (small changes to the vite.md file)
 ```
 ```add  to/and create .babelrc
 {
@@ -142,6 +163,26 @@ async function bootstrap() {
 bootstrap();
 EOF
 ```
+we can create all we need by calling
+```
+nest new ressource {name}
+```
 ```
 rm -rf ./backend/.git
+```
+
+addding swagger
+```
+npm install --save @nestjs/swagger fastify-swagger
+```
+
+to use for data validation in NestJs
+all the info can be found on the [repo](https://github.com/typestack/class-validator)
+```bash
+npm install class-validator class-transformer
+```
+
+connecting the [db](https://docs.nestjs.com/recipes/mongodb)
+```
+npm install --save mongoose @nestjs/mongoose @types/mongoose
 ```
