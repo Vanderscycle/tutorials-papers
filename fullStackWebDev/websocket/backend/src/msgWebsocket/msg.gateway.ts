@@ -23,7 +23,8 @@ export class MsgGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
   @SubscribeMessage('msgToServer')
   handleMessage(client: Socket, payload: string): void { //: WsResponse<string> {
     // not type safe
-    this.server.emit('msgToClient', payload)
+    //this.server.emit('msgToClient', payload)
+    this.logger.log(`The client sent the following message to the server ${payload}`)
     client.emit('msgToClient', payload)
     //return { event: 'msgToClient', data: payload };
   }
