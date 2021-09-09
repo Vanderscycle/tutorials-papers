@@ -1,0 +1,6 @@
+dockerfile
+.pynb_checkpoints
+.log
+__pycache__
+.vscode
+.env
