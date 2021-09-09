@@ -1,4 +1,0 @@
-itemadapter
-Scrapy
-pymongo
-
