@@ -13,7 +13,6 @@ npm install --save-dev cypress @testing-library/cypress
 <<<<<<< HEAD
 # the ts side
 npm i jest @types/jest ts-jest typescript -D
-npm install --save-dev cypress-svelte-unit-test
 =======
 npm install --save-dev cypress-log-to-output
 # fo note using the following command generated everything
