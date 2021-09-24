@@ -2,18 +2,18 @@
 npm init vite@latest {folder name} -- --template svelte-ts
 cd {folder name}
 npx svelte-add@latest tailwindcss
-
+npm i --save-dev svelte-simple-modal sweetalert2
 # router
 npm install --save svelte-navigator
+configuration
+https://github.com/dikbek/viteExperiment/pull/1/files
+
 
 # testing
 npm install --save-dev @testing-library/svelte jest@26 svelte-jester
 npm install --save-dev @testing-library/jest-dom
 npm install --save-dev cypress @testing-library/cypress
-<<<<<<< HEAD
-# the ts side
-npm i jest @types/jest ts-jest typescript -D
-=======
+
 npm install --save-dev cypress-log-to-output
 # fo note using the following command generated everything
 $(npm bin)/cypress open
@@ -32,7 +32,7 @@ npx prettier --write .
   "svelteAllowShorthand": false,
   "svelteIndentScriptAndStyle": false
 }
->>>>>>> c74c972 (small changes to the vite.md file)
+
 ```
 ```add  to/and create .babelrc
 {
