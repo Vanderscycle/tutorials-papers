@@ -2,19 +2,125 @@ package main
 
 import (
 	"fmt" //format strings and print in the console
+	"math"
 	"sort"
 	"strings"
 )
 
 func main() {
 	fmt.Println("hello World")
-	lesson7()
-	//learningString()
+	lesson10()
+
+}
+func lesson10() {
+	//functions (multiple return)
+	fmt.Println("functions (multiple returns)")
+	res, res2 := getInitials("tifa lockhart")
+	fmt.Println(res, res2)
+}
+
+func getInitials(n string) (string, string) {
+	n = strings.Title(n)
+	var arrayResult [2]string = [2]string{"", ""}
+	stringArray := strings.Split(n, " ")
+	for index, value := range stringArray {
+		//fmt.Println(value[:1], index)
+		arrayResult[index] = value[:1] //could have also created an empty object (w/make) and appended
+
+	}
+	return arrayResult[0], arrayResult[1]
+}
+
+func lesson9() {
+	//functions
+	fmt.Println("functions")
+
+	cycleNames([]string{"cloud", "tifa", "barret"}, sayGreeting)
+	cycleNames([]string{"cloud", "tifa", "barret"}, sayBye)
+	a1 := circleArea(10.5)
+	a2 := circleArea(12)
+	fmt.Println(a1, a2)
+	fmt.Printf("cicle 1 is %0.3f and circle 2 is %0.3f\n", a1, a2)
+}
+func sayGreeting(n string) {
+	fmt.Printf("good morning %v \n", n)
+}
+func sayBye(n string) {
+	fmt.Printf("goodbye %v \n", n)
+}
+
+//takes a string array and a function
+func cycleNames(n []string, f func(string)) {
+	for _, v := range n {
+		f(v)
+	}
+}
+
+func circleArea(r float64) float64 {
+	return math.Pi * math.Exp2(r)
+}
+
+func lesson8() {
+	//bool and conditions
+	fmt.Println("bool and conditions")
+
+	age := 45
+	fmt.Println(age <= 50)
+	fmt.Println(age >= 50)
+	fmt.Println(age == 45)
+	fmt.Println(age != 50)
+
+	//if statment
+	if age < 30 {
+		fmt.Println("age is less than 30")
+	} else if age < 40 {
+		fmt.Println("age is less than 40")
+	} else {
+		fmt.Println("age is greater than 40")
+	}
+	names := []string{"yoshi", "mario", "peach", "bowser", "luigi"}
+
+	for index, value := range names {
+		if index == 1 {
+			fmt.Println("continuing at pos", index)
+			continue //more like a skip
+		}
+		if index > 2 {
+			fmt.Println("breaking at pos", index)
+			break
+		}
+		fmt.Printf("the value at pos %v is %v\n", index, value)
+
+	}
 
 }
 func lesson7() {
 	//loooooooooooops
 	fmt.Println("hello loops")
+	//x := 0
+	//for x < 5 {
+	//	fmt.Printf("value of x is: %v\n", x)
+	//	x++
+	//}
+
+	//better
+	for i := 0; i < 5; i++ {
+		fmt.Printf("value of x is: %v\n", i)
+	}
+	names := []string{"yoshi", "mario", "peach", "bowser", "luigi"}
+
+	for i := 0; i < len(names); i++ {
+		fmt.Println(names[i])
+	}
+	//for in
+	for index, value := range names {
+		fmt.Printf("the position at index %v is %v\n", index, value)
+		value = "new String" //doesn't update the value in the og slice (local copy)
+	}
+	//in case you don't want the value or index use _ to discard
+	//for _, value := range names {
+	//	fmt.Printf("the value is %v\n", value)
+	//}
 
 }
 func lesson6() {
