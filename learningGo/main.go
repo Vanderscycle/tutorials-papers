@@ -1,6 +1,7 @@
 package main
 
 import (
+	L "./pkg/"
 	"fmt" //format strings and print in the console
 	"math"
 	"sort"
@@ -9,9 +10,9 @@ import (
 
 func main() {
 	fmt.Println("hello World")
-	lesson10()
-
+	L.SayHello("hello")
 }
+
 func lesson10() {
 	//functions (multiple return)
 	fmt.Println("functions (multiple returns)")
