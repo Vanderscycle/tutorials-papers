@@ -9,7 +9,17 @@ import (
 
 func main() {
 	fmt.Println("hello World")
+	lesson11()
+}
+
+func lesson11() {
+	//package scope and func imports
+	//https://golang.org/doc/tutorial/call-module-code
+	for _, v := range points {
+		fmt.Println(v)
+	}
 	Test()
+
 }
 
 func lesson10() {
