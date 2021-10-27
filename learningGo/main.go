@@ -9,10 +9,39 @@ import (
 
 func main() {
 	fmt.Println("hello World")
-	lesson11()
+	lesson12()
 }
+func lesson12() {
+	//maps (or object in javascript / dict)
+	// all of the keys in a map must have the same type(float/int/string)
+	//same for the keys
+	menu := map[string]float64{
+		"soup":           4.99,
+		"pie":            7.99,
+		"shala":          6.98,
+		"toffee puddung": 3.55}
+	fmt.Println(menu)
+	fmt.Println(menu["pie"])
+	//loop maps
+	for k, v := range menu {
+		fmt.Printf("%v - %v \n", k, v)
+	}
+	phoneBook := map[int]string{
+		12381414: "mario",
+		12314159: "luigi",
+		12385322: "peach"}
+	fmt.Println(phoneBook)
+	fmt.Println(phoneBook[12381414])
 
+	phoneBook[12381414] = "bowsewr"
+	fmt.Println(phoneBook)
+
+	phoneBook[12314159] = "yoshi"
+	fmt.Println(phoneBook)
+
+}
 func lesson11() {
+	//WARN: additional lesson can be found in goModule
 	//package scope and func imports
 	//https://golang.org/doc/tutorial/call-module-code
 	for _, v := range points {
