@@ -245,3 +245,4 @@ tests/cases/user/prettier/prettier
 # js
 **/package-lock.json
 **/dist/
+**/node_modules
