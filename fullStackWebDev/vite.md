@@ -164,7 +164,8 @@ EOF
 ```
 we can create all we need by calling
 ```
-nest new ressource {name}
+//crud
+nest generate resource {name}
 ```
 ```
 rm -rf ./backend/.git
