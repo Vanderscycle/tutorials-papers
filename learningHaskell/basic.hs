@@ -121,4 +121,4 @@ multiList = foldr (*) 1 [2..5]
 -- 2*(3*(4*(5*1)))
 minusList = foldr (-) 15 [2..5]
 -- (((((1)-5)-4)-3)-2)
-sumFold = foldl (+) 0 [1..100] -- sum [1..100]
+sumFold = foldl (+) 0 [1..100] -- same as sum [1..100]
