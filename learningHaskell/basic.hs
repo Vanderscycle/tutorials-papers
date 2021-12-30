@@ -116,9 +116,47 @@ init combineFibs -- shows the list
 -}
 
 addList = foldr (+) 1 [2..5] -- the number one will be applied to the right number first (5+1)
-multiList = foldr (*) 1 [2..5]
+multiList = foldl (*) 1[2..5]
 -- foldr takes function (f) applies expression (e) to a list
 -- 2*(3*(4*(5*1)))
 minusList = foldr (-) 15 [2..5]
 -- (((((1)-5)-4)-3)-2)
 sumFold = foldl (+) 0 [1..100] -- same as sum [1..100]
+
+consList = 1 : 2 : 3 : 4 : 5 : [6..10] -- prepend
+-- myFibs = [0,1,1,2,3..] will not work
+-- --http://zvon.org/other/haskell/Outputprelude/zipWith_f.html
+infFibs = 0 : 1 : zipWith (+) infFibs (tail infFibs) -- haskelll doesn't have for loops only recursion
+-- [0,1] ([1]) -> [0,1,1,2] [1,1,2]
+
+listFunc = [x*y | x <- [1..5], y <- [1..5]]
+-- 1*[1..5],2*[1..5]
+-- -- list comprehension with a condition
+listFunc' = [x*y | x <- [1..5], y <- [1..5],
+            x * y `mod` 3 == 0 ]
+
+-- tuples
+myTuple = ("jogn doe", 1)
+getName = fst myTuple
+getID = snd myTuple -- snd
+empNames = ["John doe", "bro", "LorBro"]
+empID = [1,2,3]
+empList = zip empNames empID
+
+-- functions
+add a b = a+b
+multiply a b = a*b
+func a b c = add (multiply a b) c
+
+sayHello = "Hello, World"
+{-
+main = do
+  putStrLn "Enter your name :"
+  name <- getLine --getLine takes the input
+  putStrLn ("Hello, " ++ name ++ "!" )
+-}
+nonUpperCase :: [Char] -> [Char] --takes a string and returns a string
+nonUpperCase s = [c | c <- s, elem c ['a'..'z']]
+main = do
+  let s = nonUpperCase "Derek Iz the Best!"
+  print(s)
