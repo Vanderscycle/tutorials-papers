@@ -32,6 +32,7 @@ library
       src
   build-depends:
       base >=4.7 && <5
+    , text
   default-language: Haskell2010
 
 executable helloworld-exe
@@ -44,6 +45,7 @@ executable helloworld-exe
   build-depends:
       base >=4.7 && <5
     , helloworld
+    , text
   default-language: Haskell2010
 
 test-suite helloworld-test
@@ -57,4 +59,5 @@ test-suite helloworld-test
   build-depends:
       base >=4.7 && <5
     , helloworld
+    , text
   default-language: Haskell2010

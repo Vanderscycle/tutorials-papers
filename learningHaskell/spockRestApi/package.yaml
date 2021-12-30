@@ -19,8 +19,11 @@ extra-source-files:
 # common to point users to the README.md file.
 description:         Please see the README on GitHub at <https://github.com/githubuser/spockRestApi#readme>
 
+  # as per 
+# https://docs.haskellstack.org/en/stable/GUIDE/#adding-dependencies
 dependencies:
 - base >= 4.7 && < 5
+- Spock
 
 library:
   source-dirs: src
