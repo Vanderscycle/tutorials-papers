@@ -4,6 +4,10 @@ module Main where
 import Web.Spock
 import Web.Spock.Config
 
+app :: SpockM () () () ()
+app = return ()
+
 main :: IO ()
 main = do
-  runSpock 8080 (spock _cfg _app)
+  cfg <- defaultSpockCfg () PCNoDatabase ()
+  runSpock 8080 (spock cfg app)

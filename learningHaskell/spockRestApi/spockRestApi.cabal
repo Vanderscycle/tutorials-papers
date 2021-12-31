@@ -33,6 +33,9 @@ library
   build-depends:
       Spock
     , base >=4.7 && <5
+    , http-types
+    , mtl
+    , text
   default-language: Haskell2010
 
 executable spockRestApi-exe
@@ -45,7 +48,10 @@ executable spockRestApi-exe
   build-depends:
       Spock
     , base >=4.7 && <5
+    , http-types
+    , mtl
     , spockRestApi
+    , text
   default-language: Haskell2010
 
 test-suite spockRestApi-test
@@ -59,5 +65,8 @@ test-suite spockRestApi-test
   build-depends:
       Spock
     , base >=4.7 && <5
+    , http-types
+    , mtl
     , spockRestApi
+    , text
   default-language: Haskell2010
