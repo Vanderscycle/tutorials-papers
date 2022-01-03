@@ -2,7 +2,7 @@
 npm init vite@latest {folder name} -- --template svelte-ts
 cd {folder name}
 npx svelte-add@latest tailwindcss
-npm i --save-dev svelte-simple-modal sweetalert2
+npm i --save-dev svelte-simple-modal
 # router
 npm install --save svelte-navigator
 configuration
