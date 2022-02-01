@@ -10,4 +10,6 @@ fn main() {
 creating a new project 
 cargo new {folder}
 cargo init (the current folder you are in)
+cargo run (build and run)
+cargo build --release (for production)
 
