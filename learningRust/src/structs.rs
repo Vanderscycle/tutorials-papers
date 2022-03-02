@@ -8,11 +8,17 @@ struct Color {
     blue: u8,
 }
 
+//Tuple Struct
+
+struct Color2(u8, u8, u8);
+
+// interface
 struct Person {
     first_name: String,
     last_name: String,
 }
 
+// function associate with the struct
 impl Person {
     // Construct person
     fn new(first: &str, last: &str) -> Person {
@@ -23,7 +29,9 @@ impl Person {
     }
 
     // Get full name
+    //&self same as ts
     fn full_name(&self) -> String {
+        //format similar to println but doesn't print it
         format!("{} {}", self.first_name, self.last_name)
     }
 
@@ -46,6 +54,11 @@ pub fn run() {
     };
     c.red = 200;
     println!("Color: {} {} {}", c.red, c.green, c.blue);
+
+    let mut cp = Color2(255, 0, 0);
+    cp.1 = 200;
+    println!("Color: {} {} {}", cp.0, cp.1, cp.2);
+
     let mut p = Person::new("Mary", "Doe");
     println!("Person {}", p.full_name());
     p.set_last_name("Williams");
