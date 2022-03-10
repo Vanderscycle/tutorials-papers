@@ -7,6 +7,7 @@
 开会 kai1hui4 : meeting
 计划ji4hua4 : plan
 结束 jie2shu4 : end
+旁边 pang2bian4 : nearby
 ## New words to learn and retain
 
 ## Useful patterns
@@ -41,6 +42,14 @@
 延迟yan2chi2 : delay
 
 ## Sentences 
+几周末以前我们试试看泰国食物
+这个泰国餐厅在Esquimalt旁边一家咖啡店叫Kwao Thai
+那个泰国餐厅的绿咖喱和椰汁蘑菇汤非常好吃
 
 ### 9日 03月 2020年
-
+渴望食物 ke3wang4 shi2wu4 : crave food 
+泰国 tai4guo2 : shi2wu4 
+咖喱 ga1li2 : curry
+绿lu>4 : green
+椰子蘑菇汤 ye1zimo2gu1 tang1 : cocunut soup
+蘑菇 mo2gu1 : mushroom
