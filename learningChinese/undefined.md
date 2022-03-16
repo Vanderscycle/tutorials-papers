@@ -53,3 +53,30 @@
 绿lu>4 : green
 椰子蘑菇汤 ye1zimo2gu1 tang1 : cocunut soup
 蘑菇 mo2gu1 : mushroom
+
+### 15日 03月 2020年
+信箱xin4xiang1 : mailbox
+靠近 kao4jin4 : near
+几棵树ji3ke1shu4 : several tree
+(棵)树(ke1) shu4 : tree
+账单zhang4dan1 : bill 
+账 dan1 : bill/list
+单 zhang4 : bill account
+另外一间 ling4wai4 ji1jian4 : another room
+另外ling4wai4 : in addition
+卧室 wofang : bedroom
+层楼 ceng2lou2 : Floor (level)
+第一层楼 di4yi1ceng2 lou2 : first floor
+东边 dong1bian1 : east
+西边 xi1bian : west
+边/面/部 bian/mian4/bu4
+网页wang3ye4 : webpage
+好消息hao3xiao1xi1 : good news
+新的消息xin3de xiao1xi1 : new message/news
+经验 jing1yan4 : experience
+祝你好运 zhu4ni3 hao3yun4 : wish you good luck
+做一件毛衣 zuo4 yi1jian4 mao2yi1: make a sweater
+(件)毛衣mao2yi1 (jian) sweater
+别人 bie2ren2 : other poeple
+给别人看看 gei3 bie2ren2 kan4kan4 : show others
+
