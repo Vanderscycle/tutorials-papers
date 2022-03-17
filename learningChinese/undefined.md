@@ -8,6 +8,12 @@
 计划ji4hua4 : plan
 结束 jie2shu4 : end
 旁边 pang2bian4 : nearby
+交换jiao1huan4 : exchange
+interview
+guo jia (country)
+ji shi
+zhong yao
+verb/tone/word (phrase)
 ## New words to learn and retain
 
 ## Useful patterns
@@ -45,6 +51,7 @@
 几周末以前我们试试看泰国食物
 这个泰国餐厅在Esquimalt旁边一家咖啡店叫Kwao Thai
 那个泰国餐厅的绿咖喱和椰汁蘑菇汤非常好吃
+虽然这间餐厅的醉面比泰式炒河粉更好吃
 
 ### 9日 03月 2020年
 渴望食物 ke3wang4 shi2wu4 : crave food 
@@ -53,6 +60,7 @@
 绿lu>4 : green
 椰子蘑菇汤 ye1zimo2gu1 tang1 : cocunut soup
 蘑菇 mo2gu1 : mushroom
+泰式炒河粉 tai4shi4 chao3 he2fen3 : pad thai
 
 ### 15日 03月 2020年
 信箱xin4xiang1 : mailbox
@@ -79,4 +87,7 @@
 (件)毛衣mao2yi1 (jian) sweater
 别人 bie2ren2 : other poeple
 给别人看看 gei3 bie2ren2 kan4kan4 : show others
+免费 mian3fei4 : free
+交换jiao1huan4 : exchange
+泰式炒河粉 tai4shi4 chao3 he2fen3 : pad thai
 
