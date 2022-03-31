@@ -12,8 +12,12 @@
 interview
 guo jia (country)
 ji shi
-zhong yao
-verb/tone/word (phrase)
+薪水 xin1shui3 : salary
+***
+名词 ming2ci2 : noun
+动词 dong4ci2 : verb
+重要 zhong4 yao4 : important
+语气 yu3qi4 : verb/tone/word (phrase)
 ## New words to learn and retain
 
 ## Useful patterns
@@ -90,4 +94,13 @@ verb/tone/word (phrase)
 免费 mian3fei4 : free
 交换jiao1huan4 : exchange
 泰式炒河粉 tai4shi4 chao3 he2fen3 : pad thai
+
+### 30日 03月 2020年
+车库che1ku4 : garage
+充电器 chong1dian4qi4 : charger
+国语guo2yu3 : mandarin
+牛王面馆 niu2 wang2 mian4 guan3
+
+没10天加油一次mei2 10 tian1 jia1you2 yi1ci4 : refuel every 10 days
+
 
