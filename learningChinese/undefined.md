@@ -18,13 +18,22 @@ ji shi
 动词 dong4ci2 : verb
 重要 zhong4 yao4 : important
 语气 yu3qi4 : verb/tone/word (phrase)
+
 ## New words to learn and retain
+期间 qi2jian1 : during
+目标mu4biao1 : goal
+接近 jie1jin4 : near
+项目xiang4mu4 : project
+证明 zheng4ming : demonstrate
+投资者 tou2zi1zhe3 : investors
+语言yu3yan2
 
 ## Useful patterns
 最后一次... zui4huo4yi1ci4
 
 ## All-in-one sentences
 再也不要见到你 zai4ye3 bu4yao4 jian4 dao4 ni3 : never see you again
+要做到这yao4 zuo4 dao4zhe4 : to do this
 
 ## Previous lessons (words)
 
@@ -95,7 +104,7 @@ ji shi
 交换jiao1huan4 : exchange
 泰式炒河粉 tai4shi4 chao3 he2fen3 : pad thai
 
-### 30日 03月 2020年
+### 30日 03月 2022年
 车库che1ku4 : garage
 充电器 chong1dian4qi4 : charger
 国语guo2yu3 : mandarin
@@ -103,4 +112,9 @@ ji shi
 
 没10天加油一次mei2 10 tian1 jia1you2 yi1ci4 : refuel every 10 days
 
-
+### 06日 04月 2022年
+我现在比第一次找一份编码工作的时候更容易有面试
+而且我可能得到一百分之五十薪水高
+期间三月休息我与一几朋友们开始一小的公司
+最近的目标是证明项目到投资者所以他会给我们钱
+要做到这我学习了另一种电脑的语言因为这个电脑语言更快
