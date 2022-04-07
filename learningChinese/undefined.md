@@ -13,6 +13,7 @@ interview
 guo jia (country)
 ji shi
 薪水 xin1shui3 : salary
+杂货店za2huo4dian4 : grocery store
 ***
 名词 ming2ci2 : noun
 动词 dong4ci2 : verb
@@ -26,10 +27,12 @@ ji shi
 项目xiang4mu4 : project
 证明 zheng4ming : demonstrate
 投资者 tou2zi1zhe3 : investors
-语言yu3yan2
+语言yu3yan2: languages
+分之fen1zhi1 : divided
 
 ## Useful patterns
 最后一次... zui4huo4yi1ci4
+一百分之五十 50%
 
 ## All-in-one sentences
 再也不要见到你 zai4ye3 bu4yao4 jian4 dao4 ni3 : never see you again
@@ -113,8 +116,13 @@ ji shi
 没10天加油一次mei2 10 tian1 jia1you2 yi1ci4 : refuel every 10 days
 
 ### 06日 04月 2022年
+
+###
+购物中心
+### sentences
 我现在比第一次找一份编码工作的时候更容易有面试
-而且我可能得到一百分之五十薪水高
-期间三月休息我与一几朋友们开始一小的公司
-最近的目标是证明项目到投资者所以他会给我们钱
-要做到这我学习了另一种电脑的语言因为这个电脑语言更快
+而且我可能得到百分之百十薪水高
+当三月休息我与一几朋友们开始一小的公司
+最近的目标(mu4biao1)是证明(zheng4ming1)项目(xiang1mu4)到投资者们(tou2zi1zhe3men)所以他会给我们钱
+要做到这我学习了另一种(ling yi zhong)电脑的语言因为这个电脑语言更快
+learn hash map
