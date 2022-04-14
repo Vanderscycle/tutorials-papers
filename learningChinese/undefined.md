@@ -126,3 +126,10 @@ ji shi
 最近的目标(mu4biao1)是证明(zheng4ming1)项目(xiang1mu4)到投资者们(tou2zi1zhe3men)所以他会给我们钱
 要做到这我学习了另一种(ling yi zhong)电脑的语言因为这个电脑语言更快
 learn hash map
+
+### 13日 04月 2022年
+
+你还找一份工作吗？
+我说对啊，然后我与他和他的老板第二天在咖啡店见面
+情报 qing2bao4 intelligence
+hui mian
