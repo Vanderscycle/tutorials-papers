@@ -54,8 +54,10 @@ kubectl delete deployment {pod name}
 
 ## create from config (yml)
 ```bash
-kubectl apply -f {file_name} 
+kubectl apply -f {file_name}.yml 
 ```
+k8s is idempotent and so will update the deployment passed in the configfile
+
 
 
 
