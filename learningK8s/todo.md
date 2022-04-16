@@ -14,3 +14,9 @@ Few things you will want / need to be familiar with by the time this is done:
 Base knowledge of AWS IAM, S3
 Gitlab CI/CD Pipelines: https://docs.gitlab.com/ee/ci/
 Namely, jobs, variables and maybe notifications
+
+
+#IMPORTANT
+
+figure out how to use multiple gpg keys and the activity from gitlab to [ github ](https://github.com/miromannino/Contributions-Importer-For-Github)
+especially since I identify under a work email. I want to track the contribution and not what has been contributed.
