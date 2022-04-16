@@ -6,9 +6,11 @@ minikube start #--vm-drive=hyperkit/virtualbox
 ```
 
 Get all running node status
+get pod -o wide for extra info
+
 ```bash
 kubectl get nodes
-kubectl get pod 
+kubectl get pod -o wide 
 kubectl get services
 ```
 
@@ -58,6 +60,10 @@ kubectl apply -f {file_name}.yml
 ```
 k8s is idempotent and so will update the deployment passed in the configfile
 
+Get the status (residing in the etcd)
+```bash
+kubectl get deployment {depl name} -o yaml > nginx-depl-res.yml
+```
 
 
 

@@ -8,3 +8,9 @@ Short courses:
 [ArgoCD with DevOps Toolkit](https://www.youtube.com/watch?v=vpWQeoaiRM4&list=PLyicRj904Z99dJk8bOygbov5up5YYvoZV&index=2)
 Books:
 [Kubernetes design patterns](https://www.redhat.com/cms/managed-files/cm-oreilly-kubernetes-patterns-ebook-f19824-201910-en.pdf) patterns
+
+
+Few things you will want / need to be familiar with by the time this is done:
+Base knowledge of AWS IAM, S3
+Gitlab CI/CD Pipelines: https://docs.gitlab.com/ee/ci/
+Namely, jobs, variables and maybe notifications
