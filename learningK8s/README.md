@@ -64,6 +64,12 @@ interact through minikube through kubectl (cli) which talks to minikube api serv
 Kubectl can still be used to interact with ANY k8s node
 
 ## install
+install kubetcl and minikube
+
+##layers of abstraction
+deployment manages ...
+replicaset manages a ..
+pod being an abstraction of a container
   
 
 
