@@ -20,6 +20,8 @@ kubectl get secret
 Handy command
 ```bash
 kubectl get all
+# or 
+kubectl get all | rg mongodb
 # again if it takes too long
 kubectl describe pod {name of pod}
 ```
@@ -37,4 +39,31 @@ ports: port (service port); targetPort (containerPort of Deployment)
 reminder that to apply changes you  need to
 ```bash
 kubectl apply -f {same config file}
+```
+
+## configMap
+
+External configuration
+centralized
+Other components can use it (same as secret)
+
+layout of the file:
+  kind (configMap); metadata/name (relevant name); data (k:v pairs)
+
+Just like secrets, you must apply the configMap prior the main cluster 
+
+```bash
+kubectl apply -f monog-configmap.yaml
+```
+
+## services
+
+You can make a service external by:
+  passing type: LoadBalancer (but internal service also acts as a loadBalancer)
+  nodePort: port for external ip address (usage in browser) must be between 30000-32767
+
+### Minikube mentions
+because minikube works differently (internal) we can access the service like such.
+```bash
+minikube service --url=true mongo-express-service
 ```
