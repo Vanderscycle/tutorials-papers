@@ -10,8 +10,8 @@
 旁边 pang2bian4 : nearby
 交换jiao1huan4 : exchange
 interview
-guo jia (country)
-ji shi
+国家guo jia (country)
+即使ji shi : even though
 薪水 xin1shui3 : salary
 杂货店za2huo4dian4 : grocery store
 ***
@@ -19,7 +19,13 @@ ji shi
 动词 dong4ci2 : verb
 重要 zhong4 yao4 : important
 语气 yu3qi4 : verb/tone/word (phrase)
+不已经 bu4 yi4jing1 : not already
+已经 yi4jing1 : already
 
+不一定 bu4 yi ding4 : uncertain
+一定 yi ding4 : must
+
+用功 yong4gong1 : hardworkgin
 ## New words to learn and retain
 期间 qi2jian1 : during
 目标mu4biao1 : goal
@@ -133,3 +139,19 @@ learn hash map
 我说对啊，然后我与他和他的老板第二天在咖啡店见面
 情报 qing2bao4 intelligence
 hui mian
+
+### 13日 04月 2022年
+岳父的生日是了上周末虽然我不可能明白左右全部(quan2bu4)我可能交谈对他们 (always put people together)
+我比较喜欢现在的工作因为我的同事(gong shi)非常聪明(cong1ming)的而且用功(yong4gong1)
+自从 zi4cong2 : since
+压力努力工作 yālì nǔlì gōngzuò
+自从他们喜欢他们工作我有大压力努力工作
+
+全部 quan2bu4 : all*
+对话 dui4hua4 : converstaion
+上周告诉过你 shang4 zhou1 gao4su4guo4 ni3
+
+shang ban/xia ban (gongzuo same characters) jia ban
+shichang(market)
+duoguo
+fang jia
