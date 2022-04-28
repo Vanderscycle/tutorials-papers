@@ -155,3 +155,16 @@ shang ban/xia ban (gongzuo same characters) jia ban
 shichang(market)
 duoguo
 fang jia
+
+### 28日 04月 2022年
+岳父 yue4fu4 : father in law (爸爸 ba4ba in person)
+交谈 jiao1tan2 : chat/converstaion
+几个月 ji2ge4yue3 : months (a few months?)
+每一次，常常 Měi yīcì, chángcháng : every time / often
+我和他们交谈的时候 wo3 he: when I talk to them
+我总是有一些问题: wo3 zong3shi4you3 yi1xie1 wen4ti2 : I always have problems (context)
+总 zong3 : always
+我不确定wo3bu4 que4ding : I am not sure
+确定 que4ding : sure?
+不要加 bu4 yao4jia1 : don't add
+
