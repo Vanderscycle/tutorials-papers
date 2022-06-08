@@ -296,3 +296,30 @@ zu jin
 我的份老板 wo3 de feb2 lao3ban3 : my boss
 在我的背后一个年说坏话 Zài wǒ de bèihòu yīgè nián shuō huàihuà : Talking bad for a year behind my back
 说坏话在那个 shuo1 huai4hua zai4 na4ge : speak ill of that
+
+### 17 日 05 月 2022 年
+
+黄色 huang se yellow
+绿色 Lǜsè green
+蓝色 lan2s4 blue
+红色 hong2se4 red
+橙 cheng2 se4 orange
+深蓝 shen1lan2 se dark blue
+浅蓝 qian3lan2 light blue
+暗黄 an4 huang2 dark yellow
+暗 an dark
+深 shen dark
+浅 qian ligth
+浪费 lang4 fei2 waste
+成长 cheng2zhang3 growing up
+古代中国 gu2dai4 zhongguo ancient china
+国家 guojia nation
+时差 shi2cha time difference
+差 cha1 difference
+那一层楼 nayi ceng lou that floor
+z 一系列 yixilie a series (tv)
+医疗保险 Yīliáo bǎoxiǎn medical insurance
+车子 chezi car
+得到 dedao receive
+环境 huan jing environment
+客厅 keting living room
