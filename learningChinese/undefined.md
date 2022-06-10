@@ -323,3 +323,16 @@ z 一系列 yixilie a series (tv)
 得到 dedao receive
 环境 huan jing environment
 客厅 keting living room
+
+短信 duan3xin4 sms
+组的话 zu3dehua4 in these conditions
+麻烦您 ma2fan nin2 excuse me (may I trouble you)
+带回去 dai4hui2qu4 bring back
+他(累)死了 ta1 lei4si3 le - pattern - he's so tired that he could die
+
+上个星期旅行之前我有很多工作所以我希望了完成工作以前离开
+自从我和太太上个星期三不得不离开没一行代码工作
+一行代码
+我们飞到维多利亚到 Quebec 然后我二弟弟和二姐姐送在我们的 airbnb
+星期五晚餐饭我和我的爸爸和太多酒而且下天我有了一个非常有名的头痛
+Quebec 是了比较安静和漂亮。Montreal 的餐厅比较种类也好吃但是更嘈杂
