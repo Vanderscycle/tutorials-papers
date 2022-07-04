@@ -336,3 +336,20 @@ z 一系列 yixilie a series (tv)
 我们飞到维多利亚到 Quebec 然后我二弟弟和二姐姐送在我们的 airbnb
 星期五晚餐饭我和我的爸爸和太多酒而且下天我有了一个非常有名的头痛
 Quebec 是了比较安静和漂亮。Montreal 的餐厅比较种类也好吃但是更嘈杂
+
+短 duan3 short
+长 zhang3 long
+高 gao1 hihgh
+低 di1 low
+矮 ai3 short
+宽 kuan1 wide
+瘦 shou4 thin (lose weight)
+细 ci4 thin
+
+厨艺 chu2yi4 cooking skills
+
+总共 zong3ging4 all together/total
+零下 20 度 ling2xia2 er4shi2 du4 -20
+
+j 分体式键盘 fen1 ti3shi4 jian4pan2 split keyboard
+我的最新的键盘非常复杂因为这个是分体式键盘
