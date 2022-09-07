@@ -27,12 +27,12 @@
 
 好运 3yun4 good luck
 
-- 幸运 xingyun4 lucky
-  我得 wo3dei2 I must (必须)
-  一个计划 ji4hua4 (v/n) one plan
-  一个计划 I plan
-  吉他 ji2ta1 guitar
-  我及他们 wo3ji2ta1men me and (和) them
+-- 幸运 xingyun4 lucky
+我得 wo3dei2 I must (必须)
+一个计划 ji4hua4 (v/n) one plan
+一个计划 I plan
+吉他 ji2ta1 guitar
+我及他们 wo3ji2ta1men me and (和) them
 
 中午 zhong1wu3 noon
 上午 shang4wu3 morning
@@ -71,4 +71,4 @@
 知道 zhi1dao2 to know
 工作的时间 14 de 21 (workhours)
 
-\*\* 几点到几点 ji3 dian3 dao2 from what time to what time?
+-- 几点到几点 ji3 dian3 dao2 from what time to what time?
