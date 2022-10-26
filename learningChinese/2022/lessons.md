@@ -72,3 +72,36 @@
 工作的时间 14 de 21 (workhours)
 
 -- 几点到几点 ji3 dian3 dao2 from what time to what time?
+
+改成 gai3 cheng2 change to
+越来越 yue lai yue more and more
+不清楚 bu4 qing1 qu3 not clear
+习惯 xi2guan4 habit
+常常加班 chang2chang2 jia1ban1 often work overtime
+提早 ti2zao3 early
+下午 xia4wu3 afternoon
+延迟 yan2chi2 delay
+相反 xiang1fan1 opposite
+顺利 shun4li4 smoothly
+生活 sheng1huo2 life
+倒霉 dao3mei2 unlucky
+标题 biao1ti2 title
+差点 zhuo2dian3 almost
+差一刻三点 zhe yike4 sandian3 at 3 oclock
+差五分三点 five minutes to three
+前三个字 qian2 san ge4 zi -- first three words
+你被我打 ni3 bei4 wo3 da3 you beated me -- bei is the passive
+这个自行车被撞那个车 Zhège zìxíngchē bèi zhuàng nàgè chē this bike was hit by that car
+船 chuan2 ship/ferry
+渡轮 du4lun2 ferry
+维多利亚的渡轮是非常有名
+形容 xingrong describe (v)
+Important
+
+被 bei
+前三个字 qian2 san ge4 zi -- first three words
+倒霉 dao3mei2 unlucky
+幸运 xing2yun2 lucky
+船 chuan ferry
+鱼都死了 yu2 dou sile all fish are dead
+都被毒死了 doubei4du2si3le all poisoned
