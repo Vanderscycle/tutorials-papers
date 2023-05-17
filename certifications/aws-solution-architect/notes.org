@@ -1,0 +1,107 @@
+#+title: AWS Solution Architect
+
+References:
+
+[[https://www.youtube.com/watch?v=Ia-UEYYR44s][Free Code Camp]] tutorial
+
+* AWS Certified Solutions Architect
+** About the cert + exam
+Valid 3 years, passing score 72%
+To book an[[https://aws.amazon.com/certification/?nc2=sb_ce_co][exam]]
+
+** S3 (Object Storage)
+*** Intro
+Typically suitable for very large volumes of static data—especially unstructured data. Objects contains your data, they are like files (images, CVS, etc) ranging from 0 Bytes to 5 TB.
+An S3 Bucket contains all of the objects.
+
+*** Storage Classes
+In order of costs and availability:
+- S3 Standard
+- S3 Intelligent-Tiering
+- S3 Standard-IA (infrequent access)
+  Recomended if you access the files less than once a month (retrival fees otherwise)
+- S3 One Zone-IA
+  Same a above but objects only exists in a single [[https://aws.amazon.com/about-aws/global-infrastructure/regions_az/][availability zone]] so reduced durability
+- Glacier
+  For data that is maybe used 1-2 a year
+- Glacier Deep Archive
+  Retrival times of 12 hours (stored on magnetic tape) recommended for data records (7-10 years)
+  [[https://aws.amazon.com/s3/storage-classes/][References]]
+
+*** Security
+**** S3 policies
+S3 bucket policies specify what actions are allowed or denied for which principals on the bucket that the bucket policy is attached to (e.g. allow user Alice to PUT but not DELETE objects in the bucket). TLDR Control access in S3 environment
+#+begin_src json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": ["arn:aws:iam::111122223333:user/Alice",
+                "arn:aws:iam::111122223333:root"]
+      },
+      "Action": "s3:*",
+      "Resource": ["arn:aws:s3:::my_bucket",
+                   "arn:aws:s3:::my_bucket/*"]
+    }
+  ]
+#+end_src
+
+**** S3 Access Control Lists
+S3 ACLs is a legacy access control mechanism that predates IAM. An S3 ACL is a sub-resource that’s attached to every S3 bucket and object. It defines which AWS accounts or groups are granted access and the type of access. When you create a bucket or an object, Amazon S3 creates a default ACL that grants the resource owner full control over the resource.
+
+**** S3 permissions
+The following example bucket policy grants the s3:PutObject and the s3:PutObjectAcl permissions to a user (Dave). If you remove the Principal element, you can attach the policy to a user.
+#+begin_src json options
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "statement1",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::12345678901:user/Dave"
+            },
+            "Action": [
+            "s3:PutObject",
+            "s3:PutObjectAcl"
+            ],
+            "Resource": "arn:aws:s3:::awsexamplebucket1/*"
+        }
+    ]
+}
+#+end_src json
+The following policy, when attached to a role/user allows full access to all s3 bucket in the account. If you need to access another account use `sts:AssumeRole`
+#+begin_src json options
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:*",
+                "s3-object-lambda:*"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": "sts:AssumeRole",
+            "Resource": "arn:aws:iam::{number}:role/{role-name}"
+        }
+    ]
+}
+#+end_src json
+*** S3 Encryption
+Uses AES-256 by default
+- Encryption in transit (SSL/TLS)
+- Server side encryption (SSE)
+  * SSE-AES: S3 handles the key and uses AES-256
+- Client side encryption
