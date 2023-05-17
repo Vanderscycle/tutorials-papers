@@ -11,6 +11,7 @@ To book an[[https://aws.amazon.com/certification/?nc2=sb_ce_co][exam]]
 
 ** S3 (Object Storage)
 *** Intro
+S3 stands for Simple Storage Services
 Typically suitable for very large volumes of static data—especially unstructured data. Objects contains your data, they are like files (images, CVS, etc) ranging from 0 Bytes to 5 TB.
 An S3 Bucket contains all of the objects.
 
@@ -105,3 +106,46 @@ Uses AES-256 by default
 - Server side encryption (SSE)
   * SSE-AES: S3 handles the key and uses AES-256
 - Client side encryption
+
+*** S3 Data Consistency
+- New Objects (puts)
+new S3 Objects can be read immediately after writting
+- Overwrte (PUTS)/Delete Objects (DELETE)
+  When you overwrite or delete an object it takes time for S3 to replicate versions to AZs
+
+*** S3 Cross Region Replication (CRR)
+Any Object will be automatically replicated to another region.
+Must be enabled alongside versioning for both the source and destination. Works for multi-account.
+
+*** S3 Versioning
+Store all versions of an object in S3 ( cannot be disabled once activated ) kinda like Git
+Every new object uploaded will be given a hversion ID unless versioning was off when they existed prior versioning
+
+*** S3 Lifecycle Management
+Automate the process of moving objects to different storage classes. Can be used with versioning. Usefull when data must be kept for record keeping.
+
+*** S3 Transfer Acceleration
+To transfer large files over long distances, users uses a distinct URL for an Edge location. Using AWS Backbone Network the edge location transfers to the S3 bucket.
+
+*** S3 Presigned Urls
+Generates a url which provides you temporary access to an object to either upload or download object data
+`aws s3 presing s3://mybucket/myobject --expires-in 300`
+
+*** S3 MFA delete
+Multi Factor Authentification (MFA) which prevents users from deleting objects unless they provided their MFA code. Requires the following:
+- AWS CLI must be used
+- the bucket must have versioning turned on
+#+begin_src bash options
+aws s3api put-bucket-versioning \
+--bucket bucketname \
+--versioning-configuration Status=Enabled,MFADelete=Enabled \
+--mfa "your mfa serical number "
+#+end_src bash
+Only the bucket owner can DELETE
+*** TODO Monitoring (clouflair)
+*** TODO Terraform
+*** Misc
+If Public and versioning is enabled, any new files version of an object will be set to private
+
+*** S3 Follow along
+[[https://youtu.be/Ia-UEYYR44s?t=1926][video]]
