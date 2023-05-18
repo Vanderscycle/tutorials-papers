@@ -3,13 +3,18 @@
 References:
 
 [[https://www.youtube.com/watch?v=Ia-UEYYR44s][Free Code Camp]] tutorial
-
+* Table of Content
+1. +[[S3 (Object Storage)]]
+2. +[[Snowball]]
+3. +[[Virtual Private Cloud (VPC)]]
 * AWS Certified Solutions Architect
+
 ** About the cert + exam
 Valid 3 years, passing score 72%
 To book an[[https://aws.amazon.com/certification/?nc2=sb_ce_co][exam]]
 
 ** S3 (Object Storage)
++ [[Table of Content]]
 *** Intro
 S3 stands for Simple Storage Services
 Typically suitable for very large volumes of static data—especially unstructured data. Objects contains your data, they are like files (images, CVS, etc) ranging from 0 Bytes to 5 TB.
@@ -149,3 +154,18 @@ If Public and versioning is enabled, any new files version of an object will be 
 
 *** S3 Follow along
 [[https://youtu.be/Ia-UEYYR44s?t=1926][video]]
+
+** Snowball
++ [[Table of Content]]
+Petabyte transfer service (move data to AWS using a briefcase computer)
+Essentially instead of transfering 50TB+ data over high speed internet we do so using that briefcase.
+*** Snowball edge
+Same with snowball but more storage and compute power (100TB) and can act as edge nodes. Can be clustered and specialized for storage/compute/GPU optimized
+*** Snowmobile
+Essentially AWS ships you a massive container w/ 100 PB
+
+** Virtual Private Cloud (VPC)
++ [[Table of Content]]
+Can be thought as your own personal data centre
+#+attr_html: :alt  :align left :class img :width 500px
+[[./images/aws-vpc.png][vpc]]
