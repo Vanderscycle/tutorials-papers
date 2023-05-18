@@ -168,4 +168,61 @@ Essentially AWS ships you a massive container w/ 100 PB
 + [[Table of Content]]
 Can be thought as your own personal data centre
 #+attr_html: :alt  :align left :class img :width 500px
-[[./images/aws-vpc.png][vpc]]
+[[./images/aws-vpc.png][vpc general overview]]
+*** Key features
+VPC are region specific and you can have up to 5 per region
+a maximum of 200 subnets per VPC are possible
+
+*** About CIDR
+Classless Inter-Domain Routing (CIDR) blocks are for specifying a range to IP addresses in format of IPv4 or IPv6
+x, y, z and t are numbers from 0 to 255. Basically, each represents an 8 bit binary number. That's why it is range is up to 255. Combination of this numbers becomes an IPv4 IP address that must be unique to be able to identify a specific instance.
+
+In case of AWS, p is a number from 16 to 28. It represents the number of bits that are inherited from given IP address. For example: 10.0.0.0/16 represents an IP address in following format: 10.0.x.y where x and y are any number from 0 to 255. So, actually it represents a range of IP addresses, starting from 10.0.0.0 to 10.0.255.255.
+
+A CIDR range of 10.0.0.0/16 refers to all IP addresses that start with 10.0.x.x.
+
+*** Dynamic Host Configuration Protocol (DHCP)
+
+*** Default VPC
+AWS has a default VPC in every region
+Creates the following:
+- Internet Gateway
+- Default Security Group
+- Default Network Access Control List (NACL)
+- Associated default DHCP
+
+*** VPC peering
+Connects one VPC to another so that they behave like they are on the same network. You can not use one VPC as an intermediate to another and no overlapping CIDR blocks (check picture)
+#+attr_html: :alt  :align left :class img :width 500px
+#+caption: how to connect 2 VPC together
+[[./images/vpc-peering.png][vpc-peering]]
+
+*** Route Tables
+Used to determine where network traffic is directed. Each subnet must be associated with a route-table
+of note a record of 0.0.0.0/0 grants public access to everything from anywhere
+
+*** Internet Gateway (IGW)
+Does the following:
+1. provides a target in your VPC route tables for internet-routable traffic (inside/outside)
+2. proivdes Network Address Translation (NAT) for instances which have been assigned public ipv4 traffic
+
+#+attr_html: :alt  :align left :class img :width 500px
+#+caption: Diagram of IGW
+[[./images/vpc-IGW.png][Internet Gateway]]
+
+*** Bastion/Jumpbox
+Bastions are security hardened EC2 instances designed to help you gain access to your EC2 instance in a private subnet.
+
+#+attr_html: :alt  :align left :class img :width 500px
+#+caption: How to configure a Bastion host
+[[./images/vpc-bastion.png][bastion EC2 instance]]
+
+**** Modern architecture relies on Session Manager
+Only requires an IAM policy attached to the role/user
+#+begin_src bash options
+aws --profile <your-profile> ssm start-session --target i-<ec2-ID>
+#+end_src bash
+#+attr_html: :alt  :align left :class img :width 500px
+#+caption: SSM architecture
+[[./images/vpc-session-manager.png][SSM]]
+A working example can be found [[https://medium.com/canisworks/aws-systems-manager-vs-bastion-hosts-for-private-networks-efe9a42f5ad7][here]].
