@@ -226,3 +226,25 @@ aws --profile <your-profile> ssm start-session --target i-<ec2-ID>
 #+caption: SSM architecture
 [[./images/vpc-session-manager.png][SSM]]
 A working example can be found [[https://medium.com/canisworks/aws-systems-manager-vs-bastion-hosts-for-private-networks-efe9a42f5ad7][here]].
+
+*** Direct Connect
+AWS solution to establishing dedicated network between on-premises (offices/home) and AWS. This is not the same
+
+*** VPC Endpoints
+Allows you to privately connect your VPC to other AWS services without leaving the AWS network.
+Eliminates the need for Internet Gateway, NAT device, VPN connection
+2 types:
+**** interface endpoints
+Elastic Network Interfaces (ENI) with a private IP addess. Thye ve as an entry point for traffic going to a supported service. Check AWS PrivateLink. Pay per GB tx
+Wide applications (EC2 API)
+**** Gateway endpoints
+Is a gateway that is a targetfor a specific route in your route table. Free
+Only supports S3 and DynamoDB
+
+*** VPC Flowlogs
+Allows for the capture of IP traffic information in-and-out of network interfaces within your VPC. Data is stored in CloudWatch logs.
+Flow logs can be created for:
+- VPC
+- Subnets
+- Network Interface
+Always store the source and destination ip address (exam question)
