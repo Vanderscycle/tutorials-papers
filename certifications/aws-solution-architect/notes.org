@@ -411,3 +411,50 @@ traffic based on the location of the user
 Traffic based on the location of your resources.
 **** Multi-value Answer Routing
 respond to DNS queries with up to 8 healthy records
+
+*** Health checks
+Essentially like uptime-kuma but for AWS. every 30sec (10s min),
+
+*** Route53 resolver
+A regional service that lets you route DNS queries between your VPCs and your network.
+Usefull for hybrid environments.
+
+** Elastic Compute Cloud (EC2)
+EC2 is a resizable compute capacity where you can configure your os, instance type, storage and more (IAM roles, Security groups, etc.)
+
+*** Instances types
+[[https://aws.amazon.com/ec2/instance-types/][references]]
+- General purpose
+  Balance of compute, memory and networking
+- Compute optimized
+  Ideal for compute bound applications that benefit from high performnace processor. dedicated gaming servers
+- Memory optimized
+  Fas performance for workload that process large data sets e.g. caches
+- Accelerated optimized
+  hardware accelerators/co-processors. e.g. ML
+- Storage optimized
+  high, sequential read adn write access to very large data sets on local storage. e.g. NoSQoL
+
+*** Instance Profile
+holds a reference to a role. AWS will automatically create the instance profile for you.
+Always avoid embedding your AWS credentials when possible. Attach a role to an instance via an instance Profile
+
+*** Placement Groups
+Let oyu choose the logical placement of your instances to optimize communication, performance or durability. Its free.
+- Cluster
+  packas instances close together inside an AZ
+- Partition
+  spread instances across logical partitions. Does not share individual hardware (different racks)
+- Spread
+  Each instance is placed on a different rack. Max of 7 can be spread across multiple AZ
+
+*** UserData
+its a scrip\t that will be automatically ran when launching/creating an EC2 instance. e.g. install a few packages
+Can be accessed
+
+*** Metadata
+From within your EC2 instance can access information about the EC2 instance via a special url endpoint at.
+169.254.169.254/latest/meta-data
+/public-ipv4 get current ipv4 address
+/ami-id the AMI ID used to launch this EC2 instance
+/instance-type the instance type of EC2 instance
