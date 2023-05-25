@@ -319,3 +319,95 @@ Gateway is a managed service which launches redundant instances within the selec
     }
   ]
 #+end_src
+*** Password policy
+IAM can set a password policy for a certain password length/char/etc and ask users to rotate every so often
+
+*** Access keys
+Allows users to interact with AWS service programmatically via the AWS CLI or AWS SDK. max 2 per users
+
+*** MFA
+CAnnot be enforced directly, but admin can restrict access to resources using policy requiring MFA.
+
+** Cognito
+Decentralized managed Authentification system for mobile + desktop apps.
+#+attr_html: :alt  :align left :class img :width 500px
+#+caption: cognito
+[[./images/cognito.png][Cognito overview]]
+
+*** Web Identity Federation andd Identity Provider (IdP)
+
+**** Web Identity Federation
+To exchange identiy and security information betweenan identity provider and an application.
+
+**** Identiy Provider (IdP)
+A trusted provider of your user identity taht lets you user their authentication to accesss other services. e.g. FB, Github, Google, etc.
+
+uses SAML
+
+*** Cognito Users Pools
+User pools are user directories used to managed action for web/mobile apps such as sign-up/sign-in/acct recovery/ etc.
+Successful identification generates a JWT token
+
+*** Cognito Identity Pools
+Provides temporary (with JWT) credentials to access services e.g. S3
+
+*** Cognito Sync
+sync user data and preferences across devices. Uses push synchronization. Uses Simple Notification Service (SNS) to send notification to all user devices.
+
+** Domain Name System (DNS)
+In AWS you can buy + manager a domain name with route53
+Translates domain name e.g. github.com into a routable internet Protocol address e.g 138.12.123.01
+Can use either IPv4 (32 bits) or IPv6 (128bits)
+
+*** Domain Registrars
+Authorities who have the ability to assign domain names under one or more top-lvel domains. Good examples are Namecheap.com/godaddy.com/AWS/etc.
+Can use WhoIS database to see what the domain name leads to
+
+*** Top level domains
+example.co(top-lvl).uk (Second-lvl)
+Top-level domains names are controlled by the internet Assigned Numbers Authority (IANA)
+[[https://www.iana.org/domains/root/db][to query]]
+
+*** Start of Authority (SOA)
+Every domain must have a n SOA record. The SOA is a way for the Domain Admins to provide information about domain.
+
+*** Address Records
+Convert name of domain to an IP address
+
+*** Canonical Names (CNAME)
+Resolves one domain name to another rather than an IP address. Main advantage is that they are unlikely to change while IP addresses do.
+
+*** Name server (NS)
+Used by top-level domain servers to direct traffic to the DNS server containing the authoritztive DNS record. e.g. Route 53 would have 4 NS
+
+*** Time to Live (TTL)
+Length of time that a DNS record gets cached. I recommend 5 minutes
+
+** Route53
+AWS DNS service to register and manager domains. Think of namecheap but on steroids (especially if your infra is on AWS)
+Decentralized managed Authentification system for mobile + desktop apps.
+
+#+attr_html: :alt  :align left :class img :width 500px
+#+caption: example complex Route53
+[[./images/route53.png][Cognito overview]]
+
+*** Alias record
+routes traffic to specific AWS resources. Detects the change in IP address and ensure that its connected.
+
+*** Routing policies
+Best viewed through AWS =traffic flow=
+**** Simple routing
+default, multiple addresses result in random selection
+e.g. the record =random.vandersleyen.dev= is tied to 3 different IP addresses
+**** Weighted routing
+traffic based on weighted values to split traffic
+**** Latency-based routing
+traffic to region resource with lowest latency
+**** Failoever Routing
+route traffic if primary endpoint is unhealthy
+**** Geolocation Routing
+traffic based on the location of the user
+**** Geo-proximity Routing
+Traffic based on the location of your resources.
+**** Multi-value Answer Routing
+respond to DNS queries with up to 8 healthy records
