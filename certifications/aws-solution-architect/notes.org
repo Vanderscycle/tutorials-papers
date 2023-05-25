@@ -248,3 +248,74 @@ Flow logs can be created for:
 - Subnets
 - Network Interface
 Always store the source and destination ip address (exam question)
+
+*** Network Access Control List (NACL)
+NACL acts as a virtual firewall at the subnet level. VPC automatically get a default NACL. It can =allow= or =deny= traffic unlike Security Groups which can only allow.
+Highest rule # is 32766 but it is recommended to incremement from 0 to 10/100
+
+**** Use case
+A malicious actor at a specific IP address (normally they have rotating) is trying to access our instances. So you simply add the IP to the NACL and deny is same with port 22 (SSH) in the event that we will never ssh into the application.
+
+*** Security Groups
+You cannot block specific IP address with SG use the NACL instead.
+Associated with EC2 instances, each SG contains a set of rules that filter inbound and outbound of EC2 instances. All traffic is blocked by default.
+Multiple instances accross subnets can belong to a security group.
+
+You can specify the source to be an IP range e.g 170.168.0.0/16 or source from another security group.
+Instances can belong to multiple security groups. For example SG A has nothing written (denys all) and SG B located withing SG A has allow inbound:80/22 then SG A will allow both
+**** Limits
+Can have up to 10k SG in a region
+can have 60 inbound and 60 outbound rules per SG
+16 SG per Elastic Network Interface.
+
+*** Network Address Translation (NAT)
+Method of re-mapping one IP address space into another. Used to allow private networks outbound access to the internet. Allows for network deconflicting.
+
+**** Instances vs Gateway
+Instances (legacy) individual EC2 instances
+Gateway is a managed service which launches redundant instances within the selected AZ.
+
+
+*** VPC Follow along
+[[https://www.youtube.com/watch?v=Ia-UEYYR44s&t=5004s][video]]
+
+**** Notes
+** Identity Access Management  (IAM)
+*** Core components
+- IAM users: end users who log into the console or interact with AWS ressources.
+- IAM Groups: Group up your users so they all share permission levels: e.g. admin, Dev, Auditors
+- IAM roles: Associates permissions to a role and then assign them to an user/group
+- IAM policies: JSON documents which grants permissions for specific user/group/role to access service
+  policies are attached to an IAM identiy
+  Generally you want to attach policies to roles which are then attached to users/groups. Of course a user can use inline policy instead but its not reproductible.
+
+*** Managed vs Customers vs inline Policy
+- Managed policies: cannot be edited and are managed by AWS (orange)
+- Customer Managed Policies: bread and butter of IAM.
+- inline policy: policy directly attached to the user.
+
+*** policy structure
+- version: policy language version
+- statement: container for hte policy elements can be an array []
+- sid: statement identifier (optional) labelling
+- effect: either allow or deny
+- principal: acct, user , role or federated user
+- Resource: which AWS resource is affected
+- Condition: circumstances under which the policy grants permission
+
+#+begin_src json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": ["arn:aws:iam::111122223333:user/Alice",
+                "arn:aws:iam::111122223333:root"]
+      },
+      "Action": "s3:*",
+      "Resource": ["arn:aws:s3:::my_bucket",
+                   "arn:aws:s3:::my_bucket/*"]
+    }
+  ]
+#+end_src
