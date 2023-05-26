@@ -458,3 +458,111 @@ From within your EC2 instance can access information about the EC2 instance via 
 /public-ipv4 get current ipv4 address
 /ami-id the AMI ID used to launch this EC2 instance
 /instance-type the instance type of EC2 instance
+
+*** EC2 Pricing
+- On-demand:
+  pay per hours, low costs and flexible. Usefull for short and spiky loads
+- Reserved:
+  commit to EC2 over a 1 - 3 year term. Can resell unused reserved instances.
+  Can be paid all upfront, partial or no upfront (the more upfront the greater the rebate)
+  Offering classes:
+  * std, upto 75% reduced pricing but cannot change instances attributes (e.g. size)
+  * convertible up to 54%. Allows you to change RI attributes if greater or equal in value
+  * Scheduled, reserve the instances for specific time periods e.g. once a week for a few hours
+- Dedicated:
+  Dedicated servers, can be on-demand or reserved. Usefull for when you have to meet regulatory requirements
+  * multi-tenant: multiple customers are running workloads on the same hardware (virtual isolation)
+  * single-tenant: physical isolation of the hardware e.g. I have the entire rack DEDICATED to me
+- spot:
+  up to 90% off
+  Requests spare computing capacity. Frequent starts and stops.
+  Usefull for instances that have flexible start and end times.
+  Use =AWS Batch= for spot pricing
+  if AWS terminates your instances the partial hour is free
+
+** Amazon Machine Image (AMI)
+A template to configure new instances. You can turn your EC2 instances into AMIs so you can create a copy of it. Region specific.
+Generaly used with =AWS System Manager Automation= and =Auto hscaling Groups=
+*** Marketplace
+You can use 3rd party vendor blueprint for it
+
+*** Creation
+Can create an AMI from an existing EC2 taht is either running or stopped
+
+*** Choosing
+AWS has hundreds of AMIs you can use:
+- Community AMI are free AMIs maintained by the community
+- AWS Marketplace are free or paid AMIs maintaned by vendors
+Since AMIs are region specific due to regulatory requirements, they will have different AMI ID per region.
+They can be backed by either:
+- Instance Store
+- EBS Backed volumes (preserves the data through instances stops and terminations and can be backed with EBS Snapshots)
+
+** Auto scaling Groups
+Set scaling rules which will automatically launch additional EC2 instances or shutdown instances. Contains a collection of EC2 instances taht are treated as a group.
+Automatic scalling occurs via the following factors:
+- Capacity settings
+  set min/max and desired capacity. Will always launch instances to meet minimum capacity
+- Health check replacements
+  EC2 status check
+  ELB checks by pinging an https endpoint with an expected response e.g. uptime-kuma
+- Scaling policies
+  You can set the target
+  based on metric e.g. CPU load, network in/out
+  * Scaling policies with steps
+    scales when an alarm is breached and escalates based on the alarm
+
+*** Use case
+#+attr_html: :alt  :align left :class img :width 500px
+#+caption: ASG
+[[./images/ASG.png][ASG]]
+
+*** Launch configuration
+Is an instance configuration template that an ASG uses to launch EC2 instances.
+Uses AMI templates to do so. the configuration cannot be edited, when you need to update it you create a new/clone it and then manually associated that new config with the ASG.
+
+*** Launch templates
+Same as above but with versioning
+
+** Elastic Load Balancer
+reference:
+- [[https://www.cloudflare.com/learning/ddos/glossary/open-systems-interconnection-model-osi/][OSI Layers]]
+Distributes traffic accross multiple targets such as EC2 instances, containers ECR, IP addresses and lambda functions
+3 types:
+1. Application load balance ALB http/https
+   They operate at layer 7 (Application)
+  Designed to balance http and https traffic. has a feature called Request routing which allows routing rules.
+  Overall great for web apps
+2. Network Load Balancer NLB TCP/UDP
+   They operate at layer 4 (transport)
+   can perform cross zone load balancing.
+    Great when network performance is critical.
+3. Classic load balancer CLB legacy
+   mix between layer 7 and 4
+   responds 504 error (timeout) if the underlying application is not responding
+
+*** Sticky session
+Advanced load balancing method that allows you to bind a user's session to a specific EC2 instance. Using cookies
+Ensure all request from taht session are sent to the same instance.
+Can be enabled for ALB but can only set on a target group and not individual EC2 instances
+Usefull if  the information is only stored locally on a single isntance.
+
+*** X-forwarded-for (XFF) Header
+if you need the IPv4 of a user, check the X-forwarded-For header
+common method for identifying the originating IP address
+
+*** ELB Health checks
+ELB does not kill unhealthy instances (that's the job of Autoscalling group)
+ALB/NLV health check are found on the target group. essentially same as uptime-kuma
+
+*** Cross zone load balancing
+Only available for classic and network load balancer. Extra charges may apply when enabled
+#+attr_html: :alt  :align left :class img :width 500px
+#+caption: ELB cross AZ
+[[./images/ELB-cross-zone.png][Cross zone ELB]]
+
+*** Request routing
+Apply rules to incoming request and then forward/redirect based on a number of criterias
+#+attr_html: :alt  :align left :class img :width 500px
+#+caption: request routing
+[[./images/ELB-request-routing.png][Request routing]]
