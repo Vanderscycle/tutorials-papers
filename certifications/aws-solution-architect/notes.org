@@ -328,6 +328,45 @@ Allows users to interact with AWS service programmatically via the AWS CLI or AW
 *** MFA
 CAnnot be enforced directly, but admin can restrict access to resources using policy requiring MFA.
 
+*** Examples
+
+Grants access to one or more specific s3 bucket and can narrow down to the file.
+[[https://aws.amazon.com/blogs/security/writing-iam-policies-grant-access-to-user-specific-folders-in-an-amazon-s3-bucket/][References]]
+
+#+begin_src json
+{
+ "Version":"2012-10-17",
+ "Statement": [
+   {
+     "Sid": "AllowUserToSeeBucketListInTheConsole",
+     "Action": ["s3:ListAllMyBuckets", "s3:GetBucketLocation"],
+     "Effect": "Allow",
+     "Resource": ["arn:aws:s3:::*"]
+   },
+  {
+     "Sid": "AllowRootAndHomeListingOfCompanyBucket",
+     "Action": ["s3:ListBucket"],
+     "Effect": "Allow",
+     "Resource": ["arn:aws:s3:::my-company"],
+     "Condition":{"StringEquals":{"s3:prefix":["","home/", "home/David"],"s3:delimiter":["/"]}}
+    },
+   {
+     "Sid": "AllowListingOfUserFolder",
+     "Action": ["s3:ListBucket"],
+     "Effect": "Allow",
+     "Resource": ["arn:aws:s3:::my-company"],
+     "Condition":{"StringLike":{"s3:prefix":["home/David/*"]}}
+   },
+   {
+     "Sid": "AllowAllS3ActionsInUserFolder",
+     "Effect": "Allow",
+     "Action": ["s3:*"],
+     "Resource": ["arn:aws:s3:::my-company/home/David/*"]
+   }
+ ]
+}
+#+end_src
+
 ** Cognito
 Decentralized managed Authentification system for mobile + desktop apps.
 #+attr_html: :alt  :align left :class img :width 500px
