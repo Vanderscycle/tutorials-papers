@@ -606,4 +606,51 @@ Apply rules to incoming request and then forward/redirect based on a number of c
 #+caption: request routing
 [[./images/ELB-request-routing.png][Request routing]]
 
-test
+** Elastic File System
+   - +[[Table of Content]]
+*** Introduction
+Attach a single file system to multiple EC2 instances without worrying about disk space. Grows and shrinks based on usage (hence the elastic name)
+Multiple EC2 instances in the same VPC can mount a single EFS volume (that is in the same VPC) using NFSv4.1 and creates multiple mounting target.
+
+** Elastic Block Store
+   - +[[Table of Content]]
+*** Introduction
+virtual hard drive in the cloud, creates new volumes that attaches to EC2.
+- IOPS: input/output per second. speed at which non-contiguous (non-adjoining section) reads and writes are performed.
+- throughput
+  data transfer rate to and from storage
+- bandwidth
+  measurement of the total possible speed of data movement along the network.
+*** Types of EBS storage
+-- SSD
+1. General purpose (SSD) 16k iops, best for most workloads
+2. provisioned IOPS (SSD) when high input output is required + latency. Excellent for RDS
+-- HDD
+3. throughput optimized (HDD): magnetic drive optimiEd for quick data transfer
+4. Cold HDD: lowest cost for infrequent access workloads
+5. EBS magnetic: previous generation HDD
+*** drives
+- HDD excellent at writting long and continuous amount of data.
+- SSD very good at read/writes (I/O) and no physical moving parts
+- Magnetic tapes: durables for decades, cheap, high capacity but slow
+*** Moving volumes
+#+attr_html: :alt  :align left :class img :width 500px
+#+caption: moving volumes
+[[./images/EBS-move.png][moving EBS]]
+*** Encryped root volume
+if not done at creation you can do the following:
+- take a snapshot of the unencryptted volume
+- create a copy of that snapshot and select the encryption option
+- create an AMI from the snapshot
+- launch new EC2 instance from the created AMIs
+*** EBS vs Instance store volumes
+EBS:
+- durable, block-level storage, where data persist
+Instance Store Volumes:
+- a temporary storage
+- Cannot stop/restart instances only terminates
+- data will be lost if EC2 host fails
+** Cloudfront
+   - +[[Table of Content]]
+*** Introduction
+Content distribtuion network (CDN) which is a distributed network of servers which delivers pages and content to users based on the geo location. e.g. they can have fast performace without having to live by the data center
