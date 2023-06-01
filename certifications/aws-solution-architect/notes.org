@@ -650,7 +650,59 @@ Instance Store Volumes:
 - a temporary storage
 - Cannot stop/restart instances only terminates
 - data will be lost if EC2 host fails
+
 ** Cloudfront
    - +[[Table of Content]]
 *** Introduction
 Content distribtuion network (CDN) which is a distributed network of servers which delivers pages and content to users based on the geo location. e.g. they can have fast performace without having to live by the data center
+*** Core components
+#+attr_html: :alt  :align left :class img :width 500px
+#+caption: moving volumes
+[[./images/cloudfront.png][moving EBS]]
+*** distributions
+There are 2 types of distributions
+- web
+- RTMP (streaming media)
+Can enable restrictions
+create custom error pages
+behaviors: rediredt to https, TTLs
+*** lambda@edge
+you can use lambda functions to override behavior or request and responses
+1. viewer requests (when cloudfron receives a request from a viewer)
+2. origin request (before cloudfront forwards a request to the origin)
+3. viewer response
+4. origin response
+can be used for cognito for authentication
+*** protection
+can be enabled using the original identiy accesss (OAI)
+signed cookies: cookie that is passed along with the request to cloudfront.
+signed urls: (not the same as s3 presigned url) a url which provides temporary access to cached objects
+
+** Relational Database Service (RDS)
+   - +[[Table of Content]]
+*** Introduction
+managed relational dbs supporting multiple SQL engines (e.g. mysql, postgres, oracle,...)
+*** Encryption
+handled using AWS key management services (KMS)
+*** Backups
+two solutions:
+- automated: retention between 1 and 35 (no additional costs)
+- manual: backup that persist even if the original RDS instance is deleted
+*** restoring backup
+restore db using the transaction log relevant to that day down to the second.
+A new RDS instance is created when restoring which will generate a new DNS endpoint.
+*** RDS multi AZ
+ensure db remains avail if another AZ becomes unavailable
+Makes an exact copy of your db in anohter az. Master/slave sync relationship. if master fails, slave will take over as master.
+Only one AZ has a master RDS db the rest of the AZ are slaves
+highly durable
+*** RDS read replicas
+create a read only db replicas. max of 5 replicas per RDS.
+highly scalable
+
+** Aurora
+   - +[[Table of Content]]
+*** Introduction
+Fully managed postgres/mysql db that scales and tuned to be fast
+1/10th cost of other solutions
+postgres optimized to be 3times faster than
