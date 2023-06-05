@@ -706,3 +706,47 @@ highly scalable
 Fully managed postgres/mysql db that scales and tuned to be fast
 1/10th cost of other solutions
 postgres optimized to be 3times faster than
+
+*** scaling
+starts with 10gb and scales in tranches of 10gb up to 64TB.
+computing resources can scales up to 32 vCPU and 244 gb ram
+*** availability
+minimum 3 Availability zone with 2 copies in each.
+Lose up to 2 copies without affecting write
+Lose up to 3 copies without affecting read
+*** Fault tolerance and durability
+self-healing storage (continous scans) for errors in the data.
+aurora backup + faiovers handled automatically
+*** replicas
+#+attr_html: :alt  :align left :class img :width 500px
+#+caption: aurora replicas
+[[./images/aurora.png][replicas]]
+*** Serverless
+only pay what you consume.
+good for blogs or small volumes
+** Redshift
+   - +[[Table of Content]]
+*** Introduction
+Fully managed petabyte data warehouse. Prob better and cheaper than running athena queries on s3 buckets (5$/tb)
+#+attr_html: :alt  :align left :class img :width 500px
+#+caption: databases vs data warehouses
+[[./images/redshift.png][redshift]]
+tldr: use db for quick and simple transactions focusing on write, warehouse for read accross vast amount of data.
+
+redshift is a columnar storage database
+columnar database storage is different from traditional relational db (row based) in which the search instead of being row by row is done column wise (can be any number of collumns)
+
+*** operation
+single nodes
+up to 160 gb per nodes
+
+multi-nodes
+leader node: manage client connections
+compute node: default 32 nodes but can ask AWS for up to 128 nodes
+
+There are 2 types of nodes:
+- dc: dense compute (high perf, low storage)
+- ds: dense storage
+
+
+redshift compute nodes, uses nodes (up to 160gb) and can have up to 128 nodes attached
