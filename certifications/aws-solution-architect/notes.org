@@ -748,5 +748,30 @@ There are 2 types of nodes:
 - dc: dense compute (high perf, low storage)
 - ds: dense storage
 
-
 redshift compute nodes, uses nodes (up to 160gb) and can have up to 128 nodes attached
+*** compression
+redshift uses different compression techniques to maximize compression
+nneed for indexes or views
+*** operation
+uses massive Parrallel Processing
+*** Backup
+default retention period 1 day max 32
+always attempts to maintain 3 copies (s3,original,replica on the compute nodes)
+*** billing
+**** backup
+cost of an s3 bucket
+**** data transfer
+when data is transfered through a VPN
+**** compute node hours
+the total number of hours ran accross all nodes in the billing period.
+not charged for leader node hours
+*** security
+data-in-transit encrypted using SSL
+data at rest using AES-256encryption
+Database encryption can be applied using AWS KMS or hcloudHSM
+*** Availabillity
+redshift are single AZ only. Multi AZ means multi redshift cluster with same input
+** DynamoDB
+   - +[[Table of Content]]
+     *** Introduction
+     A key value pair and document database (noSQL) which guarantees consistent reads and writes
