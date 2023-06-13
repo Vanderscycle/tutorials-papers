@@ -774,4 +774,30 @@ redshift are single AZ only. Multi AZ means multi redshift cluster with same inp
 ** DynamoDB
    - +[[Table of Content]]
      *** Introduction
-     A key value pair and document database (noSQL) which guarantees consistent reads and writes
+     A key value pair and document database (noSQL) which guarantees consistent reads and write
+     All data is stored on SSD storage and is spread accross 3 different regions.
+     you can specify the r/w per seconds (affects the price)
+*** Table Structure
+PKI: 2 columns (partition key + sort key)
+item is a row
+attribute is a value in a specific row/column
+*** Reads
+when data needs to be updated it has to write updates to all copies which can lead to inconsistencies. 2 read consistencies to meet your needs:
+- eventual consistent reads: fast reads but can be inconsistent as they aren't all updated at the same time
+- strongly consistent reads: will not return a results until all copies are consistent. high latency
+*** Write
+
+** Cloudformation (AWS terraform)
+   - +[[Table of Content]]
+*** Introduction
+AWS own infrastructure as code (IaC)
+Can use either json/yaml files
+*** template
+#+attr_html: :alt  :align left :class img :width 500px
+#+caption: template
+[[./images/cloudformation.png][AWS IaC]]
+
+** Cloudwatch
+   - +[[Table of Content]]
+*** Introduction
+Monitoring services for AWS resources (AWS prometheus)
