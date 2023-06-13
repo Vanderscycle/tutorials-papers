@@ -801,3 +801,54 @@ Can use either json/yaml files
    - +[[Table of Content]]
 *** Introduction
 Monitoring services for AWS resources (AWS prometheus)
+- clouwatch Logs
+- cloudwatch metrics
+- cloudwatch events
+- cloudwatch alarms
+- cloudwatch dashboard
+
+*** Cloudwatch logs
+A log Group is a collection of logs. logs files must belong t a log group
+A log in a log groups is called a logstream
+logs never expires
+p.s. AWS services are integrated with cloudwatch logs
+
+*** Cloudwatch metrics
+graph your resources predefined metrics
+
+*** Cloudwatch events
+event source (e.g. cpu usage) -> targets (what to trigger)
+
+*** Custom metrics and high resolution
+using AWS CLI or SDK you can create and publish your own custome metrics. metrics can either be std resolution or high resolution.
+High resolution can be down to a second
+
+*** Cloudwatch alarms
+most usefull ( billing alarms )
+trigger a notification based on metrics.
+
+*** Cloudwatch dashboard
+create your own dashboard like prometheus/grafana
+
+*** Cloudwatch availability of data
+basic monitoring: ec2 5 minutes, other 1 minute
+defailed monitoring (cost money) ec2 1 minute, nil change
+
+*** Agent and host level metrics
+Some metrics requires a cloudwatch agent. An agent is a script that can be installed via =System manager=. Run command to target ec2 instance.
+e.g. Disk space/memory usage
+default e.g. CPU usage, network usage, disk usage
+
+** CloudTrail
+   - +[[Table of Content]]
+*** Introduction
+service that enables governance, compliance, operational auditing and risk auditing.
+Used to monitor API calls and actions made on an AWS account.
+Easily identiy which users and account made the call to AWS e.g.
+- originating IP
+- when
+- who/ UserAgent
+- what region, resource
+*** Event history
+std log retention 90 days
+if longer is required you must create a trail which are outputted to S3. To query the trail you need to use Amazon Athena.
