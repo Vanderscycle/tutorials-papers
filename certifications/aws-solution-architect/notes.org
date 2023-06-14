@@ -987,3 +987,139 @@ Topics allows you to group subscriptions together. Can be delivered to multiple 
 Topics can be encrypted with KMS
 
 *** Subscriptions
+A subscription can only subscribe to one protocol and one topic.
+The following protocols:
+- http/https create webhooks into web application
+- email/email-json
+- AWS SQS: place SNS message into SQS queue
+- sms: sends text
+
+** ElastiCache
+   - +[[Table of Content]]
+*** Introduction
+managed caching service which runs redis or memcached.
+cache is only available within the same VPC.
+
+Stored in ram (fast but volatile)
+#+attr_html: :alt  :align left :class img :width 500px
+[[./images/elasticache.png][elasticache]]
+
+*** Caching comparison
+memcached prefered for caching HTML fragments. Simple key/value store.
+redis: essentially a very fast k/v db. Has more features.
+
+** High Availability
+   - +[[Table of Content]]
+*** Introduction
+#+attr_html: :alt  :align left :class img :width 500px
+[[./images/ha.png][high availability]]
+tldr:
+- use auto scaling groups
+- run instances in multi-AZ with an elastic load balancer
+- route traffic to another region using ruoter 53
+
+*** horizontal scaling/vertical scalling
+**** vertical scaling
+easier to manage (get a bigger computer)
+more vulnerable
+**** horizontal scaling
+More complex to manage
+Can scale to infinity
+** Elastic beanstalk (AWS heroku)
+   - +[[Table of Content]]
+*** Introduction
+quickly deploy and manage web-apps on AWS (while not worrying about the infrastructure)
+Not recommended for production.
+Powered by cloudformation
+Can run dockerized environments.
+
+** API Gateway
+   - +[[Table of Content]]
+*** Introduction
+Fully managed service to create, publish, maintain, monitor and secure APIs at any scale.
+Can scale to thousands of concurrent API calls.
+Can use version control for the endpoints
+
+*** Configuration
+resources: the urls you define e.g. /projects or /projects/-id-/edit
+can have multiple method per resources
+methods: GET/POST/UPDATE/DELETE
+    when you create a method on a resource you need to  choose the integration type. most common lambda function
+stages: stages are version of your APIs
+invoke URL for each stage AWS provides you an url. possible to use custome domain
+deploy API: for every change made you need to deploy it via the deploy API action
+
+*** caching
+available using Time to live (TTL).
+API gateway respond by first looking at the cache
+reduces numbers of call/latency time
+
+*** CORS
+allow restructed resources e.g. fonts to be requested from a different domain than the initial resource it came from
+Cross-origin resource sharing (CORS) always enforced by the client
+
+*** Same origin policy
+concept in the application security model where a web browser permits scripts contained in a web page can access data in a second web page.
+- prevents corss-site scripting attacks (XSS) type of injection attack
+- inly works if both web pages have the same origin
+- ignores tools like postman/curl
+** Kinesis
+   - +[[Table of Content]]
+*** Introduction
+scalable and durable =real-time= data streaming service to ingest, and analyze data in real-time from multiple sources
+4 different types:
+- data streams
+- firehose delivery streams
+- data analytics
+- video analytics
+**** data streams
+#+attr_html: :alt  :align left :class img :width 500px
+[[./images/kinesis.png][data streams]]
+data only persists for 24 hours to 168 hrs
+**** Firehose
+only supports one consumer from a predefined list (e.g. s3)
+data immediately disappears once its consumed
+
+#+attr_html: :alt  :align left :class img :width 500px
+[[./images/kinesis-firehose.png][firehose]]
+**** video streams
+ingest video + audio and output to ML/video processing services (AWS rekognition/AWS sageMaker/ tensorflow)
+#+attr_html: :alt  :align left :class img :width 500px
+[[./images/kinesis-video.png][video streams]]
+
+**** data analytics
+you can specify firehose or data streams as an input/output data that pass through =data analytics= is run through custom SQL you provide.
+provides real time analytics of your data
+** Storage Gateway
+   - +[[Table of Content]]
+*** Introduction
+extending/backing up on-prem storage to the cloud (mixed infra)
+Securely store your data to the AWS cloud. Software is available as a VM image.
+*** types
+- File Gateway (NFS)
+- Volume Gateway (store copies of your hard drives in s3)
+  * cached volumes
+  * stored volumes
+- Tape gateway (virtual tape lib)
+
+*** File Gateway
+files are stored as objects inside your s3 buckets. Can be managed as native s3 objects
+
+*** Volume gateway
+present your application with disk volumes using Internet Small Computer Systems Interface (iSCSI)
+essentially stores your data in compressed snapshots
+**** Stored volumes
+primary data is stored locally, while async backing up
+AWS helastic Block Store (EBS)
+stored volumes can be between 1gb to 16 tb
+#+attr_html: :alt  :align left :class img :width 500px
+[[./images/stored-volumes.png][stored volumes]]
+**** cached volumes
+AWS s3 is the primaray data storage
+#+attr_html: :alt  :align left :class img :width 500px
+[[./images/cached-volumes.png][cached]]
+
+**** tape gateway
+AWS s3 is the primaray data storage
+#+attr_html: :alt  :align left :class img :width 500px
+[[./images/tape-gateway.png][tape]]
