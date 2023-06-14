@@ -914,3 +914,76 @@ Strategies such as pre-warming exists.
 ** Simple Queue Service
    - +[[Table of Content]]
 *** Introduction
+A fully managed queuing service that enables you to decouple and scale microservcie, distributed systems, and serverless apps
+
+SQS is for Application integration. It connects osolated applications together by passing along messages to one another. SQS is pull based not push based
+
+*** What is a queuing systems
+message/events from sender and reciever
+**** queueing (message broker)
+deletes messages once they are consumed. not real-time (async). Not reactive
+e.g. rabbitMQ, AWS SQS
+
+**** Streaming (publish/subscribe)
+real-time
+multiple consumers can react to events. Events live in the stream for long periods of time so complex operations can be applied.
+e.g AWS Kinesis, Apache Kafka
+
+*** Use case
+#+attr_html: :alt  :align left :class img :width 500px
+[[./images/sqs.png][sqs messaging]]
+
+*** Limits
+**** message size
+mesage can be between one 1 byte and 256kb.
+AWS SQS extended client lib for java allows you to go up to 2GB. The message will be stored in s3
+
+**** Message retention
+default retention 4 days
+min 60 seconds to max 14 days
+
+*** Std queues
+AWS SQS std queues allow you a nearly unlimited number of transactions per sec.
+message will be delivered at least one.
+more than one copy is possible
+provides best effor ordering but can be delivered out of orders
+
+*** FIFO (first in first out)
+limited to 300 transactions per seconds
+
+*** Visibility timeout
+how to prevent another app from reading a message while another one is busy with taht message? avoid duplications.
+Messages will be deleted from the queue after has processed ( before the expiry timeout expires ). If not processed before the visibility time-out. message will become visible again.
+30 secs defaults, min 0 secs, max 12 hours.
+Could lead to double messages
+
+*** Short vs long polling
+**** short polling (default)
+returns message immediately, even if queue being polled is empty.
+use it when you need a message right away.
+**** Long polling
+waits for until message arrives in the queue/long poll timeout expires. Reduces costs as it reduces the number of empty receives.
+You want long plling in most cases
+
+** Simple notification service (AWS SNS)
+   - +[[Table of Content]]
+
+*** Introduction
+subscribe and send notification via sms, emails and mobile notifications.
+
+#+attr_html: :alt  :align left :class img :width 500px
+[[./images/sns.png][simple notification service]]
+*** publish/subscribe
+in this pattern the sender of messages (publisher) do not send thier messages directly to receivers. They instead send their messages to an event bus.
+- Publishers have no knowledge who are their subscribers
+- publishers push events to an SNS topics
+- subscribers do not pull messages
+- subscribers subscribe to SNS topics to have envets pushed to them
+- messages are instead automatically andimmediately pused to subscribers
+- messages and events are interchangeable
+
+*** Topics
+Topics allows you to group subscriptions together. Can be delivered to multiple protocoals at once e.g. sms, email, https, etc.
+Topics can be encrypted with KMS
+
+*** Subscriptions
