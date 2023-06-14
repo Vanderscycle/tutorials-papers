@@ -849,6 +849,68 @@ Easily identiy which users and account made the call to AWS e.g.
 - when
 - who/ UserAgent
 - what region, resource
+
 *** Event history
 std log retention 90 days
 if longer is required you must create a trail which are outputted to S3. To query the trail you need to use Amazon Athena.
+
+*** options
+- A trail can be set to log to all regions
+- accross all ccounts in an organization
+- You can encrypt your logs
+- to ensure logs integrity and to see if they were tampered with we have to turn on log file validation.
+
+*** Cloudtrail to cloudwatch
+Can be sent to cloudwatch. Cannot do the other way around
+
+*** Management events vs data events
+**** Management events (90%)
+track management operation (turned on by default and can't be turned off)
+- config security
+- registering devices
+- setting up logging
+
+**** Data events (10%)
+track specific operation for specific AWS services. Only 2 services:
+- s3 (putObject, read, etc.)
+- ec2
+** AWS Lambda
+   - +[[Table of Content]]
+*** Introduction
+run code without provisioning or managing servers. Serverless functions, pay per invocation.
+Natively supprot 7 runtime languages:
+- ruby, python, java, go, powershell, nodejs, c#
+  you can create own runtime events
+Only pay for the compute time consumed.
+
+*** use cases
+#+attr_html: :alt  :align left :class img :width 500px
+[[./images/lambda.png][lambda examples]]
+
+*** lambda triggers
+lambda can be invoked via AWS SDK or triggered form other AWS services (e.g. s3, codecommit, api gateway) and 3rd party like datadog/one login
+
+*** Pricing
+first 1 million request/month free additional are .20 per million
+400 000 GB seconds free per month
+
+*** interface
+#+attr_html: :alt  :align left :class img :width 500px
+[[./images/lambda-interface.png][lambda interface]]
+
+*** Default + limits
+1000 lambda running concurrently (more requires AWS customer support)
+/tmp dire max size 500 mb
+timeout 15 mins maximize (more requires AWS fargate)
+memory 128mb -> 3008mb at an increment of 64mb
+
+*** Cold starts (largest negative)
+AWS has reconfigured servers turned off that will start once the function is invoked. At this point the servers will turn on and the code will be copied over. The delay between the invocation and the execution is called =cold start=
+
+With this in mind these cold starts can cause delays in user experience
+
+Strategies such as pre-warming exists.
+
+** Simple Queue Service
+   - +[[Table of Content]]
+*** Introduction
