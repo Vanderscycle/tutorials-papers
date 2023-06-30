@@ -9,7 +9,7 @@ import (
 
 func main() {
 	fmt.Println("hello World")
-	lesson12()
+	// lesson12()
 }
 func lesson12() {
 	//maps (or object in javascript / dict)
@@ -41,16 +41,16 @@ func lesson12() {
 
 }
 
-func lesson11() {
-	//WARN: additional lesson can be found in goModule
-	//package scope and func imports
-	//https://golang.org/doc/tutorial/call-module-code
-	for _, v := range points {
-		fmt.Println(v)
-	}
-	Test()
+// func lesson11() {
+// 	//WARN: additional lesson can be found in goModule
+// 	//package scope and func imports
+// 	//https://golang.org/doc/tutorial/call-module-code
+// 	for _, v := range points {
+// 		fmt.Println(v)
+// 	}
+// 	Test()
 
-}
+// }
 
 func lesson10() {
 	//functions (multiple return)
@@ -89,7 +89,7 @@ func sayBye(n string) {
 	fmt.Printf("goodbye %v \n", n)
 }
 
-//takes a string array and a function
+// takes a string array and a function
 func cycleNames(n []string, f func(string)) {
 	for _, v := range n {
 		f(v)
