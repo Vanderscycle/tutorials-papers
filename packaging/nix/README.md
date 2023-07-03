@@ -26,5 +26,11 @@ Nix shell [tutorial](https://nixos.org/manual/nixpkgs/stable/#python)
 nix flake init -t github:nix-community/poetry2nix#app
 
 ## TS/JS
+
+### Locally
+`pnpm install ${npm_package}` 
+`pnpm run ${script}`
+
+###Nixos
 nix flake init -t github:nix-community/dream2nix#simple
 nix flake init // (hello world)

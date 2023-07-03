@@ -12,6 +12,7 @@ numpy = "^1.25.0"
 
 [tool.poetry.scripts]
 my-script = "python_project.numpy_test:main"
+poetry = "poetry.console.application:main"
 
 [build-system]
 requires = ["poetry-core"]
