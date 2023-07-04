@@ -17,16 +17,10 @@ Package management [Poetry](https://python-poetry.org/docs/) and how it does [it
 
 ### Locally
 
-`poetry new ${NAME}` or `poetry init`
-To add a new python package `poetry add ${package_name}`
-[ ] TODO: Doesn't run locally if a package is required.
-
 
 Nix shell [tutorial](https://nixos.org/manual/nixpkgs/stable/#python)
-
 nix flake init -t github:nix-community/poetry2nix#app
 
-## TS/JS
 
 ### Locally
 
@@ -38,9 +32,17 @@ If only requiring a single file.
 ```
 
 ### poetry
-`pnpm install ${npm_package}` 
-`pnpm run ${script}`
+`poetry new ${NAME}` or `poetry init`
+To add a new python package `poetry add ${package_name}`
+[ ] TODO: Doesn't run locally if a package is required.
+
 
 ###Nixos
 nix flake init -t github:nix-community/dream2nix#simple
 nix flake init // (hello world)
+
+## TS/JS
+### locally
+same as anyother linux env
+`pnpm install ${npm_package}` 
+`pnpm run ${script}`
