@@ -23,15 +23,18 @@ If only requiring a single file.
 #!nix-shell -i python3 -p "python3.withPackages(ps: [ ps.numpy ])"
 ```
 
-### poetry
+
+
+### Nixos (flakes) + poetry
+
 `poetry new ${NAME}` or `poetry init`
-To add a new python package `poetry add ${package_name}`
+To add a new python package `poetry add ${package_name}` works in the dev-shell
 
+use the `ptyhon_project` `flake.nix` example
 
-### Nixos
-nix flake init -t github:nix-community/dream2nix#simple
-Nix shell [tutorial](https://nixos.org/manual/nixpkgs/stable/#python)
-nix flake init // (hello world)
+// nix flake init -t github:nix-community/dream2nix#simple
+// Nix shell [tutorial](https://nixos.org/manual/nixpkgs/stable/#python)
+// nix flake init // (hello world)
 
 ## TS/JS
 ### locally
